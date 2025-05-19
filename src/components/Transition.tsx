@@ -73,6 +73,7 @@ const Transition = () => {
               <h1 className="font-extrabold text-xl">
                 WELCOME!
               </h1>
+              <p className="text-gray-600 dark:text-gray-300">Use Desktop Version for better experience</p>
             </div>
           )}
         </div>
