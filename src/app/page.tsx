@@ -1,6 +1,7 @@
 import Transition from "@/components/Transition";
 import CompletedProjectsSection from "@/components/modules/CompletedProjectSection";
 import ContactSection from "@/components/modules/ContactSection";
+import CurrentProjectSection from "@/components/modules/CurrentProjectSection";
 import Footer from "@/components/modules/Footer";
 import HeroSection from "@/components/modules/HeroSection";
 import IndexSection from "@/components/modules/IndexSection";
@@ -17,6 +18,7 @@ export default function Home() {
         <LogoMarquee />
         <IndexSection />
         <CompletedProjectsSection />
+        <CurrentProjectSection/>
         <div className="relative">
           <PendingProjectSection />
           {/* Overlay for "Under Improvement" */}

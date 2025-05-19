@@ -12,7 +12,10 @@ export default function HeroSection() {
     }
   };
   return (
-    <section className="relative flex flex-col md:flex-row items-center w-full min-h-[calc(100vh-80px)] md:min-h-screen dark:bg-[#383444] bg-[#E5E3F1] transitio-all duration-300 px-6 lg:px-24 pt-8 overflow-hidden" id="hero">
+    <section
+      className="relative flex flex-col md:flex-row items-center w-full min-h-[calc(100vh-80px)] md:min-h-screen dark:bg-[#383444] bg-[#E5E3F1] transitio-all duration-300 px-6 lg:px-24 pt-8 overflow-hidden"
+      id="hero"
+    >
       <div className="flex flex-col gap-4 w-full md:w-fit max-w-/5">
         <p className="text-4xl dark:text-white/60 font-extralight">I&apos;m</p>
         <h1 className="text-4xl md:text-8xl font-bold dark:text-white w-full md:w-4/5">
@@ -72,6 +75,16 @@ export default function HeroSection() {
             className="p-1 md:text-xl rounded-full bg-[#DDDBE5] dark:bg-slate-600 text-yellow-600 dark:text-yellow-300 hover:bg-white hover:dark:bg-slate-900 transition-all duration-300"
           >
             <Icon icon="mingcute:github-fill" />
+          </Link>
+          <Link
+            href="https://drive.google.com/file/d/1X81FdrCnsEPRSrVGHqFIaEuIdSVCmba5/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            className="px-2 py-1 flex gap-1 items-center md:text-xl rounded-full bg-[#DDDBE5] dark:bg-slate-600 text-yellow-600 dark:text-yellow-300 hover:bg-white hover:dark:bg-slate-900 transition-all duration-300"
+          >
+            <Icon icon="mdi:file-download-outline" />
+            <h1 className="text-sm">My Resume </h1>
           </Link>
         </div>
       </div>
