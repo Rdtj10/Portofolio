@@ -27,7 +27,7 @@ export default function HeroSection() {
         <div className="h-1 w-full md:w-1/3 bg-yellow-600 dark:bg-yellow-300"></div>
         <p className="dark:text-white/60 w-full md:w-1/3 font-extralight leading-loose">
           A <span className="dark:text-white font-bold"> Web Developer </span>{" "}
-          that build scalable web solutions using React, Node.js, Go, Laravel,
+          that build scalable web solutions using NextJs, NodeJs, Go, Laravel,
           and more.
         </p>
       </div>

@@ -71,7 +71,7 @@ export default function CurrentProjectSection() {
                   className="object-cover w-full h-full bg-black/30"
                 />
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-4 text-sm flex justify-between items-center"
+                  className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-4 text-xs md:text-sm flex justify-between items-center"
                   key={`desc-${current}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
