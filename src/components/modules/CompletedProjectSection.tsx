@@ -120,7 +120,7 @@ export default function CompletedProjectsSection() {
                       <span className="absolute left-0 bottom-0 h-full w-full bg-[#2E4052] -scale-y-0 group-hover/sub:scale-y-100 transition-transform duration-700 ease-in-out origin-left z-10"></span>
                     </div>
                   </Link>
-                  <Link target="_blank" href={project.url} passHref>
+                  {/* <Link target="_blank" href={project.url} passHref>
                     <div className="relative group/sub duration-300 transition-colors w-fit cursor-pointer rounded-2xl -translate-y-6 lg:translate-y-0 text-white hover:text-yellow-300">
                       <span className="relative transform -translate-x-1/2 z-40 bg-green-400 group-hover/sub:bg-transparent transition-all duration-300 text-sm lg:text-base lg:px-2 px-1 lg:py-1">
                         Detail
@@ -129,7 +129,7 @@ export default function CompletedProjectsSection() {
                       <span className="absolute left-0 bottom-0 h-full w-full bg-[#D9B08C] -scale-y-0 group-hover/sub:scale-y-100 transition-transform duration-500 ease-in-out origin-left z-10"></span>
                       <span className="absolute left-0 bottom-0 h-full w-full bg-[#2E4052] -scale-y-0 group-hover/sub:scale-y-100 transition-transform duration-700 ease-in-out origin-left z-10"></span>
                     </div>
-                  </Link>
+                  </Link> */}
                 </div>
               </CardContent>
             </Card>
