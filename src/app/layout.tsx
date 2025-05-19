@@ -20,6 +20,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Ridho Dimas",
   description: "Welcome to my site!",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "Ridho Dimas",
+    description: "Welcome to my site!",
+    images: [
+      {
+        url: "/logo/rdtj.png",
+        width: 800,
+        height: 600,
+        alt: "Kawan Study",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

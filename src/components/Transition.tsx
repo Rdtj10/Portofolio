@@ -17,12 +17,9 @@ const transitionVariants = {
   },
 };
 
-
-
 const Transition = () => {
   const mobile = useMobile();
-  const ROWS = mobile ? 10 : 4; // Number of rows for the text
-  const COLS = 4
+  const ROWS = mobile ? 10 : 4;
   return (
     <>
       <motion.div
@@ -33,29 +30,29 @@ const Transition = () => {
         exit="exit"
         transition={{ delay: 1.5, duration: 0.5, ease: "easeInOut" }}
       >
-        <div className="absolute inset-0 grid w-full h-full"
+        <div
+          className="absolute inset-0 grid w-full h-full"
           style={{
             display: "grid",
             gridTemplateRows: `repeat(${ROWS}, 1fr)`,
-            
+
             zIndex: 10,
           }}
         >
-            {Array.from({ length: ROWS * COLS }).map((_, i) => (
+          {!mobile ? (
+            Array.from({ length: ROWS }).map((_, i) => (
               <motion.span
                 key={i}
-                className="flex items-center justify-center text-xl md:text-[16vw] font-extrabold text-gray-600 dark:text-gray-300 opacity-30 select-none pointer-events-none m-0 p-0 leading-tight"
+                className="flex items-center justify-center text-xl text-[16vw] font-extrabold text-gray-600 dark:text-gray-300 opacity-30 select-none pointer-events-none m-0 p-0 leading-tight"
                 style={{
-                  letterSpacing: '0.05em',
-                  userSelect: 'none',
+                  letterSpacing: "0.05em",
+                  userSelect: "none",
                   margin: 0,
                   padding: 0,
                   lineHeight: 1,
-                  gridColumn: mobile ? `${(i % COLS) + 1} / span 1` : '',
-                  gridRow: mobile ? `${Math.floor(i / COLS) + 1} / span 1` : '',
                 }}
                 initial={{
-                  x: i % 2 === 0 ? '-100vw' : '100vw',
+                  x: i % 2 === 0 ? "-100vw" : "100vw",
                   opacity: 0,
                 }}
                 animate={{
@@ -70,7 +67,14 @@ const Transition = () => {
               >
                 WELCOME!
               </motion.span>
-            ))}
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center h-screen w-screen">
+              <h1 className="font-extrabold text-xl">
+                WELCOME!
+              </h1>
+            </div>
+          )}
         </div>
         <Image
           src="/me.png"

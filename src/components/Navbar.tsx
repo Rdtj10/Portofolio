@@ -13,9 +13,11 @@ import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import { Icon } from "@iconify/react/dist/iconify.js";
+// import { Icon } from "@iconify/react/dist/iconify.js";
 import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
+import Image from "next/image";
+import useMobile from "@/hooks/useMobile";
 
 export default function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -26,6 +28,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const { theme, toggleTheme } = useTheme();
+  const mobile = useMobile()
 
   const handleClick = (id: string) => {
     const el = document.getElementById(id);
@@ -120,13 +123,14 @@ export default function Navbar() {
               href="/"
               className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
             >
-              <Icon
+              <Image src="/logo/rdtj.png" alt="ridho diams" height={mobile ? 50 : 70} width={mobile ? 50 : 70} />
+              {/* <Icon
                 icon="bxs:smile"
                 width="24"
                 height="24"
                 className="text-orange-300"
               />{" "}
-              Dhodols
+              Dhodols */}
             </Link>
 
             {/* Desktop Navigation */}

@@ -1,3 +1,5 @@
+import { url } from "@/const/url";
+
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-5 text-center">
@@ -5,7 +7,7 @@ const Footer = () => {
         <p className="mb-4 text-sm">© {new Date().getFullYear()} Ridho Dimas Tri Prasetyo Jayadi. All rights reserved.</p>
         <div className="flex justify-center space-x-4">
           <a
-            href="https://github.com"
+            href={url.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:underline"
@@ -13,20 +15,12 @@ const Footer = () => {
             GitHub
           </a>
           <a
-            href="https://linkedin.com"
+            href={url.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:underline"
           >
             LinkedIn
-          </a>
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:underline"
-          >
-            Twitter
           </a>
         </div>
       </div>
