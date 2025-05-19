@@ -7,33 +7,15 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { navigationMenuConfig } from "@/configs/app.config";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react/dist/iconify.js";
-
-interface UserDropdownProps {
-  title: string;
-  icon: string;
-  href: string;
-}
-
-const userDropdownItems: UserDropdownProps[] = [
-  {
-    title: "Profile",
-    icon: "mdi:account",
-    href: "/profile",
-  },
-  {
-    title: "History Forum",
-    icon: "mdi:history",
-    href: "/history-forum",
-  },
-];
+import { Switch } from "./ui/switch";
+import { useTheme } from "@/context/themeContext";
 
 export default function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -41,9 +23,16 @@ export default function Navbar() {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
+
+  const handleClick = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,9 +50,40 @@ export default function Navbar() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const isActive = (href: string) => {
-    return pathname === href || pathname.startsWith(href);
-  };
+  useEffect(() => {
+    const sectionIds = navigationMenuConfig?.items?.map((item) => item.id);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-50% 0px -50% 0px", // supaya trigger saat section berada di tengah viewport
+        threshold: 0.1,
+      }
+    );
+
+    sectionIds?.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      sectionIds?.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          observer.unobserve(section);
+        }
+      });
+    };
+  }, []);
+
+  const isActive = (id: string) => activeSection === id;
 
   // Click outside handler
   useEffect(() => {
@@ -96,7 +116,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between ">
           <div className="flex flex-row items-center justify-between w-full">
             {/* Company Logo */}
-            <Link href="/" className="flex items-center shrink-0 gap-1 text-white font-bold">
+            <Link
+              href="/"
+              className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
+            >
               <Icon
                 icon="bxs:smile"
                 width="24"
@@ -113,11 +136,11 @@ export default function Navbar() {
                   {navigationMenuConfig?.items?.map((item) => (
                     <NavigationMenuItem key={item.title}>
                       <NavigationMenuLink
-                        href={item.href}
+                        onClick={() => handleClick(item.id)}
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent",
-                          isActive(item.href)
+                          "dark:text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent cursor-pointer",
+                          isActive(item.id)
                             ? "font-semibold after:w-full"
                             : "after:w-0 hover:after:w-full"
                         )}
@@ -128,6 +151,17 @@ export default function Navbar() {
                   ))}
                 </NavigationMenuList>
               </NavigationMenu>
+            </div>
+
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="dark-mode"
+                  checked={theme === "light"}
+                  onCheckedChange={toggleTheme}
+                  className="cursor-pointer"
+                />
+              </div>
             </div>
           </div>
 
@@ -187,19 +221,18 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.05 * index }}
                       >
-                        <Link
-                          href={item.href}
+                        <p
+                          onClick={() => handleClick(item.id)}
                           className={cn(
                             "text-base font-normal transition-colors relative group",
                             "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
-                            isActive(item.href)
+                            isActive(item.id)
                               ? "text-primary font-medium after:w-full"
                               : "hover:text-primary after:w-0 hover:after:w-full"
                           )}
-                          onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {item.title}
-                        </Link>
+                        </p>
                       </motion.div>
                     ))}
                   </div>
@@ -213,45 +246,24 @@ export default function Navbar() {
                 transition={{ delay: 0.3 }}
                 className="p-6 border-t"
               >
-                <motion.div
-                  className="flex items-center justify-between cursor-pointer"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <motion.div
+                <motion.div className="flex items-center justify-between cursor-pointer">
+                  <div className="flex items-center">
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        id="dark-mode"
+                        checked={theme === "light"}
+                        onCheckedChange={toggleTheme}
+                        className="cursor-pointer"
+                      />
+                    </div>
+                  </div>
+                  {/* <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     <Icon icon={"mdi:chevron-down"} className="w-5 h-5" />
-                  </motion.div>
+                  </motion.div> */}
                 </motion.div>
-
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 flex flex-col gap-2">
-                        {userDropdownItems.map((item) => (
-                          <Link
-                            key={item.title}
-                            href={item.href}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-md"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            <Icon icon={item.icon} className="w-5 h-5" />
-                            <span className="text-xs font-normal">
-                              {item.title}
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </motion.div>
             </div>
           </motion.div>
