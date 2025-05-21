@@ -20,13 +20,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Ridho Dimas",
   description: "Welcome to my site!",
-  icons: {
-    icon: "/favicon.ico",
-  },
+  applicationName:"Ridho's Portofolio",
+  keywords: ["Ridho Dimas", "Portofolio", "Ridho's Portofolio"],
   openGraph: {
     title: "Ridho Dimas",
     description: "Welcome to my site!",
+    countryName: "Indonesia",
     images: [
+      {
+        url: "/logo/rdtj.png",
+        width: 800,
+        height: 600,
+        alt: "Kawan Study",
+      },
       {
         url: "/logo/rdtj.png",
         width: 800,
@@ -35,6 +41,31 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    title: "Ridho Dimas",
+    card: "summary_large_image",
+    images: [
+      {
+        url: "/logo/rdtj.png",
+        width: 800,
+        height: 600,
+        alt: "Kawan Study",
+      },
+      {
+        url: "/logo/rdtj.png",
+        width: 800,
+        height: 600,
+        alt: "Kawan Study",
+      },
+    ],
+  },
+  publisher: "Ridho Dimas",
+  icons: {
+    icon: ["/logo/rdtj.png"],
+    apple: ["/logo/rdtj.png"],
+    shortcut: ["/logo/rdtj.png"],
+  },
+  manifest: "/logo/rdtj.png",
 };
 
 export default function RootLayout({

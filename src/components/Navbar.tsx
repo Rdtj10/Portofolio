@@ -17,7 +17,6 @@ import { Menu } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
 import Image from "next/image";
-import useMobile from "@/hooks/useMobile";
 
 export default function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -28,7 +27,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const { theme, toggleTheme } = useTheme();
-  const mobile = useMobile()
+
 
   const handleClick = (id: string) => {
     const el = document.getElementById(id);
@@ -123,7 +122,7 @@ export default function Navbar() {
               href="/"
               className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
             >
-              <Image src="/logo/rdtj.png" alt="ridho diams" height={mobile ? 50 : 70} width={mobile ? 50 : 70} />
+              <Image src="/logo/rdtj.png" alt="ridho diams" height={50} width={50} />
               {/* <Icon
                 icon="bxs:smile"
                 width="24"

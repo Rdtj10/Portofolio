@@ -19,10 +19,10 @@ export default function Home() {
         <IndexSection />
         <CompletedProjectsSection />
         <CurrentProjectSection/>
-        <div className="relative">
-          <PendingProjectSection />
+        {/* <div className="relative"> */}
+        <PendingProjectSection />
           {/* Overlay for "Under Improvement" */}
-          <div className="absolute inset-0 bg-black/70 bg-opacity z-30 flex flex-col items-center justify-center pointer-events-none pt-28">
+          {/* <div className="absolute inset-0 bg-black/70 bg-opacity z-30 flex flex-col items-center justify-center pointer-events-none pt-28">
             <span className="flex items-center gap-2 text-white text-2xl font-semibold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ export default function Home() {
               <span className="font-bold text-blue-400">t3-oss</span>
             </span>
           </div>
-        </div>
+        </div> */}
         <ContactSection />
         <Footer />
       </div>
