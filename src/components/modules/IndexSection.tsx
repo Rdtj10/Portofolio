@@ -59,7 +59,7 @@ export default function IndexSection() {
               <h2 className="text-lg md:text-xl text-yellow-600 dark:text-yellow-300 font-semibold">
                 Totally Complete
               </h2>
-              <p className="dark:text-white text-xl md:text-2xl font-bold">2</p>
+              <p className="dark:text-white text-xl md:text-2xl font-bold">4</p>
               <p className="dark:text-white">Projects</p>
             </div>
             <div className="flex flex-col items-center justify-center p-6 rounded-lg">
@@ -67,7 +67,7 @@ export default function IndexSection() {
                 Total
               </h2>
               <p className="dark:text-white text-xl md:text-2xl font-bold">
-                7
+                9
               </p>
               <p className="dark:text-white">Projects</p>
             </div>
