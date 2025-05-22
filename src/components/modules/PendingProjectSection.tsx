@@ -9,11 +9,14 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
-import { projects } from "@/const/project";
 import { Badge } from "../ui/badge";
 import ProjectsDialog from "../ProjectsDialog";
+import { trpc } from "@/utils/trpc";
 
 export default function PendingProjectSection() {
+
+  const { data: projects } = trpc.project.getAll.useQuery();
+
   const [isDialogAbsenOpen, setIsDialogAbsenOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [itemSelected, setItemSelected] = useState<any>(null);
@@ -24,7 +27,7 @@ export default function PendingProjectSection() {
   };
   return (
     <section
-      className="w-full h-fit flex flex-col dark:bg-[#22232F] bg-[#F0F0F5] pt-28 gap-10 transition-all duration-500"
+      className="w-full h-fit flex flex-col dark:bg-[#22232F] bg-[#F0F0F5] pt-8 md:pt-28 gap-10 transition-all duration-500"
       id="other-projects"
     >
       <div>
@@ -38,7 +41,7 @@ export default function PendingProjectSection() {
       </div>
       <div className="w-full flex flex-col md:grid md:grid-cols-4">
         {projects
-          ?.filter((project) => project.status !== "completed")
+          ?.filter((project) => project.status !== "COMPLETED")
           .map((project, index) => (
             <Card
               key={index}
@@ -50,7 +53,7 @@ export default function PendingProjectSection() {
               <CardHeader className="h-1/2 flex flex-col items-center justify-center bg-[#DDDBE5] group-hover:bg-white transition-colors duration-300 mx-6 rounded-xl">
                 <Image
                   alt={project.title}
-                  src={project.imageUrl}
+                  src={project.imageUrl || "/logo/rdtj.png"}
                   width={1000}
                   height={1000}
                 />
@@ -73,7 +76,7 @@ export default function PendingProjectSection() {
                     className={
                       project.ownStatus === "Company"
                         ? `bg-red-300 text-red-600`
-                        : project.ownStatus === "Private property"
+                        : project.ownStatus === "Own property"
                         ? `bg-green-300 text-green-600`
                         : `bg-gray-300 text-gray-600`
                     }
@@ -84,12 +87,12 @@ export default function PendingProjectSection() {
                     Status :{" "}
                     <span
                       className={
-                        project.status === "pending"
+                        project.status === "PLANNED"
                           ? `text-orange-500`
                           : `text-green-500`
                       }
                     >
-                      {project.status}
+                      Pending
                     </span>
                   </p>
                 </div>

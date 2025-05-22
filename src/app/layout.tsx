@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@/context/themeContext";
-import { TrpcProvider } from "./apis/provider";
+import { TrpcProvider } from "./api/provider";
 
 
 const geistSans = Geist({

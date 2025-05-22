@@ -7,15 +7,18 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useMobile from "@/hooks/useMobile";
-import { projects } from "@/const/project";
-// import ParticleCanvas from "@/components/GsapParticles";
+import { trpc } from "@/utils/trpc";
 
 export default function CompletedProjectsSection() {
+  const { data: projects } = trpc.project.getAll.useQuery();
+
+  
   const mobile = useMobile();
 
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
+    if (!projects) return;
     const cards = document.querySelectorAll(".project-card");
 
     cards.forEach((card) => {
@@ -36,7 +39,7 @@ export default function CompletedProjectsSection() {
         }
       );
     });
-  }, []);
+  }, [mobile, projects]);
 
   return (
     <section
@@ -55,7 +58,8 @@ export default function CompletedProjectsSection() {
       </div>
 
       <div className="flex flex-col items-center gap-10 md:gap-20 justify-center w-full md:px-28 mt-10 md:mt-20">
-        {projects?.filter((project) => project.status === "completed").map((project, index) => (
+        {projects?.filter((project) => project.status === "COMPLETED").map((project, index) => {
+          return (
           <Card
             key={index}
             className={cn(
@@ -94,7 +98,7 @@ export default function CompletedProjectsSection() {
                     </span>
                   </div>
                 ) : (
-                  <Link target="_blank" href={project.site} passHref>
+                  <Link target="_blank" href={project.site ?? "#"} passHref>
                     <div className="relative group/sub duration-300 transition-colors w-fit cursor-pointer rounded-2xl -translate-y-6 lg:translate-y-0 text-white hover:text-yellow-300">
                       <span className="relative transform -translate-x-1/2 z-40 bg-red-500 group-hover/sub:bg-transparent transition-all duration-300 text-sm lg:text-base lg:px-2 px-1 lg:py-1">
                         Go to site
@@ -106,7 +110,7 @@ export default function CompletedProjectsSection() {
                   </Link>
                 )}
 
-                {/* <Link target="_blank" href={project.url} passHref>
+                {/* <Link target="_blank" href={`/${slug}`} passHref>
                     <div className="relative group/sub duration-300 transition-colors w-fit cursor-pointer rounded-2xl -translate-y-6 lg:translate-y-0 text-white hover:text-yellow-300">
                       <span className="relative transform -translate-x-1/2 z-40 bg-green-400 group-hover/sub:bg-transparent transition-all duration-300 text-sm lg:text-base lg:px-2 px-1 lg:py-1">
                         Detail
@@ -119,7 +123,7 @@ export default function CompletedProjectsSection() {
               </div>
             </CardContent>
           </Card>
-        ))}
+        )})}
       </div>
     </section>
   );

@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum ProjectStatus {
@@ -14,30 +15,37 @@ enum ProjectStatus {
 }
 
 model Project {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  status      ProjectStatus
-  tasks       Task[]
-  languages   Language[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String        @id @default(uuid())
+  title             String
+  status            ProjectStatus
+  pending_reason    String?
+  ownStatus         String?
+  short_description String?
+  description       String?
+  site              String?
+  url               String?
+  imageUrl          String?
+  restricted_reason String?
+  roleId            String
+  role              ProjectRole   @relation(fields: [roleId], references: [id])
+  languages         Language[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 }
 
-model Task {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  project     Project @relation(fields: [projectId], references: [id])
-  projectId   String
+model ProjectRole {
+  id        String    @id @default(uuid())
+  project   Project[]
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Language {
-  id          String   @id @default(uuid())
-  name        String
-  projects    Project[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String    @id @default(uuid())
+  name      String
+  icon      String
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

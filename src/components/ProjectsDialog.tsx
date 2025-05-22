@@ -8,8 +8,15 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-// import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { Badge } from "./ui/badge";
 
 interface TDialogProps {
   open: boolean;
@@ -21,16 +28,14 @@ interface TDialogProps {
 const ProjectsDialog = ({ open, onClose, project }: TDialogProps) => {
   return (
     <Dialog onOpenChange={onClose} open={open}>
-      <DialogContent className="md:max-w-lg">
+      <DialogContent className="md:max-w-2xl overflow-y-scroll md:overflow-y-auto my-1 md:my-0 md:h-fit">
         <DialogHeader>
           <DialogTitle>{project.title}</DialogTitle>
-          <DialogDescription>{project.short_description}</DialogDescription>
-          {/* <div className="flex justify-end items-center">
-            <DialogClose asChild className="cursor-pointer">
-              <Icon icon="ic:round-close" width={24} />
-            </DialogClose>
-          </div> */}
+          <DialogDescription className="flex flex-row items-center gap-2">
+            <Badge>{project.role.name}</Badge>
+          </DialogDescription>
         </DialogHeader>
+
         <div className=" flex items-center justify-center w-full h-40">
           {project.imageUrl && (
             <Image
@@ -43,11 +48,27 @@ const ProjectsDialog = ({ open, onClose, project }: TDialogProps) => {
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ">
           {project.languages && project.languages.length > 0 && (
-            <div className="mb-">
-              <h4 className="font-semibold mb-1">Tech Stack:</h4>
-              <ul className="flex flex-wrap gap-2">
+            <div className="flex flex-col gap-1">
+              <h4 className="font-semibold">Tech Stack</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.languages.map(
+                  (tech: { name: string; icon: string }, index: number) => (
+                    <TooltipProvider key={index}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Icon icon={tech.icon} height={30} width={30} className="cursor-pointer"/>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{tech.name}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  )
+                )}
+              </div>
+              {/* <ul className="flex flex-wrap gap-2">
                 {project.languages.map(
                   (tech: { name: string; icon: string }, index: number) => (
                     <li
@@ -58,10 +79,18 @@ const ProjectsDialog = ({ open, onClose, project }: TDialogProps) => {
                     </li>
                   )
                 )}
-              </ul>
+              </ul> */}
             </div>
           )}
-          <p>{project.description}</p>
+          <p className="text-justify leading-tight text-gray-400">
+            {project.description}
+          </p>
+          <div className="flex flex-col gap-1">
+            <h1 className="font-semibold">Development Roadblocks</h1>
+            <p className="text-justify leading-tight text-gray-400">
+              {project.pending_reason}
+            </p>
+          </div>
         </div>
 
         <DialogFooter>
