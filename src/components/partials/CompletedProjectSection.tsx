@@ -57,7 +57,7 @@ export default function CompletedProjectsSection() {
         </p>
       </div>
 
-      <div className="flex flex-col items-center gap-10 md:gap-20 justify-center w-full md:px-28 mt-10 md:mt-20">
+      <div className="flex flex-col items-center gap-10 md:gap-20 justify-center w-full md:px-28 mt-6 md:mt-10">
         {projects?.filter((project) => project.status === "COMPLETED").map((project, index) => {
           return (
           <Card

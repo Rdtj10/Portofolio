@@ -35,8 +35,7 @@ export default function PendingProjectSection() {
           Others Projects
         </h1>
         <p className="text-center text-lg dark:text-gray-300">
-          This section showcases both current and pending projects that are in
-          progress or awaiting completion.
+          This section showcases pending projects that are in awaiting completion.
         </p>
       </div>
       <div className="w-full flex flex-col md:grid md:grid-cols-4">

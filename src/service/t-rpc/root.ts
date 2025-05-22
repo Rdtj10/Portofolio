@@ -1,8 +1,8 @@
 // server/trpc/root.ts
 import { router } from './context';
-import { projectRouter } from './routers/project.router';
-import { taskRouter } from './routers/task.router';
-import { languageRouter } from './routers/language.router';
+import { projectRouter } from './projects/project.router';
+import { taskRouter } from './roles/role.router';
+import { languageRouter } from './languages/language.router';
 
 export const appRouter = router({
   project: projectRouter,
