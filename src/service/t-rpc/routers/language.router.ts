@@ -12,8 +12,9 @@ export const languageRouter = router({
 
   create: publicProcedure.input(z.object({
     name: z.string(),
+    icon: z.string(),
   })).mutation(({ input }) =>
-    db.language.create({ data: { name: input.name } })
+    db.language.create({ data: { name: input.name, icon: input.icon } })
   ),
 
   update: publicProcedure.input(z.object({
