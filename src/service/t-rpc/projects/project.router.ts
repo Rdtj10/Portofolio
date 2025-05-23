@@ -16,7 +16,7 @@ export const projectRouter = router({
   getById: publicProcedure.input(z.string()).query(({ input }) =>
     db.project.findUnique({
       where: { id: input },
-      include: { role: true, languages: true },
+      include: { role: true, languages: true, colors: true }
     })
   ),
 
