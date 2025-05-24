@@ -5,12 +5,25 @@ import { trpc } from "@/utils/trpc";
 import { Button } from "../ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useMobile from "@/hooks/useMobile";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import Link from "next/link";
 
 const DetailProjectSection = () => {
   const mobile = useMobile();
   const { id } = useParams();
   const { data: project } = trpc.project.getById.useQuery(id as string);
+  const { data: allProjects } = trpc.project.getAll.useQuery();
+  const projectIds = allProjects?.filter((p) => p.status === "COMPLETED").map((p: { id: string }) => p.id) || [];
+  const currentIndex = projectIds.indexOf(id as string);
+  const prevId = currentIndex > 0 ? projectIds[currentIndex - 1] : null;
+  const nextId =
+    currentIndex < projectIds.length - 1 ? projectIds[currentIndex + 1] : null;
+
   return (
     <section className="flex flex-col min-h-screen h-fit w-full dark:bg-[#22232F] bg-[#F0F0F5]">
       <div
@@ -91,20 +104,25 @@ const DetailProjectSection = () => {
             </Button>
             <div className="flex flex-row gap-4 items-center">
               <h1 className="text-base md:text-xl font-bold">Build with </h1>
-                  {project?.languages.map(
-                  (tech: { name: string; icon: string }, index: number) => (
-                    <TooltipProvider key={index}>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Icon icon={tech.icon} height={mobile ? 20 : 30 } width={mobile ? 20 : 30} className="cursor-pointer"/>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{tech.name}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  )
-                )}
+              {project?.languages.map(
+                (tech: { name: string; icon: string }, index: number) => (
+                  <TooltipProvider key={index}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Icon
+                          icon={tech.icon}
+                          height={mobile ? 20 : 30}
+                          width={mobile ? 20 : 30}
+                          className="cursor-pointer"
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{tech.name}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -129,8 +147,83 @@ const DetailProjectSection = () => {
           </div>
         ))}
       </div>
+
+      <div
+        className={`dark:bg-[#22232F] bg-[#F0F0F5] relative flex flex-row w-full h-fit items-center py-6 md:px-24 ${
+          !prevId ? "justify-end" : "justify-between"
+        }`}
+      >
+        <Link href={`/${prevId}`} className={!prevId ? 'hidden' : 'block'}>
+          <div className="flex flex-row gap-2 items-center cursor-pointer">
+            <Icon icon="quill:chevron-left" width="50" height="50" />
+            <div>
+              <span className="text-sm">Previous Project</span>
+              <p className="font-bold text-lg">
+                {prevId
+                  ? allProjects?.find((p: { id: string }) => p.id === prevId)
+                      ?.title
+                  : ""}
+              </p>
+            </div>
+          </div>
+        </Link>
+        <Link href={`/${nextId}`} className={!nextId ? 'hidden' : 'block'}>
+          <div className="flex flex-row gap-2 items-center cursor-pointer">
+            <div>
+              <span className="text-sm">Next Project</span>
+              <p className="font-bold text-lg">
+                {nextId
+                  ? allProjects?.find((p: { id: string }) => p.id === nextId)
+                      ?.title
+                  : ""}
+              </p>
+            </div>
+            <Icon icon="quill:chevron-right" width="50" height="50" />
+          </div>
+        </Link>
+      </div>
     </section>
   );
 };
 
 export default DetailProjectSection;
+
+// import Link from "next/link";
+// // ...other imports
+
+// const DetailProjectSection = () => {
+//   const mobile = useMobile();
+//   const { id } = useParams();
+//   const { data: project } = trpc.project.getById.useQuery(id as string);
+//   const { data: allProjects } = trpc.project.getAllIds.useQuery(); // You need to implement this in your backend
+
+//   // Find current, previous, and next project IDs
+//   const projectIds = allProjects?.map((p: { id: string }) => p.id) || [];
+//   const currentIndex = projectIds.indexOf(id as string);
+//   const prevId = currentIndex > 0 ? projectIds[currentIndex - 1] : null;
+//   const nextId = currentIndex < projectIds.length - 1 ? projectIds[currentIndex + 1] : null;
+
+//   // ...rest of your code
+
+//   return (
+//     <section>
+//       {/* ...your existing code... */}
+
+//       {/* Navigation Buttons */}
+//       <div className="flex justify-between items-center w-full px-10 py-6">
+//         <Button asChild disabled={!prevId}>
+//           <Link href={prevId ? `/projects/${prevId}` : "#"} tabIndex={prevId ? 0 : -1}>
+//             Previous Project
+//           </Link>
+//         </Button>
+//         <Button asChild disabled={!nextId}></Button>
+//           <Link href={nextId ? `/projects/${nextId}` : "#"} tabIndex={nextId ? 0 : -1}>
+//             Next Project
+//           </Link>
+//         </Button>
+//       </div>
+
+//       {/* ...rest of your code... */}
+//     </section>
+//   );
+// };

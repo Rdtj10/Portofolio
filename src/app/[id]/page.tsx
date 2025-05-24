@@ -1,7 +1,10 @@
 import DetailProjectSection from "@/components/partials/DetailProjectSection";
+import ProjectTransition from "@/components/ProjectTransition";
 
 export default function Page() {
-  return(
-    <DetailProjectSection/>
-  )
+  return (
+    <ProjectTransition>
+      <DetailProjectSection />
+    </ProjectTransition>
+  );
 }

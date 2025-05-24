@@ -17,8 +17,10 @@ import { Menu } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -134,26 +136,42 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:block">
-              <NavigationMenu>
+                <NavigationMenu>
                 <NavigationMenuList>
-                  {navigationMenuConfig?.items?.map((item) => (
+                  {usePathname() !== "/" ? (
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                    <Link
+                      href="/"
+                      className={cn(
+                      navigationMenuTriggerStyle(),
+                      "text-white rounded-none relative group bg-transparent hover:bg-transparent cursor-pointer"
+                      )}
+                    >
+                      &larr; Back
+                    </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  ) : (
+                  navigationMenuConfig?.items?.map((item) => (
                     <NavigationMenuItem key={item.title}>
-                      <NavigationMenuLink
-                        onClick={() => handleClick(item.id)}
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          "dark:text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent cursor-pointer",
-                          isActive(item.id)
-                            ? "font-semibold after:w-full"
-                            : "after:w-0 hover:after:w-full"
-                        )}
-                      >
-                        {item.title}
-                      </NavigationMenuLink>
+                    <NavigationMenuLink
+                      onClick={() => handleClick(item.id)}
+                      className={cn(
+                      navigationMenuTriggerStyle(),
+                      "dark:text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent cursor-pointer",
+                      isActive(item.id)
+                        ? "font-semibold after:w-full"
+                        : "after:w-0 hover:after:w-full"
+                      )}
+                    >
+                      {item.title}
+                    </NavigationMenuLink>
                     </NavigationMenuItem>
-                  ))}
+                  ))
+                  )}
                 </NavigationMenuList>
-              </NavigationMenu>
+                </NavigationMenu>
             </div>
 
             <div className="hidden md:flex items-center gap-4">
