@@ -18,55 +18,45 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ridho Dimas",
-  description: "Welcome to my site!",
-  applicationName:"Ridho's Portofolio",
-  keywords: ["Ridho Dimas", "Portofolio", "Ridho's Portofolio"],
+  title: "Ridho Dimas - JavaScript Developer",
+  description: "Selamat datang di situs resmi Ridho Dimas - Fullstack Developer dengan keahlian di React, TypeScript, dan tRPC.",
+  keywords: ["Ridho Dimas", "Portofolio", "Fullstack Developer", "React", "tRPC"],
+  authors: [{ name: "Ridho Dimas", url: "https://ridhodimas.xyz" }],
+  creator: "Ridho Dimas",
+  metadataBase: new URL("https://ridhodimas.xyz"),
   openGraph: {
-    title: "Ridho Dimas",
-    description: "Welcome to my site!",
-    countryName: "Indonesia",
+    title: "Ridho Dimas - Portofolio Developer",
+    description: "Jelajahi proyek dan karya Ridho Dimas sebagai Fullstack Developer.",
+    url: "https://ridhodimas.xyz",
+    siteName: "Ridho Dimas",
+    type: "website",
     images: [
       {
         url: "/logo/rdtj.png",
         width: 800,
         height: 600,
-        alt: "Kawan Study",
-      },
-      {
-        url: "/logo/rdtj.png",
-        width: 800,
-        height: 600,
-        alt: "Kawan Study",
+        alt: "Logo Ridho Dimas",
       },
     ],
   },
+
   twitter: {
-    title: "Ridho Dimas",
     card: "summary_large_image",
-    images: [
-      {
-        url: "/logo/rdtj.png",
-        width: 800,
-        height: 600,
-        alt: "Kawan Study",
-      },
-      {
-        url: "/logo/rdtj.png",
-        width: 800,
-        height: 600,
-        alt: "Kawan Study",
-      },
-    ],
+    title: "Ridho Dimas - Developer Portofolio",
+    description: "Website resmi Ridho Dimas. Lihat proyek, kontak, dan pengalaman kerja.",
+    images: ["/logo/rdtj.png"],
+    creator: "@s_letoy", 
   },
-  publisher: "Ridho Dimas",
+
   icons: {
-    icon: ["/logo/rdtj.png"],
-    apple: ["/logo/rdtj.png"],
-    shortcut: ["/logo/rdtj.png"],
+    icon: "/logo/rdtj.png",
+    apple: "/logo/rdtj.png",
+    shortcut: "/logo/rdtj.png",
   },
-  manifest: "/logo/rdtj.png",
+
+  manifest: "/site.webmanifest",
 };
+
 
 export default function RootLayout({
   children,
