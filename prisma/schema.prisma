@@ -23,10 +23,13 @@ model Project {
   ownStatus         String?
   short_description String?
   description       String?
+  company_name      String?
+  company_logo      String?
   site              String?
   url               String?
   imageUrl          String?
   restricted_reason String?
+  task              String?
   roleId            String
   role              ProjectRole   @relation(fields: [roleId], references: [id])
   languages         Language[]

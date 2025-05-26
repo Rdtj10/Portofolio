@@ -12,13 +12,17 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 import Link from "next/link";
+import Image from "next/image";
 
 const DetailProjectSection = () => {
   const mobile = useMobile();
   const { id } = useParams();
   const { data: project } = trpc.project.getById.useQuery(id as string);
   const { data: allProjects } = trpc.project.getAll.useQuery();
-  const projectIds = allProjects?.filter((p) => p.status === "COMPLETED").map((p: { id: string }) => p.id) || [];
+  const projectIds =
+    allProjects
+      ?.filter((p) => p.status === "COMPLETED")
+      .map((p: { id: string }) => p.id) || [];
   const currentIndex = projectIds.indexOf(id as string);
   const prevId = currentIndex > 0 ? projectIds[currentIndex - 1] : null;
   const nextId =
@@ -27,7 +31,7 @@ const DetailProjectSection = () => {
   return (
     <section className="flex flex-col min-h-screen h-fit w-full dark:bg-[#22232F] bg-[#F0F0F5]">
       <div
-        className="relative flex flex-col bg-black bg-cover bg-center bg-no-repeat w-full h-screen lg:h-[85vh] items-center justify-center"
+        className="relative z-10 flex flex-col bg-black bg-cover bg-center bg-no-repeat w-full h-screen lg:h-[85vh] items-center justify-center"
         style={{
           backgroundImage: `url('${
             project?.imageUrl || "/images/hero-bg.png"
@@ -64,7 +68,7 @@ const DetailProjectSection = () => {
         <h1 className="flex items-center justify-center text-4xl md:text-7xl py-4 font-bold md:p-10 w-full md:w-1/2">
           Project Desc.
         </h1>
-        <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-10 px-10">
+        <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-10 px-10 md:pr-24">
           <p className="text-justify leading-tight dark:text-gray-300 text-gray-600 text-base md:text-2xl">
             {project?.description}
           </p>
@@ -127,25 +131,54 @@ const DetailProjectSection = () => {
           </div>
         </div>
       </div>
+      <div className="flex flex-col w-full dark:bg-[#4B4A5D] bg-[#DDDBE5] md:py-16 gap-6 md:gap-10 pt-10 md:pt-0">
+        <h1 className="hidden md:flex items-center justify-center text-3xl py-4 font-bold w-full">
+          As a&nbsp;
+          <span className="dark:text-yellow-300 text-yellow-600 underline">
+            {project?.role.name}
+          </span>
+        </h1>
+        <div className="relative w-full flex flex-col-reverse gap-6 md:gap-10 px-10">
+          <p className="text-justify dark:text-gray-300 text-gray-600 leading-tight text-base md:text-2xl md:px-24 w-full">
+            <a className="text-lg md:hidden block">As a&nbsp;
+            <span className=" text-yellow-600 dark:text-yellow-300">
+              {project?.role.name}
+            </span></a>
+            {project?.task}
+          </p>
+          <Image
+            src={project?.company_logo || "/logo/rdtj.png"}
+            alt={project?.company_name || "Project Image"}
+            width={1000}
+            height={1000}
+            className="w-1/3 my-4 absolute inset-x-0 bottom-0 -translate-y-1/2 pointer-events-none opacity-10"
+          />
+        </div>
+      </div>
 
-      <div className="dark:bg-[#4B4A5D] bg-[#DDDBE5] flex flex-col md:flex-row justify-center md:justify-between items-center">
-        {project?.colors?.map((color, index) => (
-          <div
-            key={index}
-            className="flex flex-col gap-2 items-center justify-center w-full md:w-1/3 p-10"
-          >
-            <h1 className="text-xl font-bold">{color.name}</h1>
+      <div className="dark:bg-[#4B4A5D] bg-[#DDDBE5] flex flex-col items-center">
+        <h1 className="hidden md:flex items-center justify-center text-3xl py-4 font-bold w-full">
+          Meet the colors
+        </h1>
+        <div className="flex flex-col md:flex-row justify-center md:justify-between items-center w-full">
+          {project?.colors?.map((color, index) => (
             <div
-              className="flex items-center group justify-center w-full h-20 rounded-lg hover:shadow-2xl shadow-xl transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
-              style={{ backgroundColor: color.hex }}
+              key={index}
+              className="flex flex-col gap-2 items-center justify-center w-full md:w-1/3 p-10"
             >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm pointer-events-none" />
-              <p className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 z-10 text-white">
-                {color.hex}
-              </p>
+              <h1 className="text-xl font-bold">{color.name}</h1>
+              <div
+                className="flex items-center group justify-center w-full h-20 rounded-lg hover:shadow-2xl shadow-xl transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
+                style={{ backgroundColor: color.hex }}
+              >
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm pointer-events-none" />
+                <p className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 z-10 text-white">
+                  {color.hex}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div
@@ -153,7 +186,7 @@ const DetailProjectSection = () => {
           !prevId ? "justify-end" : "justify-between"
         }`}
       >
-        <Link href={`/${prevId}`} className={!prevId ? 'hidden' : 'block'}>
+        <Link href={`/${prevId}`} className={!prevId ? "hidden" : "block"}>
           <div className="flex flex-row gap-2 items-center cursor-pointer">
             <Icon icon="quill:chevron-left" width="50" height="50" />
             <div>
@@ -167,7 +200,7 @@ const DetailProjectSection = () => {
             </div>
           </div>
         </Link>
-        <Link href={`/${nextId}`} className={!nextId ? 'hidden' : 'block'}>
+        <Link href={`/${nextId}`} className={!nextId ? "hidden" : "block"}>
           <div className="flex flex-row gap-2 items-center cursor-pointer">
             <div>
               <span className="text-sm">Next Project</span>
