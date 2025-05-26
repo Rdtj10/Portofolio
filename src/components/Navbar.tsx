@@ -116,7 +116,7 @@ export default function Navbar() {
           "backdrop-blur-md p-6 border-b transition-all duration-300 bg-transparent lg:px-24 w-full",
           isScrolled
             ? "fixed top-0 left-0 right-0 z-50 bg-background/10 border-b-border shadow-md animate-in slide-in-from-top duration-300"
-            : "border-b-transparent absolute z-10"
+            : "border-b-transparent absolute z-20"
         )}
       >
         <div className="flex items-center justify-between ">
