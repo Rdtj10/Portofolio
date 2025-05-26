@@ -18,18 +18,20 @@ import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import AboutDialog from "./AboutDialog";
 
 export default function Navbar() {
-  
+  const pathname = usePathname();
+
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
+  const [isDialogOpen, setDialogOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const { theme, toggleTheme } = useTheme();
-
 
   const handleClick = (id: string) => {
     const el = document.getElementById(id);
@@ -119,59 +121,60 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between ">
           <div className="flex flex-row items-center justify-between w-full">
-            {/* Company Logo */}
             <Link
               href="/"
               className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
             >
-              <Image src="/logo/rdtj.png" alt="ridho diams" height={50} width={50} />
-              {/* <Icon
-                icon="bxs:smile"
-                width="24"
-                height="24"
-                className="text-orange-300"
-              />{" "}
-              Dhodols */}
+              <Image
+                src="/logo/rdtj.png"
+                alt="ridho diams"
+                height={50}
+                width={50}
+              />
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:block">
-                <NavigationMenu>
+              <NavigationMenu>
                 <NavigationMenuList>
-                  {usePathname() !== "/" ? (
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className={cn(
-                      navigationMenuTriggerStyle(),
-                      "text-white rounded-none relative group bg-transparent hover:bg-transparent cursor-pointer"
-                      )}
-                    >
-                      &larr; Back
-                    </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  ) : (
-                  navigationMenuConfig?.items?.map((item) => (
-                    <NavigationMenuItem key={item.title}>
-                    <NavigationMenuLink
-                      onClick={() => handleClick(item.id)}
-                      className={cn(
-                      navigationMenuTriggerStyle(),
-                      "dark:text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent cursor-pointer",
-                      isActive(item.id)
-                        ? "font-semibold after:w-full"
-                        : "after:w-0 hover:after:w-full"
-                      )}
-                    >
-                      {item.title}
-                    </NavigationMenuLink>
+                  {pathname !== "/" ? (
+                    <NavigationMenuItem>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/"
+                          className={cn(
+                            navigationMenuTriggerStyle(),
+                            "text-white rounded-none relative group bg-transparent hover:bg-transparent cursor-pointer"
+                          )}
+                        >
+                          &larr; Back
+                        </Link>
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
-                  ))
+                  ) : (
+                    navigationMenuConfig?.items?.map((item) => (
+                      <NavigationMenuItem key={item.title}>
+                        <NavigationMenuLink
+                          onClick={
+                            item.id === "about"
+                              ? () => setDialogOpen(true)
+                              : () => handleClick(item.id)
+                          }
+                          className={cn(
+                            navigationMenuTriggerStyle(),
+                            "dark:text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent cursor-pointer",
+                            isActive(item.id)
+                              ? "font-semibold after:w-full"
+                              : "after:w-0 hover:after:w-full"
+                          )}
+                        >
+                          {item.title}
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    ))
                   )}
                 </NavigationMenuList>
-                </NavigationMenu>
+              </NavigationMenu>
             </div>
 
             <div className="hidden md:flex items-center gap-4">
@@ -216,46 +219,53 @@ export default function Navbar() {
             }}
           >
             <div className="flex flex-col gap-4">
-              {/* Mobile Menu Header */}
-              {/* <div className="p-6 border-b flex items-center justify-between">
-                <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Image src="/images/logo.png" alt="Logo" width={40} height={40} />
-                </Link>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleMobileMenu}
-                  aria-label="Close menu"
-                >
-                  <X className="h-6 w-6" />
-                </Button>
-              </div> */}
-
               {/* Mobile Menu Content */}
               <div className="flex-1 overflow-auto">
                 <div className="p-6">
                   <div className="flex flex-col space-y-6">
-                    {navigationMenuConfig?.items?.map((item, index) => (
+                    {pathname !== "/" ? (
                       <motion.div
-                        key={item.title}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 * index }}
+                        transition={{ delay: 0.05 }}
                       >
-                        <p
-                          onClick={() => handleClick(item.id)}
+                        <Link
+                          href={"/"}
                           className={cn(
                             "text-base font-normal transition-colors relative group",
-                            "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
-                            isActive(item.id)
-                              ? "text-primary font-medium after:w-full"
-                              : "hover:text-primary after:w-0 hover:after:w-full"
+                            "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300"
                           )}
                         >
-                          {item.title}
-                        </p>
+                          Back to Home
+                        </Link>
                       </motion.div>
-                    ))}
+                    ) : (
+                      navigationMenuConfig?.items?.map((item, index) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.05 * index }}
+                        >
+                          <p
+                            onClick={
+                              item.id === "about"
+                                ? () => setDialogOpen(true)
+                                : () => handleClick(item.id)
+                            }
+                            className={cn(
+                              "text-base font-normal transition-colors relative group",
+                              "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
+                              isActive(item.id)
+                                ? "text-primary font-medium after:w-full"
+                                : "hover:text-primary after:w-0 hover:after:w-full"
+                            )}
+                          >
+                            {item.title}
+                          </p>
+                        </motion.div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
@@ -278,12 +288,6 @@ export default function Navbar() {
                       />
                     </div>
                   </div>
-                  {/* <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Icon icon={"mdi:chevron-down"} className="w-5 h-5" />
-                  </motion.div> */}
                 </motion.div>
               </motion.div>
             </div>
@@ -298,6 +302,7 @@ export default function Navbar() {
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
+      <AboutDialog onClose={setDialogOpen} open={isDialogOpen} />
     </>
   );
 }

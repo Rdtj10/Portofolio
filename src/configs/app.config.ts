@@ -22,11 +22,11 @@ export const navigationMenuConfig: NavigationMenuConfig = {
       id: 'index',
       description: 'Projects',
     },
-    // {
-    //   title: 'About',
-    //   id: 'about',
-    //   description: 'About Me',
-    // },
+    {
+      title: 'About',
+      id: 'about',
+      description: 'About Me',
+    },
     {
       title: 'Contact',
       id: 'contact',

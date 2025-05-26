@@ -17,12 +17,9 @@ const ProjectTransition: React.FC<ProjectTransitionProps> = ({ children }) => {
     setShowTransition(true);
 
     if (overlayRef.current && textRef.current) {
-      // Start overlay off-screen left
       gsap.set(overlayRef.current, { x: "-100%", opacity: 1 });
       gsap.set(textRef.current, { scale: 1, opacity: 1 });
-
       gsap.timeline()
-        // Slide in from left to center
         .to(overlayRef.current, {
           x: "0%",
           duration: 0.3,
