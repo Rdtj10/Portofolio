@@ -1,4 +1,5 @@
 import Transition from "@/components/Transition";
+import VisitorDisplay from "@/components/VisitorDisplay";
 import ContactSection from "@/components/partials/ContactSection";
 import Footer from "@/components/partials/Footer";
 import HeroSection from "@/components/partials/HeroSection";
@@ -18,6 +19,7 @@ export default function Home() {
         <AllProjects />
         <ContactSection />
         <Footer />
+        <VisitorDisplay />
       </div>
     </AnimatePresence>
   );

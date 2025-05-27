@@ -2,7 +2,7 @@ import CompletedProjectsSection from "@/components/partials/CompletedProjectSect
 import CurrentProjectSection from "@/components/partials/CurrentProjectSection";
 import PendingProjectSection from "@/components/partials/PendingProjectSection";
 import HydrationQuery from "@/pkg/hydrationQuery";
-import { getAllProjects } from "@/service/t-rpc/projects/project.query";
+import { getAllProjects } from "@/server/t-rpc/projects/project.query";
 
 export default function AllProjects() {
   return(

@@ -1,7 +1,7 @@
-import { appRouter } from '@/service/t-rpc/root';
-import { createContext } from '@/service/t-rpc/context';
+import { appRouter } from '@/server/t-rpc/root';
+import { createCallerContext } from '@/server/t-rpc/context';
 
-const caller = appRouter.createCaller(await createContext());
+const caller = appRouter.createCaller(await createCallerContext());
 
 export const getAllProjects = () => ({
   queryKey: ['project.getAll'],

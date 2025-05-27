@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import sendEmail from "@/service/email-js/sendEmail";
+import sendEmail from "@/server/email-js/sendEmail";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import { Icon } from "@iconify/react/dist/iconify.js";

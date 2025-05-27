@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ridho Dimas - JavaScript Developer",
+  title: "Ridho Dimas - Web Developer",
   description: "Selamat datang di situs resmi Ridho Dimas - Fullstack Developer dengan keahlian di React, TypeScript, dan tRPC.",
   keywords: ["Ridho Dimas", "Portofolio", "Fullstack Developer", "React", "tRPC"],
   authors: [{ name: "Ridho Dimas", url: "https://ridhodimas.xyz" }],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Ridho Dimas - Developer Portofolio",
+    title: "Ridho Dimas - Web Developer",
     description: "Website resmi Ridho Dimas. Lihat proyek, kontak, dan pengalaman kerja.",
     images: ["/logo/rdtj.png"],
     creator: "@s_letoy", 

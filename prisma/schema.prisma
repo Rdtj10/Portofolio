@@ -63,3 +63,12 @@ model Color {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
+
+model Visit {
+  id         String   @id @default(uuid())
+  ip         String?
+  userAgent  String?
+  url        String
+  createdAt  DateTime @default(now())
+}
+
