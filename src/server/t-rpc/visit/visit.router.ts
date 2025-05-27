@@ -3,38 +3,53 @@ import { db } from '../db';
 import { z } from "zod";
 
 export const visitRouter = router({
-  getAll: publicProcedure.query(() => db.visit.findMany()),
+  getAll: publicProcedure.query(() => db.visit.findMany({})),
+
+  getIndexByIp: publicProcedure
+    .query(async ({ ctx }) => {
+      const req = ctx.req;
+
+      const forwardedFor = req?.headers?.get("x-forwarded-for");
+      const cfConnectingIp = req?.headers?.get("cf-connecting-ip");
+      const xRealIp = req?.headers?.get("x-real-ip");
+
+      const serverDetectedIp =
+        (typeof forwardedFor === "string" ? forwardedFor.split(",")[0] : "") ||
+        cfConnectingIp ||
+        xRealIp ||
+        "unknown";
+      const allVisits = await db.visit.findMany({
+        orderBy: { createdAt: 'asc' },
+        select: { ip: true },
+      });
+
+      const index = allVisits.findIndex(v => v.ip === serverDetectedIp);
+
+      return { index };
+    }),
+
   create: publicProcedure
     .input(
       z.object({
-        userAgent: z.string().optional(), // Jadikan opsional di input
+        userAgent: z.string().optional(),
         url: z.string(),
       })
     )
-    .mutation(async ({ input, ctx }) => { // Perbaiki typing jika bisa
-      const req = ctx.req; // Ini adalah objek Request
+    .mutation(async ({ input, ctx }) => {
+      const req = ctx.req;
 
-      // --- Perubahan ada di sini ---
       const forwardedFor = req?.headers?.get("x-forwarded-for");
       const cfConnectingIp = req?.headers?.get("cf-connecting-ip");
-      const xRealIp = req?.headers?.get("x-real-ip"); // Tambahkan ini untuk Vercel
-
-      // Log untuk debugging
-      console.log("Headers:", req?.headers);
-      console.log("x-forwarded-for:", forwardedFor);
-      console.log("cf-connecting-ip:", cfConnectingIp);
-      console.log("x-real-ip:", xRealIp);
+      const xRealIp = req?.headers?.get("x-real-ip");
 
       const ip =
         (typeof forwardedFor === "string" ? forwardedFor.split(",")[0] : "") ||
         cfConnectingIp ||
-        xRealIp || // Prioritaskan x-real-ip jika ada
+        xRealIp ||
         "unknown";
 
       const userAgent = input.userAgent || req?.headers?.get("user-agent") || "unknown";
-      const url = input.url || "unknown"; // Pastikan input.url selalu ada jika tidak opsional di schema
-
-      console.log("Resolved IP for DB:", ip); // Log IP yang akan disimpan
+      const url = input.url || "unknown";
 
       const existing = await db.visit.findFirst({
         where: { ip },
