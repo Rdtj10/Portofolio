@@ -7,22 +7,34 @@ export const visitRouter = router({
   create: publicProcedure
     .input(
       z.object({
-        ip: z.string().optional(),
-        userAgent: z.string(),
+        userAgent: z.string().optional(), // Jadikan opsional di input
         url: z.string(),
       })
     )
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .mutation(async ({ input, ctx }: any) => {
-      const req = ctx.req;
+    .mutation(async ({ input, ctx }) => { // Perbaiki typing jika bisa
+      const req = ctx.req; // Ini adalah objek Request
+
+      // --- Perubahan ada di sini ---
+      const forwardedFor = req?.headers?.get("x-forwarded-for");
+      const cfConnectingIp = req?.headers?.get("cf-connecting-ip");
+      const xRealIp = req?.headers?.get("x-real-ip"); // Tambahkan ini untuk Vercel
+
+      // Log untuk debugging
+      console.log("Headers:", req?.headers);
+      console.log("x-forwarded-for:", forwardedFor);
+      console.log("cf-connecting-ip:", cfConnectingIp);
+      console.log("x-real-ip:", xRealIp);
+
       const ip =
-        input.ip ||
-        (req?.headers?.["x-forwarded-for"] as string)?.split(",")[0] ||
-        req?.socket?.remoteAddress ||
+        (typeof forwardedFor === "string" ? forwardedFor.split(",")[0] : "") ||
+        cfConnectingIp ||
+        xRealIp || // Prioritaskan x-real-ip jika ada
         "unknown";
-      const userAgent =
-        input.userAgent || req?.headers?.["user-agent"] || "unknown";
-      const url = input.url || "unknown";
+
+      const userAgent = input.userAgent || req?.headers?.get("user-agent") || "unknown";
+      const url = input.url || "unknown"; // Pastikan input.url selalu ada jika tidak opsional di schema
+
+      console.log("Resolved IP for DB:", ip); // Log IP yang akan disimpan
 
       const existing = await db.visit.findFirst({
         where: { ip },

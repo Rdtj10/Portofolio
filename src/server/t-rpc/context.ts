@@ -1,12 +1,12 @@
 import { db } from './db';
 import { initTRPC } from "@trpc/server";
-import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
+import { FetchCreateContextFnOptions} from '@trpc/server/adapters/fetch';
 
-export const createContext = ({ req }: FetchCreateContextFnOptions) => ({ db, req });
+export const createContext = ({req }: FetchCreateContextFnOptions) => ({ db, req });
 export const createCallerContext = async () => {
-  const dummyReq = new Request('http://localhost');
+  const dummyReq = new Request('http://localhost')
 
-  return { db, req: dummyReq };
+  return { db, req: dummyReq  };
 };
 type Context = ReturnType<typeof createContext>;
 
