@@ -26,7 +26,10 @@ export default function ContactSection() {
     }
   };
   return (
-    <section className="w-full flex flex-col md:flex-row dark:bg-[#383444] bg-[#E5E3F1] px-6 lg:px-24 pt-16 md:pt-28 h-min-screen transition-all duration-500" id="contact">
+    <section
+      className="w-full flex flex-col md:flex-row dark:bg-[#383444] bg-[#E5E3F1] px-6 lg:px-24 pt-16 md:pt-28 h-min-screen transition-all duration-500"
+      id="contact"
+    >
       <div className="hidden md:block relative w-1/2">
         <Image
           src="/right.png"
@@ -41,9 +44,10 @@ export default function ContactSection() {
           <h1 className="text-3xl dark:text-yellow-300 text-yellow-600 font-semibold">
             Let&apos;s connect!
           </h1>
-            <p className="text-sm">
-              I&apos;m open to opportunities, collaborations, or feedback. Feel free to reach out, and let&apos;s connect!
-            </p>
+          <p className="text-sm">
+            I&apos;m open to opportunities, collaborations, or feedback. Feel
+            free to reach out, and let&apos;s connect!
+          </p>
         </div>
         <form
           ref={form}
@@ -55,6 +59,7 @@ export default function ContactSection() {
               Email
             </Label>
             <Input
+              required
               type="email"
               id="email"
               name="email"
@@ -67,6 +72,7 @@ export default function ContactSection() {
               Name
             </Label>
             <Input
+              required
               type="text"
               id="name"
               name="name"
@@ -101,39 +107,41 @@ export default function ContactSection() {
               Your message will be send to my email.
             </p>
           </div>
-            <Button
+          <Button
             type="submit"
-            className={cn("w-full max-w-sm cursor-pointer flex items-center justify-center")}
+            className={cn(
+              "w-full max-w-sm cursor-pointer flex items-center justify-center"
+            )}
             disabled={loading}
-            >
+          >
             {loading ? (
               <>
-              <svg
-                className="animate-spin h-5 w-5 mr-2 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-                ></circle>
-                <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                ></path>
-              </svg>
-              Sending...
+                <svg
+                  className="animate-spin h-5 w-5 mr-2 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+                Sending...
               </>
             ) : (
               "Send"
             )}
-            </Button>
+          </Button>
 
           <div className="flex items-center gap-2 max-w-sm w-full">
             <hr className="flex-grow border-gray-400" />
