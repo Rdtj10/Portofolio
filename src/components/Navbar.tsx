@@ -126,7 +126,7 @@ export default function Navbar() {
               className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
             >
               <Image
-                src="/logo/rdtj.png"
+                src={theme === 'dark' ? "/logo/logo-light.png" : "/logo/logo-dark.png"}
                 alt="ridho diams"
                 height={50}
                 width={50}

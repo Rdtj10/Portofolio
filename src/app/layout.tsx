@@ -6,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@/context/themeContext";
 import { TrpcProvider } from "./api/provider";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,15 +17,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ridho Dimas - Web Developer",
-  description: "Selamat datang di situs resmi Ridho Dimas - Fullstack Developer dengan keahlian di React, TypeScript, dan tRPC.",
-  keywords: ["Ridho Dimas", "Portofolio", "Fullstack Developer", "React", "tRPC"],
+  title: "Ridho Dimas - Young Dev",
+  description:
+    "Welcome to my site!",
+  keywords: [
+    "Ridho Dimas",
+    "Portofolio",
+    "Fullstack Developer",
+    "React",
+    "tRPC",
+  ],
   authors: [{ name: "Ridho Dimas", url: "https://ridhodimas.xyz" }],
   creator: "Ridho Dimas",
   metadataBase: new URL("https://ridhodimas.xyz"),
   openGraph: {
-    title: "Ridho Dimas - Portofolio Developer",
-    description: "Jelajahi proyek dan karya Ridho Dimas sebagai Fullstack Developer.",
+    title: "Ridho Dimas - Personal Web",
+    description:
+      "Explore all about me!",
     url: "https://ridhodimas.xyz",
     siteName: "Ridho Dimas",
     type: "website",
@@ -42,10 +49,11 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Ridho Dimas - Web Developer",
-    description: "Website resmi Ridho Dimas. Lihat proyek, kontak, dan pengalaman kerja.",
+    title: "Ridho Dimas - Young Dev",
+    description:
+      "My personal web, explore all the projects and all about me",
     images: ["/logo/rdtj.png"],
-    creator: "@s_letoy", 
+    creator: "@s_letoy",
   },
 
   icons: {
@@ -57,7 +65,6 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,15 +72,35 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
           <Navbar />
           <ToastContainer />
-          <TrpcProvider>
-            {children}
-          </TrpcProvider>
+          <TrpcProvider>{children}</TrpcProvider>
         </ThemeProvider>
       </body>
     </html>
