@@ -18,8 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ridho Dimas - Young Dev",
-  description:
-    "Welcome to my site!",
+  description: "Welcome to my site!",
   keywords: [
     "Ridho Dimas",
     "Portofolio",
@@ -32,8 +31,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ridhodimas.xyz"),
   openGraph: {
     title: "Ridho Dimas - Personal Web",
-    description:
-      "Explore all about me!",
+    description: "Explore all about me!",
     url: "https://ridhodimas.xyz",
     siteName: "Ridho Dimas",
     type: "website",
@@ -50,16 +48,14 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ridho Dimas - Young Dev",
-    description:
-      "My personal web, explore all the projects and all about me",
+    description: "My personal web, explore all the projects and all about me",
     images: ["/logo/rdtj.png"],
     creator: "@s_letoy",
   },
-
   icons: {
-    icon: "/logo/rdtj.png",
-    apple: "/logo/rdtj.png",
-    shortcut: "/logo/rdtj.png",
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
   },
 
   manifest: "/site.webmanifest",
