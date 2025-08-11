@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { trpc } from "@/utils/trpc";
 import {
@@ -22,11 +23,11 @@ export default function Page() {
   const totalPages = data ? Math.ceil(data.length / pageSize) : 1;
 
   function handlePrev() {
-    setPage((prev: any) => Math.max(prev - 1, 1));
+    setPage((prev: number) => Math.max(prev - 1, 1));
   }
 
   function handleNext() {
-    setPage((prev: any) => Math.min(prev + 1, totalPages));
+    setPage((prev: number) => Math.min(prev + 1, totalPages));
   }
   return (
     <section className="w-full h-full">
