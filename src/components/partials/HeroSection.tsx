@@ -77,7 +77,7 @@ export default function HeroSection() {
             <Icon icon="mingcute:github-fill" />
           </Link>
           <Link
-            href="https://drive.google.com/file/d/1X81FdrCnsEPRSrVGHqFIaEuIdSVCmba5/view?usp=sharing"
+            href="https://drive.google.com/file/d/1wxLv5mfWt_pZKvJVFKpszmUpAtDum0u5/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             download

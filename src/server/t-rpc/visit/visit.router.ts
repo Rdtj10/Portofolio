@@ -1,10 +1,37 @@
 import { publicProcedure, router } from '../context';
 import { db } from '../db';
 import { z } from "zod";
+import { getISOWeek, getYear } from 'date-fns';
 
 export const visitRouter = router({
   getAll: publicProcedure.query(() => db.visit.findMany({})),
+  
+  getWeeklyStats: publicProcedure.query(async () => {
+    const visits = await db.visit.findMany({
+      select: { createdAt: true },
+      orderBy: { createdAt: 'asc' },
+    });
 
+    // Kelompokkan berdasarkan tahun & minggu
+    const weeklyMap: Record<string, number> = {};
+
+    visits.forEach((visit) => {
+      const date = new Date(visit.createdAt);
+      const year = getYear(date);
+      const week = getISOWeek(date);
+      const key = `${year}-W${week}`;
+      weeklyMap[key] = (weeklyMap[key] || 0) + 1;
+    });
+
+    // Ubah ke array hasil
+    const result = Object.entries(weeklyMap).map(([week, count]) => ({
+      week,
+      count,
+      avgPerDay: count / 7,
+    }));
+
+    return result;
+  }),
   getIndexByIp: publicProcedure
     .query(async ({ ctx }) => {
       const req = ctx.req;
