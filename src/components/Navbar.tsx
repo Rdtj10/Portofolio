@@ -6,6 +6,11 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { navigationMenuConfig } from "@/configs/app.config";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
@@ -13,12 +18,13 @@ import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-// import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import AboutDialog from "./AboutDialog";
+import AuthDialog from "./AuthDialog";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -26,9 +32,10 @@ export default function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [isQuestOpen, setQuestOpen] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const { theme, toggleTheme } = useTheme();
@@ -117,7 +124,7 @@ export default function Navbar() {
           isScrolled
             ? "fixed top-0 left-0 right-0 z-50 bg-background/10 border-b-border shadow-md animate-in slide-in-from-top duration-300"
             : "border-b-transparent absolute z-20",
-          pathname.startsWith('/cms') && "hidden"
+          pathname.startsWith("/cms") && "hidden"
         )}
       >
         <div className="flex items-center justify-between ">
@@ -127,8 +134,12 @@ export default function Navbar() {
               className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
             >
               <Image
-                src={theme === 'dark' ? "/logo/logo-light.png" : "/logo/logo-dark.png"}
-                alt="ridho diams"
+                src={
+                  theme === "dark"
+                    ? "/logo/logo-light.png"
+                    : "/logo/logo-dark.png"
+                }
+                alt="ridho dimas"
                 height={50}
                 width={50}
               />
@@ -187,6 +198,30 @@ export default function Navbar() {
                   className="cursor-pointer"
                 />
               </div>
+              <Tooltip>
+                <TooltipTrigger>
+                  <div
+                    className="relative group cursor-pointer"
+                    onClick={() => setQuestOpen(true)}
+                  >
+                    <Icon
+                      icon="pepicons-pencil:enter"
+                      width="40"
+                      height="40"
+                      className="group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:duration-300 group-hover:transition-all duration-300 transition-all"
+                    />
+                    <Icon
+                      icon="pepicons-print:enter"
+                      width="40"
+                      height="40"
+                      className="absolute opacity-0  bottom-0.5 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:opacity-50 group-hover:duration-300 group-hover:transition-all duration-300 transition-all"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Me Only!</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
 
@@ -304,6 +339,7 @@ export default function Navbar() {
         />
       )}
       <AboutDialog onClose={setDialogOpen} open={isDialogOpen} />
+      <AuthDialog onClose={setQuestOpen} open={isQuestOpen} />
     </>
   );
 }

@@ -10,11 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
+// import { Card } from "@/components/ui/card";
 
 export default function Page() {
   const { data } = trpc.visit.getAll.useQuery();
-  const { data: visit } = trpc.visit.getWeeklyStats.useQuery();
+  // const { data: visit } = trpc.visit.getWeeklyStats.useQuery();
   const [page, setPage] = useState<number>(1);
   const pageSize = 10;
 
@@ -105,7 +105,7 @@ export default function Page() {
           </div>
         </div>
         <div className="flex flex-col">
-          <Card>
+          {/* <Card>
             <div>
               <h2>Weekly Visit Stats</h2>
               <ul>
@@ -117,7 +117,7 @@ export default function Page() {
                 ))}
               </ul>
             </div>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </section>
