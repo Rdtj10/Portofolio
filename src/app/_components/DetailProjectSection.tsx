@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { trpc } from "@/utils/trpc";
-import { Button } from "../ui/button";
+import { Button } from "../../components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useMobile from "@/hooks/useMobile";
 import {
@@ -10,10 +10,10 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
+} from "../../components/ui/tooltip";
 import Link from "next/link";
 import Image from "next/image";
-import ExoticLoading from "../ExoticLoading";
+import ExoticLoading from "../../components/ExoticLoading";
 
 const DetailProjectSection = () => {
   const mobile = useMobile();

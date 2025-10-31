@@ -1,26 +1,10 @@
-import Transition from "@/components/Transition";
-import VisitorDisplay from "@/components/VisitorDisplay";
-import ContactSection from "@/components/partials/ContactSection";
-import Footer from "@/components/partials/Footer";
-import HeroSection from "@/components/partials/HeroSection";
-import IndexSection from "@/components/partials/IndexSection";
-import LogoMarquee from "@/components/partials/LogoMarquee";
-import AllProjects from "@/modules/AllProjects";
 import { AnimatePresence } from "framer-motion";
+import Container from "./_components/Container";
 
 export default function Home() {
   return (
     <AnimatePresence mode="wait">
-      <div className="flex flex-col w-full min-h-screen relative">
-        <Transition />
-        <HeroSection />
-        <LogoMarquee />
-        <IndexSection />
-        <AllProjects />
-        <ContactSection />
-        <Footer />
-        <VisitorDisplay />
-      </div>
+      <Container />
     </AnimatePresence>
   );
 }

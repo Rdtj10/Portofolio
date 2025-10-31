@@ -1,21 +1,19 @@
-import { appRouter } from "@/server/t-rpc/root";
-import { createCallerContext } from "@/server/t-rpc/context";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const ctx = await createCallerContext();
-  const caller = appRouter.createCaller(ctx);
-
   const { passphrase } = await req.json();
-  const result = await caller.auth.login({ passphrase });
 
-  if (result.success) {
-    const response = Response.json(result);
-    response.headers.append(
-      "Set-Cookie",
-      `cms_auth=true; Path=/; HttpOnly; SameSite=Lax`
-    );
-    return response;
+  if (passphrase === process.env.CMS_KEY) {
+    const res = NextResponse.json({ success: true });
+    res.cookies.set("cms_auth", "true", {
+      httpOnly: true,
+      path: "/",
+    });
+    return res;
   }
 
-  return Response.json(result, { status: 401 });
+  return NextResponse.json(
+    { success: false, message: "Invalid passphrase" },
+    { status: 401 }
+  );
 }

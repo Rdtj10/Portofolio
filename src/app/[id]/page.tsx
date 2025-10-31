@@ -1,5 +1,5 @@
-import DetailProjectSection from "@/components/partials/DetailProjectSection";
+import DetailProjectSection from "@/app/_components/DetailProjectSection";
 
 export default function Page() {
-  return <DetailProjectSection />
+  return <DetailProjectSection />;
 }

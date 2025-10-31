@@ -9,12 +9,11 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
-import ProjectsDialog from "../ProjectsDialog";
+import { Badge } from "../../components/ui/badge";
+import ProjectsDialog from "../../components/ProjectsDialog";
 import { trpc } from "@/utils/trpc";
 
 export default function PendingProjectSection() {
-
   const { data: projects } = trpc.project.getAll.useQuery();
 
   const [isDialogAbsenOpen, setIsDialogAbsenOpen] = useState(false);
@@ -35,7 +34,8 @@ export default function PendingProjectSection() {
           Others Projects
         </h1>
         <p className="text-center text-lg dark:text-gray-300">
-          This section showcases pending projects that are in awaiting completion.
+          This section showcases pending projects that are in awaiting
+          completion.
         </p>
       </div>
       <div className="w-full flex flex-col md:grid md:grid-cols-4">

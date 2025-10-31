@@ -22,9 +22,10 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import AboutDialog from "./AboutDialog";
 import AuthDialog from "./AuthDialog";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -115,6 +116,16 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen]);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("unauthorized") === "true") {
+      toast.error(
+        "Access denied. You can't reach that without knowing the beast’s true name 🐍"
+      );
+    }
+  }, [searchParams]);
 
   return (
     <>
