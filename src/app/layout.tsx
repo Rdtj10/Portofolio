@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@/context/themeContext";
 import { TrpcProvider } from "./api/provider";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -94,7 +95,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <Navbar />
+          <Suspense>
+            <Navbar />
+          </Suspense>
           <ToastContainer />
           <TrpcProvider>{children}</TrpcProvider>
         </ThemeProvider>
