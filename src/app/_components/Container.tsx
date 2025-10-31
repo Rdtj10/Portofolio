@@ -6,7 +6,6 @@ import ContactSection from "./ContactSection";
 import AllProjects from "@/modules/AllProjects";
 import Footer from "./Footer";
 import VisitorDisplay from "@/components/VisitorDisplay";
-import { toast } from "react-toastify";
 
 export default function Container() {
   return (
