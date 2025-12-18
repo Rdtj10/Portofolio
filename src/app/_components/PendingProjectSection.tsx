@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -12,9 +12,14 @@ import Image from "next/image";
 import { Badge } from "../../components/ui/badge";
 import ProjectsDialog from "../../components/ProjectsDialog";
 import { trpc } from "@/utils/trpc";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function PendingProjectSection() {
   const { data: projects } = trpc.project.getAll.useQuery();
+  const sectionRef = useRef(null);
 
   const [isDialogAbsenOpen, setIsDialogAbsenOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,18 +29,60 @@ export default function PendingProjectSection() {
     setItemSelected(item);
     setIsDialogAbsenOpen(true);
   };
+
+  useEffect(() => {
+    if (!projects || projects.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".pending-header-element",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.2,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 90%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".pending-project-card",
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [projects]);
+
   return (
     <section
+      ref={sectionRef}
       className="w-full h-fit flex flex-col dark:bg-[#22232F] bg-[#F0F0F5] pt-8 md:pt-28 gap-10 transition-all duration-500"
       id="other-projects"
     >
-      <div>
-        <h1 className="text-center text-3xl dark:text-yellow-300 text-yellow-600 font-semibold">
-          Others Projects
+      <div className="text-center">
+        <h1 className="text-4xl md:text-5xl dark:text-yellow-300 text-yellow-600 font-extrabold tracking-tight pending-header-element">
+          ⏳ Pending Projects
         </h1>
-        <p className="text-center text-lg dark:text-gray-300">
-          This section showcases pending projects that are in awaiting
-          completion.
+        <p className="mt-2 md:text-xl dark:text-gray-300 text-gray-600 max-w-3xl mx-auto pending-header-element">
+          A glimpse into the pipeline: projects that are planned, paused, or
+          currently awaiting deployment.
         </p>
       </div>
       <div className="w-full flex flex-col md:grid md:grid-cols-4">
@@ -45,7 +92,7 @@ export default function PendingProjectSection() {
             <Card
               key={index}
               className={cn(
-                `flex flex-col justify-between rounded-none group cursor-pointer h-[60vh] border-none shadow-[0_0_60px_rgba(0,0,0,0.1)] dark:bg-[#4B4A5D] bg-[#DDDBE5] hover:bg-white transition-colors duration-300`
+                `flex flex-col justify-between rounded-none group cursor-pointer h-[60vh] border-none shadow-[0_0_60px_rgba(0,0,0,0.1)] dark:bg-[#4B4A5D] bg-[#DDDBE5] hover:bg-white transition-colors duration-300 pending-project-card`
               )}
               onClick={() => handleOpenDialogAbsen(project)}
             >

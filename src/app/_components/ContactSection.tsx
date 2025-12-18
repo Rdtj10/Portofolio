@@ -3,16 +3,39 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import sendEmail from "@/server/email-js/sendEmail";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/cn";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { toast } from "react-toastify";
+gsap.registerPlugin(ScrollTrigger);
+
+const socialLinks = [
+  {
+    href: "https://wa.me/+6285161610522",
+    icon: "logos:whatsapp-icon",
+    label: "+6285161610522",
+  },
+  {
+    href: "https://www.instagram.com/dhodols/",
+    icon: "skill-icons:instagram",
+    label: "@dhodols",
+  },
+  {
+    href: "mailto:ridhodimas70@gmail.com",
+    icon: "logos:google-gmail",
+    label: "ridhodimas70@gmail.com",
+  },
+];
 
 export default function ContactSection() {
   const form = useRef<HTMLFormElement | null>(null);
   const [loading, setLoading] = useState(false);
+  const sectionRef = useRef(null);
+  const contextRef = useRef<gsap.Context | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,160 +43,203 @@ export default function ContactSection() {
       setLoading(true);
       try {
         await sendEmail(form.current);
+        toast.success("Message sent successfully!");
+        form.current.reset();
+      } catch (error) {
+        toast.error("Failed to send message: " + error);
       } finally {
         setLoading(false);
       }
     }
   };
+
+  useEffect(() => {
+    if (contextRef.current) {
+      contextRef.current.revert();
+    }
+
+    contextRef.current = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.from(
+        ".contact-image-wrapper",
+        {
+          x: -100,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out",
+        },
+        0
+      );
+
+      tl.from(
+        ".contact-form-content",
+        {
+          x: 100,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out",
+        },
+        0
+      );
+      gsap.to(".contact-image", {
+        y: 20,
+        duration: 3,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
+    }, sectionRef);
+
+    return () => {
+      contextRef.current?.revert();
+    };
+  }, []);
+
   return (
     <section
-      className="w-full flex flex-col md:flex-row dark:bg-[#383444] bg-[#E5E3F1] px-6 lg:px-24 pt-16 md:pt-28 h-min-screen transition-all duration-500"
+      ref={sectionRef}
+      className="w-full flex flex-col md:flex-row dark:bg-[#1A1A2E] bg-[#F4F4F9] px-6 lg:px-24 pt-16 md:pt-28 pb-16 min-h-[80vh] items-center transition-all duration-500"
       id="contact"
     >
-      <div className="hidden md:block relative w-1/2">
-        <Image
-          src="/right.png"
-          alt="Ridho Dimas"
-          width={1000}
-          height={1000}
-          className="w-full"
-        />
+      <div className="hidden md:flex relative w-full md:w-1/2 justify-center items-center h-full contact-image-wrapper">
+        <div className="relative w-full max-w-md">
+          <div className="absolute inset-0 bg-[#A78BFA]/20 dark:bg-[#4F46E5]/10 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] transform rotate-12 transition-all duration-1000"></div>
+          <Image
+            src="/right.png"
+            alt="Ridho Dimas Pointing"
+            width={700}
+            height={700}
+            priority
+            className="w-full relative z-10 drop-shadow-2xl contact-image" // Class untuk animasi GSAP
+          />
+        </div>
       </div>
-      <div className="flex flex-col w-full md:w-1/2 py-8 gap-4 md:gap-10 justify-center items-center">
+
+      <div className="flex flex-col w-full md:w-1/2 py-8 gap-6 md:gap-10 justify-center items-center contact-form-content">
         <div className="text-center max-w-sm">
-          <h1 className="text-3xl dark:text-yellow-300 text-yellow-600 font-semibold">
-            Let&apos;s connect!
+          <h1 className="text-4xl dark:text-yellow-300 text-yellow-600 font-extrabold tracking-tight">
+            Let&apos;s Connect! 🤝
           </h1>
-          <p className="text-sm">
-            I&apos;m open to opportunities, collaborations, or feedback. Feel
-            free to reach out, and let&apos;s connect!
+          <p className="mt-2 text-base dark:text-gray-300 text-gray-600">
+            Whether it&apos;s a job opportunity, a collaboration idea, or just
+            feedback, I&apos;m ready to hear from you.
           </p>
         </div>
+
         <form
           ref={form}
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 w-full justify-center items-center"
+          className="flex flex-col gap-5 w-full justify-center items-center"
         >
-          <div className=" w-full max-w-sm gap-2 flex flex-col text-white">
-            <Label className="dark:text-white text-black" htmlFor="subject">
-              Email
-            </Label>
-            <Input
-              required
-              type="email"
-              id="email"
-              name="email"
-              className="bg-white dark:text-white text-black"
-              placeholder="Type your email"
-            />
-          </div>
-          <div className=" w-full max-w-sm gap-2 flex flex-col text-white">
-            <Label className="dark:text-white text-black" htmlFor="name">
-              Name
-            </Label>
-            <Input
-              required
-              type="text"
-              id="name"
-              name="name"
-              className="bg-white dark:text-white text-black"
-              placeholder="Type your name"
-            />
-          </div>
-          <div className=" w-full max-w-sm gap-2 flex flex-col text-white">
-            <Label className="dark:text-white text-black" htmlFor="subject">
-              Subject
-            </Label>
-            <Input
-              type="text"
-              id="subject"
-              name="title"
-              className="bg-white dark:text-white text-black"
-              placeholder="Type your subject"
-            />
-          </div>
-          <div className="w-full max-w-sm gap-2 flex flex-col text-white">
-            <Label className="dark:text-white text-black" htmlFor="message">
-              Message
-            </Label>
-            <Textarea
-              id="name"
-              name="message"
-              className="bg-white dark:text-white text-black"
-              placeholder="Type your message"
-              rows={4}
-            />
-            <p className="text-sm text-muted-foreground">
-              Your message will be send to my email.
-            </p>
+          <div className="w-full max-w-md flex flex-col gap-4">
+            <div className="gap-2 flex flex-col">
+              <Label className="dark:text-white text-gray-800" htmlFor="email">
+                Email
+              </Label>
+              <Input
+                required
+                type="email"
+                id="email"
+                name="email"
+                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
+                placeholder="Your professional email address"
+              />
+            </div>
+            <div className="gap-2 flex flex-col">
+              <Label className="dark:text-white text-gray-800" htmlFor="name">
+                Name
+              </Label>
+              <Input
+                required
+                type="text"
+                id="name"
+                name="name"
+                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
+                placeholder="Your full name"
+              />
+            </div>
+            <div className="gap-2 flex flex-col">
+              <Label
+                className="dark:text-white text-gray-800"
+                htmlFor="subject"
+              >
+                Subject
+              </Label>
+              <Input
+                type="text"
+                id="subject"
+                name="title"
+                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
+                placeholder="Project inquiry, feedback, or collaboration"
+              />
+            </div>
+            <div className="gap-2 flex flex-col">
+              <Label
+                className="dark:text-white text-gray-800"
+                htmlFor="message"
+              >
+                Message
+              </Label>
+              <Textarea
+                id="message"
+                name="message"
+                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
+                placeholder="Write your detailed message here..."
+                rows={5}
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                Your message will be securely sent directly to my professional
+                inbox.
+              </p>
+            </div>
           </div>
           <Button
             type="submit"
-            className={cn(
-              "w-full max-w-sm cursor-pointer flex items-center justify-center"
-            )}
             disabled={loading}
+            variant={"outline"}
+            className="cursor-pointer group/btn w-full relative inline-flex items-center justify-center h-10 px-4 text-sm font-medium rounded-lg overflow-hidden transition-all duration-300 text-yellow-600 dark:text-yellow-300 border-2 border-yellow-600 dark:border-yellow-300 hover:text-white dark:hover:text-white"
           >
             {loading ? (
-              <>
-                <svg
-                  className="animate-spin h-5 w-5 mr-2 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                  ></path>
-                </svg>
-                Sending...
-              </>
+              "Sending..."
             ) : (
-              "Send"
+              <>
+                <span className="relative z-10">
+                  <Icon icon="lucide:external-link" className="inline mr-2" />
+                  Send Message
+                </span>
+                <span className="absolute inset-0 bg-yellow-600 dark:bg-yellow-300 transform -translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out z-0"></span>
+              </>
             )}
           </Button>
 
-          <div className="flex items-center gap-2 max-w-sm w-full">
-            <hr className="flex-grow border-gray-400" />
-            <span className="text-center text-gray-400">or</span>
-            <hr className="flex-grow border-gray-400" />
+          {/* Social Links Divider */}
+          <div className="flex items-center gap-2 max-w-md w-full my-2">
+            <hr className="flex-grow border-gray-300 dark:border-gray-700" />
+            <span className="text-center text-gray-500 dark:text-gray-400 text-sm">
+              or reach me via
+            </span>
+            <hr className="flex-grow border-gray-300 dark:border-gray-700" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4 md:flex md:flex-row max-w-sm w-full items-center md:ustify-between">
-            <Link
-              href="https://wa.me/+6285161610522"
-              target="_blank"
-              className="flex flex-row items-center gap-1 dark:text-white"
-            >
-              <Icon icon="logos:whatsapp-icon" />{" "}
-              <p className="text-xs">+6285161610522 </p>
-            </Link>
-            <Link
-              href="https://www.instagram.com/dhodols/"
-              target="_blank"
-              className="flex flex-row items-center gap-1 dark:text-white"
-            >
-              <Icon icon="skill-icons:instagram" />{" "}
-              <p className="text-xs">@dhodols </p>
-            </Link>
-            <Link
-              href="mailto:ridhodimas70@gmail.com"
-              target="_blank"
-              className="flex flex-row items-center gap-1 dark:text-white"
-            >
-              <Icon icon="skill-icons:gmail-light" />{" "}
-              <p className="text-xs">ridhodimas70@gmail.com</p>
-            </Link>
+          {/* Social Links (Clean Row) */}
+          <div className="flex flex-wrap gap-4 justify-center w-full max-w-md">
+            {socialLinks.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                target="_blank"
+                className="flex items-center gap-2 text-sm dark:text-gray-300 text-gray-700 hover:text-[#4F46E5] dark:hover:text-[#A78BFA] transition-colors duration-300"
+              >
+                <Icon icon={link.icon} className="h-5 w-5" /> {link.label}
+              </Link>
+            ))}
           </div>
         </form>
       </div>
