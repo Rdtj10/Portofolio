@@ -64,13 +64,14 @@ export default function CompletedProjectsSection() {
       gsap.from(".completed-reveal", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 85%",
+          start: "top 75%",
         },
-        y: 40,
+        y: 60,
         opacity: 0,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "power2.out",
+        stagger: 0.2,
+        duration: 1.5,
+        ease: "power3.out",
+        clearProps: "opacity,transform",
       });
     }, sectionRef);
 
