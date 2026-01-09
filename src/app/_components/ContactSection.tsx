@@ -1,41 +1,65 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Image from "next/image";
+
 import { useRef, useState, useEffect } from "react";
 import sendEmail from "@/server/email-js/sendEmail";
-import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toast } from "react-toastify";
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
 
 const socialLinks = [
   {
     href: "https://wa.me/+6285161610522",
     icon: "logos:whatsapp-icon",
-    label: "+6285161610522",
+    label: "Messenger Bird",
+    desc: "A swift messenger for urgent ripples.",
   },
   {
     href: "https://www.instagram.com/dhodols/",
     icon: "skill-icons:instagram",
-    label: "@dhodols",
+    label: "Magic Lantern",
+    desc: "Visual echoes of our daily journey.",
   },
   {
     href: "mailto:ridhodimas70@gmail.com",
     icon: "logos:google-gmail",
-    label: "ridhodimas70@gmail.com",
+    label: "Post Box",
+    desc: "Formal scrolls and collaborative seeds.",
   },
 ];
+
+const BackgroundAtmosphere = () => (
+  <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+    <div className="absolute top-[20%] right-[-10%] w-[50rem] h-[50rem] bg-accent/5 blur-[130px] rounded-full animate-float" />
+    <div className="absolute bottom-[10%] left-[-10%] w-[40rem] h-[40rem] bg-secondary/5 blur-[120px] rounded-full animate-pulse [animation-delay:2s]" />
+
+    {/* Floating Seeds/Light */}
+    {[...Array(12)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1.5 h-1.5 bg-primary/20 rounded-full"
+        initial={{ y: "110%", x: `${Math.random() * 100}%` }}
+        animate={{
+          y: "-10%",
+          x: `${Math.random() * 100 + (i % 2 === 0 ? 15 : -15)}%`,
+        }}
+        transition={{
+          duration: 15 + Math.random() * 15,
+          repeat: Infinity,
+          ease: "linear",
+          delay: Math.random() * 10,
+        }}
+      />
+    ))}
+  </div>
+);
 
 export default function ContactSection() {
   const form = useRef<HTMLFormElement | null>(null);
   const [loading, setLoading] = useState(false);
   const sectionRef = useRef(null);
-  const contextRef = useRef<gsap.Context | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,10 +67,10 @@ export default function ContactSection() {
       setLoading(true);
       try {
         await sendEmail(form.current);
-        toast.success("Message sent successfully!");
+        toast.success("Your message is taking flight!");
         form.current.reset();
       } catch (error) {
-        toast.error("Failed to send message: " + error);
+        toast.error("Oh no, something went wrong: " + error);
       } finally {
         setLoading(false);
       }
@@ -54,194 +78,200 @@ export default function ContactSection() {
   };
 
   useEffect(() => {
-    if (contextRef.current) {
-      contextRef.current.revert();
-    }
+    gsap.registerPlugin(ScrollTrigger);
 
-    contextRef.current = gsap.context(() => {
-      const tl = gsap.timeline({
+    const ctx = gsap.context(() => {
+      gsap.from(".contact-reveal", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
+          start: "top 85%",
         },
-      });
-
-      tl.from(
-        ".contact-image-wrapper",
-        {
-          x: -100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "power3.out",
-        },
-        0
-      );
-
-      tl.from(
-        ".contact-form-content",
-        {
-          x: 100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "power3.out",
-        },
-        0
-      );
-      gsap.to(".contact-image", {
-        y: 20,
-        duration: 3,
-        ease: "power1.inOut",
-        repeat: -1,
-        yoyo: true,
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 1.2,
+        ease: "power2.out",
       });
     }, sectionRef);
 
-    return () => {
-      contextRef.current?.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="w-full flex flex-col md:flex-row dark:bg-[#1A1A2E] bg-[#F4F4F9] px-6 lg:px-24 pt-16 md:pt-28 pb-16 min-h-[80vh] items-center transition-all duration-500"
+      className="relative w-full py-40 px-6 lg:px-24 flex flex-col items-center overflow-hidden bg-background"
       id="contact"
     >
-      <div className="hidden md:flex relative w-full md:w-1/2 justify-center items-center h-full contact-image-wrapper">
-        <div className="relative w-full max-w-md">
-          <div className="absolute inset-0 bg-[#A78BFA]/20 dark:bg-[#4F46E5]/10 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] transform rotate-12 transition-all duration-1000"></div>
-          <Image
-            src="/right.png"
-            alt="Ridho Dimas Pointing"
-            width={700}
-            height={700}
-            priority
-            className="w-full relative z-10 drop-shadow-2xl contact-image" // Class untuk animasi GSAP
-          />
+      <BackgroundAtmosphere />
+
+      <div className="contact-reveal flex flex-col items-center text-center gap-6 max-w-4xl mb-24">
+        <div className="flex items-center gap-3">
+          <div className="h-[2px] w-16 bg-primary/30" />
+          <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary">
+            Send a Message
+          </h2>
+          <div className="h-[2px] w-16 bg-primary/30" />
+        </div>
+        <h1 className="text-6xl md:text-9xl font-black tracking-tighter font-serif leading-none">
+          Planting <span className="ghibli-text-gradient">Seeds</span>
+        </h1>
+        <p className="text-xl md:text-2xl text-foreground/60 font-medium italic max-w-2xl">
+          &quot;The best time to plant a tree was 20 years ago. The second best
+          time is today. Let&apos;s start something wonderful.&quot;
+        </p>
+      </div>
+
+      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-24 items-start relative">
+        {/* Left: Contact Info */}
+        <div className="contact-reveal flex flex-col gap-14 order-2 lg:order-none">
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-4xl font-black tracking-tight font-serif italic">
+                Direct Channels
+              </h3>
+              <div className="h-[2px] w-24 bg-primary/20" />
+            </div>
+
+            <div className="flex flex-col gap-8">
+              {socialLinks.map((link, idx) => (
+                <Link
+                  key={idx}
+                  href={link.href}
+                  target="_blank"
+                  className="flex items-center gap-10 p-10 paper-card group hover:bg-white transition-all bg-white/40 backdrop-blur-md shadow-xl border-white/20"
+                >
+                  <div className="p-6 bg-white rounded-[1.5rem] group-hover:scale-110 transition-transform shadow-inner text-primary">
+                    <Icon icon={link.icon} className="text-5xl" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <h4 className="text-2xl font-black text-foreground/80 group-hover:text-primary transition-colors font-serif">
+                      {link.label}
+                    </h4>
+                    <p className="text-base text-foreground/40 font-medium italic">
+                      {link.desc}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-12 paper-card bg-primary/5 border-primary/20 relative overflow-hidden group">
+            <div className="absolute top-[-20px] right-[-20px] w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+            <h4 className="font-black text-xl flex items-center gap-4 mb-6 font-serif text-primary">
+              <Icon
+                icon="lucide:clock-4"
+                className="text-3xl animate-spin-slow"
+              />
+              Workshop Rhythm
+            </h4>
+            <p className="text-xl text-foreground/70 leading-relaxed font-serif italic border-l-8 border-primary/20 pl-8">
+              Our forge remains active during the sunlight hours (Mon-Fri).
+              While messages are welcome any time, scrolls are typically
+              answered within one sun cycle.
+            </p>
+          </div>
+        </div>
+
+        {/* Right: Form */}
+        <div className="contact-reveal paper-card p-10 md:p-20 bg-white/60 backdrop-blur-xl relative overflow-hidden shadow-2xl skew-y-1">
+          <div className="absolute top-10 right-10 opacity-5 pointer-events-none">
+            <Icon icon="lucide:scroll" className="text-[15rem] -rotate-12" />
+          </div>
+
+          <form
+            ref={form}
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-10 relative z-10"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="flex flex-col gap-4">
+                <label className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 ml-6 font-serif italic">
+                  How should we call you?
+                </label>
+                <input
+                  required
+                  type="text"
+                  name="name"
+                  placeholder="A curious traveler"
+                  className="px-10 py-6 bg-white/40 rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
+                />
+              </div>
+              <div className="flex flex-col gap-4">
+                <label className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 ml-6 font-serif italic">
+                  Where to send back?
+                </label>
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  placeholder="messenger@wild.com"
+                  className="px-10 py-6 bg-white/40 rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <label className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 ml-6 font-serif italic">
+                Reason for the scroll
+              </label>
+              <input
+                required
+                type="text"
+                name="title"
+                placeholder="A new adventure begins..."
+                className="px-10 py-6 bg-white/40 rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
+              />
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <label className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 ml-6 font-serif italic">
+                Tell us your story
+              </label>
+              <textarea
+                required
+                name="message"
+                placeholder="Write your heart out here. Every word counts..."
+                rows={6}
+                className="px-10 py-8 bg-white/40 rounded-[2.5rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner resize-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="mt-6 px-12 py-8 bg-primary text-primary-foreground rounded-[2.5rem] font-black text-xs uppercase tracking-[0.5em] hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-6 group relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+              {loading ? (
+                <Icon
+                  icon="lucide:loader-2"
+                  className="animate-spin text-3xl"
+                />
+              ) : (
+                <>
+                  <span className="relative z-10">Send the Messenger</span>
+                  <Icon
+                    icon="lucide:bird"
+                    className="relative z-10 group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-700 text-3xl"
+                  />
+                </>
+              )}
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className="flex flex-col w-full md:w-1/2 py-8 gap-6 md:gap-10 justify-center items-center contact-form-content">
-        <div className="text-center max-w-sm">
-          <h1 className="text-4xl dark:text-yellow-300 text-yellow-600 font-extrabold tracking-tight">
-            Let&apos;s Connect! 🤝
-          </h1>
-          <p className="mt-2 text-base dark:text-gray-300 text-gray-600">
-            Whether it&apos;s a job opportunity, a collaboration idea, or just
-            feedback, I&apos;m ready to hear from you.
-          </p>
-        </div>
-
-        <form
-          ref={form}
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-5 w-full justify-center items-center"
-        >
-          <div className="w-full max-w-md flex flex-col gap-4">
-            <div className="gap-2 flex flex-col">
-              <Label className="dark:text-white text-gray-800" htmlFor="email">
-                Email
-              </Label>
-              <Input
-                required
-                type="email"
-                id="email"
-                name="email"
-                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
-                placeholder="Your professional email address"
-              />
-            </div>
-            <div className="gap-2 flex flex-col">
-              <Label className="dark:text-white text-gray-800" htmlFor="name">
-                Name
-              </Label>
-              <Input
-                required
-                type="text"
-                id="name"
-                name="name"
-                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
-                placeholder="Your full name"
-              />
-            </div>
-            <div className="gap-2 flex flex-col">
-              <Label
-                className="dark:text-white text-gray-800"
-                htmlFor="subject"
-              >
-                Subject
-              </Label>
-              <Input
-                type="text"
-                id="subject"
-                name="title"
-                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
-                placeholder="Project inquiry, feedback, or collaboration"
-              />
-            </div>
-            <div className="gap-2 flex flex-col">
-              <Label
-                className="dark:text-white text-gray-800"
-                htmlFor="message"
-              >
-                Message
-              </Label>
-              <Textarea
-                id="message"
-                name="message"
-                className="bg-white dark:bg-[#202033] dark:text-white border-gray-300 dark:border-gray-700 focus:border-[#A78BFA]"
-                placeholder="Write your detailed message here..."
-                rows={5}
-              />
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Your message will be securely sent directly to my professional
-                inbox.
-              </p>
-            </div>
-          </div>
-          <Button
-            type="submit"
-            disabled={loading}
-            variant={"outline"}
-            className="cursor-pointer group/btn w-full relative inline-flex items-center justify-center h-10 px-4 text-sm font-medium rounded-lg overflow-hidden transition-all duration-300 text-yellow-600 dark:text-yellow-300 border-2 border-yellow-600 dark:border-yellow-300 hover:text-white dark:hover:text-white"
-          >
-            {loading ? (
-              "Sending..."
-            ) : (
-              <>
-                <span className="relative z-10">
-                  <Icon icon="lucide:external-link" className="inline mr-2" />
-                  Send Message
-                </span>
-                <span className="absolute inset-0 bg-yellow-600 dark:bg-yellow-300 transform -translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-out z-0"></span>
-              </>
-            )}
-          </Button>
-
-          {/* Social Links Divider */}
-          <div className="flex items-center gap-2 max-w-md w-full my-2">
-            <hr className="flex-grow border-gray-300 dark:border-gray-700" />
-            <span className="text-center text-gray-500 dark:text-gray-400 text-sm">
-              or reach me via
-            </span>
-            <hr className="flex-grow border-gray-300 dark:border-gray-700" />
-          </div>
-
-          {/* Social Links (Clean Row) */}
-          <div className="flex flex-wrap gap-4 justify-center w-full max-w-md">
-            {socialLinks.map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                target="_blank"
-                className="flex items-center gap-2 text-sm dark:text-gray-300 text-gray-700 hover:text-[#4F46E5] dark:hover:text-[#A78BFA] transition-colors duration-300"
-              >
-                <Icon icon={link.icon} className="h-5 w-5" /> {link.label}
-              </Link>
-            ))}
-          </div>
-        </form>
+      {/* Decorative Post Mark */}
+      <div className="contact-reveal mt-32 flex flex-col items-center gap-6 opacity-30">
+        <Icon
+          icon="lucide:stamp"
+          className="text-6xl text-primary animate-float"
+        />
+        <span className="text-[10px] font-black uppercase tracking-[0.8em] text-primary">
+          Certified Sincere
+        </span>
       </div>
     </section>
   );

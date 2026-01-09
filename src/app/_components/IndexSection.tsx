@@ -3,39 +3,43 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const indexLinks = [
   {
     id: "completed-projects",
-    title: "Completed Projects",
-    description: "View the projects I have successfully completed.",
-    icon: "lucide:check-circle",
+    title: "The Archives",
+    description:
+      "Chronicles of battle-tested solutions and ancient production code.",
+    icon: "lucide:book-open",
   },
   {
     id: "current-projects",
-    title: "Current Projects",
-    description: "Explore the projects I am actively working on.",
-    icon: "lucide:layers-3",
+    title: "The Workshop",
+    description: "Active enchantments and experimental seeds in progress.",
+    icon: "lucide:hammer",
   },
   {
     id: "other-projects",
-    title: "Pending Projects",
-    description: "Check out the projects in the pipeline.",
-    icon: "lucide:clock",
+    title: "The Daydreams",
+    description: "Architecting the wonders of tomorrow in the dreaming phase.",
+    icon: "lucide:cloud",
   },
 ];
 
 const projectStats = [
-  { label: "In Progress", count: 1, color: "text-blue-400" },
-  { label: "Pending", count: 4, color: "text-orange-400" },
-  { label: "Totally Complete", count: 4, color: "text-green-400" },
-  { label: "Total Projects", count: 9, color: "text-purple-400" },
+  { label: "Active", count: 1, color: "text-primary", icon: "lucide:sprout" },
+  { label: "Planned", count: 4, color: "text-accent", icon: "lucide:compass" },
+  { label: "Success", count: 4, color: "text-secondary", icon: "lucide:crown" },
+  { label: "Total", count: 9, color: "text-ghibli-oak", icon: "lucide:scroll" },
 ];
 
 export default function IndexSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const introRefs = useRef<HTMLDivElement[]>([]);
-  const linkRefs = useRef<HTMLDivElement[]>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = (id: string) => {
     const el = document.getElementById(id);
@@ -45,34 +49,20 @@ export default function IndexSection() {
   };
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Intro animation
-      gsap.from(introRefs.current, {
-        y: 30,
+      gsap.from(".index-reveal", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        y: 40,
         opacity: 0,
         stagger: 0.15,
-        duration: 0.8,
+        duration: 1.2,
         ease: "power2.out",
       });
-
-      // Index links animation
-      gsap.fromTo(
-        linkRefs.current,
-        {
-          x: 50,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.2,
-          duration: 0.9,
-          ease: "power3.out",
-          delay: 0.3,
-        }
-      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -82,108 +72,111 @@ export default function IndexSection() {
     <section
       ref={sectionRef}
       id="index"
-      className="w-full min-h-screen dark:bg-[#1A1A2E] bg-[#F4F4F9] flex flex-col gap-12 py-16 px-6 lg:px-24 items-center justify-center transition-all duration-500"
+      className="w-full min-h-screen py-32 px-6 lg:px-24 flex items-center justify-center relative overflow-hidden bg-background"
     >
-      {/* Title */}
-      <div
-        ref={(el) => {
-          if (el) introRefs.current[0] = el;
-        }}
-        className="text-center"
-      >
-        <h1 className="text-4xl md:text-5xl dark:text-yellow-300 text-yellow-600 font-extrabold tracking-tight">
-          Project Index
-        </h1>
-        <p className="mt-2 md:text-xl dark:text-gray-300 text-gray-600 max-w-3xl mx-auto">
-          A quick overview of my portfolio, categorized by status.
-        </p>
+      {/* Decorative Atmosphere */}
+      <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
+        <div className="absolute top-[20%] right-[-5%] w-[30rem] h-[30rem] bg-accent/5 blur-[100px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[20%] left-[-5%] w-[25rem] h-[25rem] bg-primary/5 blur-[100px] rounded-full animate-float" />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start w-full max-w-6xl">
-        {/* Left */}
-        <div className="w-full md:w-1/2 flex flex-col gap-8">
-          <div
-            ref={(el) => {
-              if (el) introRefs.current[1] = el;
-            }}
-          >
-            <h2 className="text-2xl md:text-3xl dark:text-white font-bold tracking-tight">
-              Explore My Technical Journey
+      <div ref={containerRef} className="w-full max-w-7xl flex flex-col gap-24">
+        {/* Header */}
+        <div className="index-reveal flex flex-col gap-6 text-center md:text-left max-w-4xl">
+          <div className="flex items-center gap-3 justify-center md:justify-start">
+            <div className="h-[2px] w-12 bg-primary/30" />
+            <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary">
+              The Path Map
             </h2>
-            <p className="md:text-lg dark:text-gray-400 mt-4 text-justify">
-              This portfolio organizes my work into three key stages:{" "}
-              <span className="text-yellow-600 dark:text-yellow-300 font-medium">
-                Current
-              </span>{" "}
-              (actively developing),
-              <span className="text-yellow-600 dark:text-yellow-300 font-medium">
-                {" "}
-                Pending
-              </span>{" "}
-              (in the pipeline), and{" "}
-              <span className="text-yellow-600 dark:text-yellow-300 font-medium">
-                {" "}
-                Completed
-              </span>{" "}
-              (finished accomplishments).
-            </p>
           </div>
-
-          <div
-            ref={(el) => {
-              if (el) introRefs.current[2] = el;
-            }}
-            className="grid grid-cols-2 gap-4 mt-2"
-          >
-            {projectStats.map((stat, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-center p-2 rounded-xl bg-white dark:bg-[#202033] shadow-lg border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-xl hover:scale-[1.02]"
-              >
-                <h3
-                  className={`text-sm md:text-base font-medium ${stat.color}`}
-                >
-                  {stat.label}
-                </h3>
-                <p className="dark:text-white text-3xl md:text-4xl font-extrabold mt-1">
-                  {stat.count}
-                </p>
-                <p className="text-xs dark:text-gray-400">Projects</p>
-              </div>
-            ))}
-          </div>
+          <h1 className="text-5xl md:text-8xl font-black leading-tight font-serif tracking-tight">
+            Charting the <br />{" "}
+            <span className="ghibli-text-gradient">Technical Wilderness</span>
+          </h1>
+          <p className="text-xl md:text-3xl text-foreground/60 font-medium italic border-l-4 md:border-l-8 border-primary/20 md:pl-10 leading-relaxed md:ml-2">
+            &quot;A collection of artifacts, experiments, and production legacy,
+            meticulously organized for fellow travelers.&quot;
+          </p>
         </div>
 
-        {/* Right (Index Links) */}
-        <div className="w-full md:w-1/2 flex flex-col gap-6">
-          {indexLinks.map((link, index) => (
-            <div
-              key={index}
-              ref={(el) => {
-                if (el) linkRefs.current[index] = el;
-              }}
-              onClick={() => handleScroll(link.id)}
-              className="dark:text-white p-4 md:p-6 rounded-xl cursor-pointer bg-white dark:bg-[#202033] shadow-lg transition-all duration-300 border-l-4 border-transparent hover:border-[#A78BFA] hover:shadow-xl hover:scale-[1.02] flex items-center justify-between"
-            >
-              <div className="flex items-center gap-4">
-                <Icon
-                  icon={link.icon}
-                  className="text-5xl md:text-6xl text-yellow-600 dark:text-yellow-300"
-                />
-                <div>
-                  <h3 className="text-lg md:text-xl font-bold">{link.title}</h3>
-                  <p className="text-xs md:text-sm dark:text-gray-400">
-                    {link.description}
-                  </p>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
+          {/* Left: Philosophy & Stats */}
+          <div className="lg:col-span-12 xl:col-span-5 flex flex-col gap-16">
+            <div className="index-reveal flex flex-col gap-6">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/30">
+                The Philosophy
+              </h3>
+              <p className="text-xl leading-relaxed text-foreground/70 font-serif text-justify">
+                Engineering is more than syntax; it&apos;s the art of creating
+                living habitats for humanity. This ledger serves as a map
+                through the dense forests of production code and the
+                light-filled meadows of side projects.
+              </p>
+              <div className="flex items-center gap-4 text-primary italic font-serif text-lg">
+                <Icon icon="lucide:feather" className="text-2xl" />
+                <span>Scroll to explore the chapters.</span>
               </div>
-
-              <Icon
-                icon="lucide:arrow-right"
-                className="text-3xl text-gray-500 dark:text-gray-400"
-              />
             </div>
-          ))}
+
+            <div className="index-reveal grid grid-cols-2 gap-6">
+              {projectStats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="paper-card p-10 flex flex-col gap-4 group relative overflow-hidden bg-white/40 backdrop-blur-sm"
+                >
+                  <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 group-hover:scale-125 transition-all duration-700">
+                    <Icon icon={stat.icon} className="text-7xl" />
+                  </div>
+                  <span
+                    className={`text-[10px] font-black uppercase tracking-widest ${stat.color} opacity-80`}
+                  >
+                    {stat.label}
+                  </span>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-6xl font-black tracking-tighter transition-transform group-hover:translate-x-1">
+                      {stat.count < 10 ? `0${stat.count}` : stat.count}
+                    </span>
+                    <span className="text-foreground/30 text-xs font-black uppercase tracking-widest">
+                      Units
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Navigation */}
+          <div className="lg:col-span-12 xl:col-span-7 flex flex-col gap-10">
+            {indexLinks.map((link, index) => (
+              <motion.div
+                key={index}
+                onClick={() => handleScroll(link.id)}
+                whileHover={{ x: 10 }}
+                className="index-reveal paper-card p-12 flex items-center justify-between group cursor-pointer border-primary/10 bg-white/60 hover:bg-white transition-all duration-500"
+              >
+                <div className="flex items-center gap-10">
+                  <div className="p-6 bg-primary/10 rounded-[2rem] group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-700 animate-float shadow-inner">
+                    <Icon icon={link.icon} className="text-5xl md:text-6xl" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-3xl md:text-4xl font-black tracking-tight font-serif group-hover:text-primary transition-colors">
+                      {link.title}
+                    </h3>
+                    <p className="text-base md:text-xl text-foreground/50 font-medium italic">
+                      {link.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="hidden sm:flex items-center justify-center w-16 h-16 rounded-full border-2 border-border/50 group-hover:border-primary group-hover:bg-primary/10 transition-all duration-500 shadow-sm">
+                  <Icon
+                    icon="lucide:arrow-down-right"
+                    className="text-3xl group-hover:rotate-45 transition-all text-primary"
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

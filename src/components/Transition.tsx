@@ -1,91 +1,65 @@
 "use client";
+
 import useMobile from "@/hooks/useMobile";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 const transitionVariants = {
   initial: {
-    x: "100%",
-    width: "100%",
+    opacity: 1,
   },
   animate: {
     opacity: 0,
-  },
-  exit: {
-    x: ["0%", "100%"],
-    width: ["0%", "100%"],
+    transition: {
+      duration: 1,
+      ease: "easeInOut",
+      delay: 1.5,
+    },
   },
 };
 
 const Transition = () => {
   const mobile = useMobile();
-  const ROWS = mobile ? 10 : 4;
-  return (
-    <>
-      <motion.div
-        className="fixed realtive top-0 bottom-0 right-full w-screen h-screen z-50 dark:bg-[#383444] bg-[#E5E3F1] pointer-events-none"
-        variants={transitionVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ delay: 1.5, duration: 0.5, ease: "easeInOut" }}
-      >
-        <div
-          className="absolute inset-0 grid w-full h-full"
-          style={{
-            display: "grid",
-            gridTemplateRows: `repeat(${ROWS}, 1fr)`,
+  const ROWS = mobile ? 5 : 3;
 
-            zIndex: 10,
-          }}
-        >
-          {!mobile ? (
-            Array.from({ length: ROWS }).map((_, i) => (
-              <motion.span
-                key={i}
-                className="flex items-center justify-center text-xl text-[16vw] font-extrabold text-gray-600 dark:text-gray-300 opacity-30 select-none pointer-events-none m-0 p-0 leading-tight"
-                style={{
-                  letterSpacing: "0.05em",
-                  userSelect: "none",
-                  margin: 0,
-                  padding: 0,
-                  lineHeight: 1,
-                }}
-                initial={{
-                  x: i % 2 === 0 ? "-100vw" : "100vw",
-                  opacity: 0,
-                }}
-                animate={{
-                  x: 0,
-                  opacity: 1,
-                }}
-                transition={{
-                  delay: 0.2 + i * 0.08,
-                  duration: 0.6,
-                  ease: "easeOut",
-                }}
-              >
-                WELCOME!
-              </motion.span>
-            ))
-          ) : (
-            <div className="flex flex-col items-center justify-center h-screen w-screen">
-              <h1 className="font-extrabold text-xl">
-                WELCOME!
-              </h1>
-              <p className="text-gray-600 dark:text-gray-300">Use Desktop Version for better experience</p>
-            </div>
-          )}
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-background pointer-events-none"
+      variants={transitionVariants}
+      initial="initial"
+      animate="animate"
+    >
+      <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col gap-2 items-center overflow-hidden">
+          {Array.from({ length: ROWS }).map((_, i) => (
+            <motion.h1
+              key={i}
+              className="text-5xl md:text-8xl font-black tracking-tighter text-primary/5 select-none font-serif italic"
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                delay: 0.3 + i * 0.15,
+                duration: 1.2,
+                ease: [0.76, 0, 0.24, 1],
+              }}
+            >
+              The World Awaits<span className="text-secondary">.</span>
+            </motion.h1>
+          ))}
         </div>
-        <Image
-          src="/me.png"
-          alt="test"
-          width={1000}
-          height={1000}
-          className="hidden md:block absolute left-1/2 bottom-0 transform -translate-x-1/2 md:top-2/3 md:left-[55%] md:bottom-auto md:-translate-y-1/2 z-20"
-        />
-      </motion.div>
-    </>
+
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 1.2, ease: "easeOut" }}
+          className="flex flex-col items-center gap-4"
+        >
+          <div className="h-[2px] w-24 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/20 font-serif">
+            Setting the scene
+          </p>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 

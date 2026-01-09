@@ -1,62 +1,86 @@
 "use client";
+
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { gsap } from "gsap";
+import Link from "next/link";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { cn } from "@/utils/cn";
 
 const images = [
   {
     src: "/card/labskillv2-2.png",
-    desc: "Refined, modern UI/UX design with dark mode support.",
+    desc: "Refining the essence of user delight through organic design systems.",
     alt: "Modern UI/UX Design Screenshot",
   },
   {
     src: "/card/labskillv2-1.png",
-    desc: "Optimized data fetching using React Query for superior performance.",
-    alt: "React Query Implementation Screenshot",
+    desc: "A symphony of clean code and high-performance architecture.",
+    alt: "Performance Implementation Screenshot",
   },
 ];
 
 const variants = {
-  enter: (direction: number) => {
-    return {
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.9,
-    };
-  },
+  enter: (direction: number) => ({
+    x: direction > 0 ? 500 : -500,
+    opacity: 0,
+    scale: 0.95,
+  }),
   center: {
     zIndex: 1,
     x: 0,
     opacity: 1,
     scale: 1,
     transition: {
-      x: { type: "spring", stiffness: 300, damping: 30 },
-      opacity: { duration: 0.2 },
+      x: { type: "spring", stiffness: 200, damping: 25 },
+      opacity: { duration: 0.3 },
     },
   },
-  exit: (direction: number) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.9,
-      transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
-      },
-    };
-  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 500 : -500,
+    opacity: 0,
+    scale: 0.95,
+    transition: {
+      x: { type: "spring", stiffness: 200, damping: 25 },
+      opacity: { duration: 0.3 },
+    },
+  }),
 };
+
+const BackgroundAtmosphere = () => (
+  <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+    {/* Floating Clouds/Glows */}
+    <div className="absolute top-[10%] left-[-10%] w-[50rem] h-[50rem] bg-secondary/10 blur-[130px] rounded-full animate-pulse" />
+    <div className="absolute bottom-[20%] right-[-10%] w-[40rem] h-[40rem] bg-primary/10 blur-[110px] rounded-full animate-float [animation-delay:2s]" />
+
+    {/* Decorative Seeds */}
+    {[...Array(8)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-2 h-2 bg-primary/20 rounded-full"
+        initial={{ y: "100%", x: `${Math.random() * 100}%`, opacity: 0 }}
+        animate={{
+          y: "-10%",
+          x: `${Math.random() * 100 + (i % 2 === 0 ? 10 : -10)}%`,
+          opacity: [0, 0.4, 0],
+        }}
+        transition={{
+          duration: 15 + Math.random() * 20,
+          repeat: Infinity,
+          ease: "linear",
+          delay: Math.random() * 15,
+        }}
+      />
+    ))}
+  </div>
+);
 
 export default function CurrentProjectSection() {
   const [[current, direction], setCurrentState] = useState([0, 0]);
   const sectionRef = useRef(null);
-  const contextRef = useRef<gsap.Context | null>(null);
 
   const paginate = (newDirection: number) => {
     setCurrentState([
@@ -66,169 +90,223 @@ export default function CurrentProjectSection() {
   };
 
   useEffect(() => {
-    if (contextRef.current) {
-      contextRef.current.revert();
-    }
+    gsap.registerPlugin(ScrollTrigger);
 
-    contextRef.current = gsap.context(() => {
-      const card = document.querySelector(".current-project-card");
-      if (card) {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 50, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 90%", // Trigger earlier on mobile
-              toggleActions: "play none none reverse",
-            },
-            delay: 0.3,
-          }
-        );
-      }
-
-      gsap.fromTo(
-        ".current-header-element",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 90%",
-          },
-        }
-      );
+    const ctx = gsap.context(() => {
+      gsap.from(".current-reveal", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 1.2,
+        ease: "power2.out",
+      });
     }, sectionRef);
 
-    return () => {
-      contextRef.current?.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full dark:bg-[#1A1A2E] bg-[#F4F4F9] min-h-screen h-fit px-6 lg:px-24 flex flex-col gap-10 py-12 md:py-28 transition-all duration-500"
+      className="relative w-full py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
       id="current-projects"
     >
-      <div className="text-center">
-        <h1 className="text-4xl md:text-5xl dark:text-yellow-300 text-yellow-600 font-extrabold tracking-tight current-header-element">
-          🚧 Project In Progress
+      <BackgroundAtmosphere />
+
+      <div className="current-reveal flex flex-col items-center text-center gap-6 max-w-4xl mx-auto">
+        <div className="flex items-center gap-3">
+          <div className="h-[2px] w-12 bg-primary/30" />
+          <h2 className="text-sm font-black uppercase tracking-[0.5em] text-primary">
+            The Workshop
+          </h2>
+          <div className="h-[2px] w-12 bg-primary/30" />
+        </div>
+        <h1 className="text-6xl md:text-9xl font-black tracking-tighter font-serif leading-none">
+          Active <span className="ghibli-text-gradient">Enchantments</span>
         </h1>
-        <p className="mt-2 md:text-xl dark:text-gray-300 text-gray-600 max-w-3xl mx-auto current-header-element">
-          Actively pushing boundaries and implementing new technologies on my
-          current focus project.
+        <p className="text-xl md:text-2xl text-foreground/60 font-medium italic max-w-2xl px-4">
+          &quot;Currently nurturing the next generation of digital habitats,
+          where code meets the whimsical rhythm of nature.&quot;
         </p>
       </div>
 
-      <div className="current-project-card flex flex-col md:flex-row w-full gap-0 transition-all duration-700 bg-white dark:bg-[#202033] rounded-3xl overflow-hidden shadow-2xl hover:shadow-2xl/80 group">
-        <div className="md:w-1/3 w-full flex flex-col justify-between px-6 py-8 md:p-10 border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700">
-          <div>
-            <span className="text-sm font-semibold text-orange-500 dark:text-orange-400">
-              FEATURED PROJECT
-            </span>
-            <h2 className="text-4xl font-extrabold dark:text-white mt-1 mb-4 tracking-tight">
-              Labskill V2
-            </h2>
-            <p className="dark:text-white/70 text-gray-700 text-base mb-6">
-              Labskill V2 is a complete platform overhaul to enhance the
-              learning experience, focusing on modern architecture, performance,
-              and intuitive user interaction.
-            </p>
+      <div className="current-reveal paper-card flex flex-col xl:flex-row w-full max-w-7xl mx-auto overflow-hidden bg-card/60 backdrop-blur-md shadow-2xl skew-x-[-1deg]">
+        {/* Left Side: Info */}
+        <div className="xl:w-2/5 w-full flex flex-col justify-between p-12 md:p-20 border-b xl:border-b-0 xl:border-r border-border/50 bg-white/40">
+          <div className="flex flex-col gap-10">
+            <div className="flex items-center gap-4">
+              <div className="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_20px_oklch(var(--primary))]" />
+              <span className="text-xs font-black uppercase tracking-[0.4em] text-primary">
+                In Bloom
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <h2 className="text-6xl md:text-8xl font-black tracking-tighter font-serif leading-none">
+                Labskill <span className="text-primary italic">V2</span>
+              </h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/30 ml-1">
+                Project Code: LS-2024
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-6">
+              <p className="text-xl text-foreground/70 leading-relaxed font-serif text-justify border-l-8 border-secondary/20 pl-8 italic">
+                A gentle reimagining of our learning habitat. We&apos;re
+                architecting a space where curiosity flows without friction,
+                powered by an invisible but potent engine of innovation.
+              </p>
+              <p className="text-base text-foreground/50 font-serif leading-relaxed">
+                This iteration focuses on the symbiosis between high-performance
+                architecture and human-centric design, ensuring every
+                interaction feels as natural as the wind through the trees.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-8 mt-4">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-foreground/30">
+                Foundational Principles
+              </h3>
+              <div className="grid grid-cols-1 gap-6">
+                {[
+                  {
+                    icon: "lucide:wind",
+                    label: "Fluidity",
+                    text: "Zero-friction navigation",
+                    color: "text-secondary",
+                  },
+                  {
+                    icon: "lucide:sprout",
+                    label: "Sustainability",
+                    text: "Carbon-neutral logic",
+                    color: "text-primary",
+                  },
+                  {
+                    icon: "lucide:sparkles",
+                    label: "Wonder",
+                    text: "Micro-delightful details",
+                    color: "text-accent",
+                  },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-6 p-6 bg-white/60 rounded-3xl border border-border/30 group hover:border-primary/40 transition-all shadow-inner"
+                  >
+                    <div
+                      className={cn(
+                        "p-4 rounded-[1.5rem] bg-white shadow-sm transition-transform group-hover:scale-110",
+                        item.color
+                      )}
+                    >
+                      <Icon icon={item.icon} className="text-3xl" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-black text-foreground/30 uppercase tracking-widest">
+                        {item.label}
+                      </span>
+                      <span className="text-sm font-black text-foreground/70 uppercase tracking-widest">
+                        {item.text}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="mt-6">
-            <h3 className="text-lg font-bold dark:text-white mb-3 flex items-center gap-2">
-              <Icon icon="lucide:target" className="text-[#A78BFA]" />
-              Key Development Goals
-            </h3>
-            <ul className="space-y-2 text-sm dark:text-gray-400 text-gray-600">
-              <li className="flex items-center gap-2">
-                <Icon icon="lucide:code-square" className="text-green-500" />
-                Next.js App Router migration.
-              </li>
-              <li className="flex items-center gap-2">
-                <Icon icon="lucide:zap" className="text-yellow-500" />
-                Performance optimization (React Query/Caching).
-              </li>
-              <li className="flex items-center gap-2">
-                <Icon icon="lucide:sparkles" className="text-[#A78BFA]" />
-                Full UI/UX redesign (Modern & Minimalist).
-              </li>
-            </ul>
-            <a
-              href="#"
-              className="mt-6 inline-flex items-center text-sm font-semibold dark:text-[#A78BFA] text-[#4F46E5] hover:underline"
-            >
-              View Development Log
-              <Icon icon="lucide:arrow-right" className="ml-2 h-4 w-4" />
-            </a>
-          </div>
+          <Link
+            href="#"
+            className="mt-16 flex items-center justify-between p-10 bg-primary/5 rounded-[2rem] hover:bg-primary/10 transition-all group border border-primary/20 shadow-sm"
+          >
+            <div className="flex flex-col gap-1">
+              <span className="font-black text-[10px] uppercase tracking-[0.4em] text-primary/60 group-hover:text-primary transition-colors">
+                The Workshop Diary
+              </span>
+              <span className="text-xs text-foreground/40 font-serif italic">
+                Viewing 12 current entry...
+              </span>
+            </div>
+            <div className="w-14 h-14 flex items-center justify-center bg-white rounded-full shadow-md group-hover:scale-110 transition-all">
+              <Icon icon="lucide:feather" className="text-2xl text-primary" />
+            </div>
+          </Link>
         </div>
 
-        <div className="md:w-2/3 w-full relative min-h-[400px] md:min-h-[500px]">
-          <div className="relative w-full h-full bg-gray-900 overflow-hidden flex items-center justify-center">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={current}
-                className="absolute w-full h-full"
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-              >
-                <Image
-                  src={images[current].src}
-                  alt={images[current].alt}
-                  priority={current === 0}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-80" // Efek subtle hover scale
-                />
+        {/* Right Side: Slider */}
+        <div className="xl:w-3/5 w-full relative min-h-[600px] md:min-h-[900px] bg-ghibli-oak/20 overflow-hidden">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
+            <motion.div
+              key={current}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[current].src}
+                alt={images[current].alt}
+                fill
+                className="object-cover opacity-90 transition-transform duration-[10s] hover:scale-110"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent border-t border-white/10" />
 
+              <div className="absolute bottom-16 left-16 md:left-24 right-16 md:right-24">
                 <motion.div
-                  className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-white p-6 md:p-8 flex flex-col justify-end"
-                  key={`desc-${current}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
+                  className="flex flex-col gap-6"
                 >
-                  <p className="text-xl font-bold">{images[current].desc}</p>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs font-mono opacity-70">
-                      {current + 1} / {images.length} Screenshots
-                    </span>
-                    <span className="text-xs bg-white/10 px-2 py-0.5 rounded-full font-medium">
-                      In Development
+                  <div className="paper-card p-10 md:p-14 bg-white/40 backdrop-blur-xl border-white/40 shadow-2xl relative overflow-hidden">
+                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />
+                    <p className="text-3xl md:text-5xl font-black tracking-tight text-foreground font-serif leading-tight">
+                      &quot;{images[current].desc}&quot;
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-8 px-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
+                      <span className="text-xs font-black tracking-[0.4em] text-foreground/40 uppercase">
+                        Chapter {current + 1}
+                      </span>
+                    </div>
+                    <div className="h-[1px] flex-grow bg-foreground/10" />
+                    <span className="text-xs font-black tracking-[0.4em] text-foreground/40 uppercase">
+                      OF {images.length}
                     </span>
                   </div>
                 </motion.div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
+          {/* Navigation */}
+          <div className="absolute top-16 right-16 flex gap-6 z-10">
             <button
               onClick={() => paginate(-1)}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm text-white/80 p-3 rounded-full hover:bg-white/20 transition-colors duration-300 z-10 shadow-lg"
-              aria-label="Previous image"
+              className="w-16 h-16 flex items-center justify-center bg-white/80 backdrop-blur-md rounded-[1.5rem] border border-white/50 hover:bg-white transition-all active:scale-90 shadow-xl group"
             >
-              <Icon icon="lucide:chevron-left" className="h-5 w-5" />
+              <Icon
+                icon="lucide:arrow-left"
+                className="text-3xl text-primary group-hover:-translate-x-1 transition-transform"
+              />
             </button>
             <button
               onClick={() => paginate(1)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm text-white/80 p-3 rounded-full hover:bg-white/20 transition-colors duration-300 z-10 shadow-lg"
-              aria-label="Next image"
+              className="w-16 h-16 flex items-center justify-center bg-white/80 backdrop-blur-md rounded-[1.5rem] border border-white/50 hover:bg-white transition-all active:scale-90 shadow-xl group"
             >
-              <Icon icon="lucide:chevron-right" className="h-5 w-5" />
+              <Icon
+                icon="lucide:arrow-right"
+                className="text-3xl text-primary group-hover:translate-x-1 transition-transform"
+              />
             </button>
           </div>
         </div>

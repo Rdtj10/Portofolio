@@ -50,7 +50,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -75,7 +75,7 @@ export default function Navbar() {
         });
       },
       {
-        rootMargin: "-50% 0px -50% 0px", // supaya trigger saat section berada di tengah viewport
+        rootMargin: "-50% 0px -50% 0px",
         threshold: 0.1,
       }
     );
@@ -99,7 +99,6 @@ export default function Navbar() {
 
   const isActive = (id: string) => activeSection === id;
 
-  // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -121,9 +120,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (searchParams.get("unauthorized") === "true") {
-      toast.error(
-        "Access denied. You can't reach that without knowing the beast’s true name 🐍"
-      );
+      toast.error("Whoops! Only authorized spirits can pass through here 🌿");
     }
   }, [searchParams]);
 
@@ -131,35 +128,49 @@ export default function Navbar() {
     <>
       <nav
         className={cn(
-          "backdrop-blur-md p-6 border-b transition-all duration-300 bg-transparent lg:px-24 w-full",
+          "transition-all duration-700 w-full lg:px-24 p-6",
           isScrolled
-            ? "fixed top-0 left-0 right-0 z-50 bg-background/10 border-b-border shadow-md animate-in slide-in-from-top duration-300"
-            : "border-b-transparent absolute z-20",
+            ? "fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl border-b border-border/30 shadow-2xl py-4"
+            : "absolute z-20 border-b border-transparent py-8",
           pathname.startsWith("/cms") && "hidden"
         )}
       >
-        <div className="flex items-center justify-between ">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex flex-row items-center justify-between w-full">
-            <Link
-              href="/"
-              className="flex items-center shrink-0 gap-1 dark:text-white font-bold"
-            >
-              <Image
-                src={
-                  theme === "dark"
-                    ? "/logo/logo-light.png"
-                    : "/logo/logo-dark.png"
-                }
-                alt="ridho dimas"
-                height={50}
-                width={50}
-              />
-            </Link>
+            <div className="flex items-center gap-12">
+              <Link
+                href="/"
+                className="flex items-center shrink-0 gap-1 font-bold group"
+              >
+                <div className="relative overflow-hidden p-1">
+                  <Image
+                    src={
+                      theme === "dark"
+                        ? "/logo/logo-light.png"
+                        : "/logo/logo-dark.png"
+                    }
+                    alt="ridho dimas"
+                    height={45}
+                    width={45}
+                    className="group-hover:rotate-12 transition-transform duration-500 scale-110"
+                  />
+                </div>
+              </Link>
+
+              {/* Status Indicator (Desktop) */}
+              <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-primary/5 rounded-full border border-primary/10">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40 italic font-serif">
+                  Current Status:{" "}
+                  <span className="text-primary">Nurturing Labskill V2</span>
+                </span>
+              </div>
+            </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:block">
               <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="gap-4">
                   {pathname !== "/" ? (
                     <NavigationMenuItem>
                       <NavigationMenuLink asChild>
@@ -167,10 +178,11 @@ export default function Navbar() {
                           href="/"
                           className={cn(
                             navigationMenuTriggerStyle(),
-                            "text-white rounded-none relative group bg-transparent hover:bg-transparent cursor-pointer"
+                            "text-foreground/60 rounded-xl relative group bg-transparent hover:bg-primary/5 cursor-pointer font-serif italic text-lg flex items-center gap-2"
                           )}
                         >
-                          &larr; Back
+                          <Icon icon="lucide:undo-2" />
+                          Return to Meadow
                         </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
@@ -185,13 +197,25 @@ export default function Navbar() {
                           }
                           className={cn(
                             navigationMenuTriggerStyle(),
-                            "dark:text-white rounded-none relative group after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 bg-transparent hover:bg-transparent cursor-pointer",
+                            "text-foreground/50 rounded-xl relative group bg-transparent hover:bg-primary/5 cursor-pointer font-black uppercase tracking-[0.3em] text-[10px] transition-all py-6 px-6",
                             isActive(item.id)
-                              ? "font-semibold after:w-full"
-                              : "after:w-0 hover:after:w-full"
+                              ? "text-primary bg-primary/5"
+                              : "hover:text-primary"
                           )}
                         >
-                          {item.title}
+                          <span className="relative z-10">{item.title}</span>
+                          {isActive(item.id) && (
+                            <motion.div
+                              layoutId="active-pill"
+                              className="absolute inset-0 bg-primary/10 rounded-xl -z-10 shadow-sm"
+                              transition={{
+                                type: "spring",
+                                bounce: 0.3,
+                                duration: 0.6,
+                              }}
+                            />
+                          )}
+                          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary group-hover:w-1/2 transition-all" />
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     ))
@@ -200,37 +224,41 @@ export default function Navbar() {
               </NavigationMenu>
             </div>
 
-            <div className="hidden md:flex items-center gap-4">
-              <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-10">
+              <div className="flex items-center gap-3 px-3 py-1.5 paper-card bg-white/40 border-white/60">
+                <Icon icon="lucide:sun" className="text-secondary text-lg" />
                 <Switch
                   id="dark-mode"
                   checked={theme === "light"}
                   onCheckedChange={toggleTheme}
                   className="cursor-pointer"
                 />
+                <Icon icon="lucide:moon" className="text-primary text-sm" />
               </div>
               <Tooltip>
                 <TooltipTrigger>
                   <div
-                    className="relative group cursor-pointer"
+                    className="relative group cursor-pointer p-4 paper-card bg-accent/10 hover:bg-accent transition-all duration-500 hover:text-accent-foreground border-accent/20"
                     onClick={() => setQuestOpen(true)}
                   >
                     <Icon
-                      icon="pepicons-pencil:enter"
-                      width="40"
-                      height="40"
-                      className="group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:duration-300 group-hover:transition-all duration-300 transition-all"
+                      icon="lucide:sparkles"
+                      width="24"
+                      height="24"
+                      className="group-hover:rotate-180 transition-transform duration-700"
                     />
-                    <Icon
-                      icon="pepicons-print:enter"
-                      width="40"
-                      height="40"
-                      className="absolute opacity-0  bottom-0.5 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:opacity-50 group-hover:duration-300 group-hover:transition-all duration-300 transition-all"
-                    />
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping opacity-75" />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>
-                  <p>Me Only!</p>
+                <TooltipContent className="bg-white text-primary border-primary/20 font-serif italic p-4 shadow-xl">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-black uppercase tracking-widest text-[10px]">
+                      Alchemist&apos;s Key
+                    </p>
+                    <p className="text-xs">
+                      Unlock the workshop&apos;s hidden chambers.
+                    </p>
+                  </div>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -241,111 +269,121 @@ export default function Navbar() {
             ref={menuButtonRef}
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden text-primary p-2 h-12 w-12"
             onClick={toggleMobileMenu}
             aria-label="Toggle menu"
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-8 w-8" />
           </Button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay - Separate from the header */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             ref={menuRef}
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 bg-background/50 backdrop-blur-md z-50 top-20 m-2 rounded-xl h-fit"
-            style={{
-              boxShadow:
-                "0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5)",
-            }}
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden fixed inset-x-4 top-24 z-50 p-10 paper-card bg-white/95 backdrop-blur-2xl border-primary/20 h-fit shadow-2xl"
           >
-            <div className="flex flex-col gap-4">
-              {/* Mobile Menu Content */}
-              <div className="flex-1 overflow-auto">
-                <div className="p-6">
-                  <div className="flex flex-col space-y-6">
-                    {pathname !== "/" ? (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 }}
+            <div className="flex flex-col gap-10">
+              <div className="flex flex-col space-y-6">
+                {pathname !== "/" ? (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                  >
+                    <Link
+                      href={"/"}
+                      className="text-2xl font-serif italic text-primary flex items-center gap-3"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Icon icon="lucide:undo-2" />
+                      Return to Meadow
+                    </Link>
+                  </motion.div>
+                ) : (
+                  navigationMenuConfig?.items?.map((item, index) => (
+                    <motion.div
+                      key={item.title}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                    >
+                      <p
+                        onClick={() => {
+                          if (item.id === "about") setDialogOpen(true);
+                          else handleClick(item.id);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className={cn(
+                          "text-xl font-black uppercase tracking-[0.4em] transition-all py-2",
+                          isActive(item.id)
+                            ? "text-primary border-l-8 border-primary pl-6"
+                            : "text-foreground/30 hover:text-primary hover:pl-6"
+                        )}
                       >
-                        <Link
-                          href={"/"}
-                          className={cn(
-                            "text-base font-normal transition-colors relative group",
-                            "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300"
-                          )}
-                        >
-                          Back to Home
-                        </Link>
-                      </motion.div>
-                    ) : (
-                      navigationMenuConfig?.items?.map((item, index) => (
-                        <motion.div
-                          key={item.title}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.05 * index }}
-                        >
-                          <p
-                            onClick={
-                              item.id === "about"
-                                ? () => setDialogOpen(true)
-                                : () => handleClick(item.id)
-                            }
-                            className={cn(
-                              "text-base font-normal transition-colors relative group",
-                              "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
-                              isActive(item.id)
-                                ? "text-primary font-medium after:w-full"
-                                : "hover:text-primary after:w-0 hover:after:w-full"
-                            )}
-                          >
-                            {item.title}
-                          </p>
-                        </motion.div>
-                      ))
-                    )}
-                  </div>
-                </div>
+                        {item.title}
+                      </p>
+                    </motion.div>
+                  ))
+                )}
               </div>
 
-              {/* Mobile Menu Footer */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="p-6 border-t"
+                transition={{ delay: 0.5 }}
+                className="pt-10 border-t border-border/30"
               >
-                <motion.div className="flex items-center justify-between cursor-pointer">
-                  <div className="flex items-center">
-                    <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-8">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground/40 font-serif italic">
+                        Solar Mode
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-6 p-2 paper-card bg-white/40">
+                      <Icon
+                        icon="lucide:sun"
+                        className="text-secondary text-xl"
+                      />
                       <Switch
-                        id="dark-mode"
+                        id="dark-mode-mobile"
                         checked={theme === "light"}
                         onCheckedChange={toggleTheme}
                         className="cursor-pointer"
                       />
+                      <Icon
+                        icon="lucide:moon"
+                        className="text-primary text-lg"
+                      />
                     </div>
                   </div>
-                </motion.div>
+
+                  <div className="flex items-center gap-4 p-6 bg-primary/5 rounded-2xl border border-primary/10">
+                    <Icon
+                      icon="lucide:info"
+                      className="text-primary text-2xl"
+                    />
+                    <span className="text-xs text-foreground/50 font-serif italic">
+                      &quot;Each line of code is a petal in the garden of
+                      invention.&quot;
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Add overlay to catch clicks outside the menu */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed inset-0 z-40 md:hidden bg-background/40 backdrop-blur-md"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
