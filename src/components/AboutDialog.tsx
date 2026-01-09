@@ -28,7 +28,7 @@ export default function AboutDialog({ open, onClose }: TDialogProps) {
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8 bg-primary/30" />
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">
-                  The Alchemist's Tale
+                  The Alchemist&apos;s Tale
                 </span>
               </div>
               <DialogHeader>
