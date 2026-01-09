@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
@@ -38,8 +38,13 @@ const projectStats = [
 ];
 
 export default function IndexSection() {
+  const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleScroll = (id: string) => {
     const el = document.getElementById(id);
@@ -49,7 +54,7 @@ export default function IndexSection() {
   };
 
   useEffect(() => {
-    if (!sectionRef.current || !containerRef.current) return;
+    if (!mounted || !sectionRef.current || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
       gsap.from(".index-reveal", {
@@ -66,7 +71,7 @@ export default function IndexSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted]);
 
   return (
     <section
@@ -75,10 +80,12 @@ export default function IndexSection() {
       className="w-full min-h-screen py-32 px-6 lg:px-24 flex items-center justify-center relative overflow-hidden bg-background"
     >
       {/* Decorative Atmosphere */}
-      <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
-        <div className="absolute top-[20%] right-[-5%] w-[30rem] h-[30rem] bg-accent/5 blur-[100px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[20%] left-[-5%] w-[25rem] h-[25rem] bg-primary/5 blur-[100px] rounded-full animate-float" />
-      </div>
+      {mounted && (
+        <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
+          <div className="absolute top-[20%] right-[-5%] w-[30rem] h-[30rem] bg-accent/5 blur-[100px] rounded-full animate-pulse" />
+          <div className="absolute bottom-[20%] left-[-5%] w-[25rem] h-[25rem] bg-primary/5 blur-[100px] rounded-full animate-float" />
+        </div>
+      )}
 
       <div ref={containerRef} className="w-full max-w-7xl flex flex-col gap-24">
         {/* Header */}
@@ -146,13 +153,13 @@ export default function IndexSection() {
           </div>
 
           {/* Right: Navigation */}
-          <div className="lg:col-span-12 xl:col-span-7 flex flex-col gap-10">
+          <div className="index-reveal lg:col-span-12 xl:col-span-7 flex flex-col gap-10">
             {indexLinks.map((link, index) => (
               <motion.div
                 key={index}
                 onClick={() => handleScroll(link.id)}
                 whileHover={{ x: 10 }}
-                className="index-reveal paper-card p-12 flex items-center justify-between group cursor-pointer border-primary/10 bg-white/60 hover:bg-white transition-all duration-500"
+                className="paper-card p-12 flex items-center justify-between group cursor-pointer border-primary/10 bg-white/40 hover:bg-white transition-all duration-500 shadow-xl backdrop-blur-sm"
               >
                 <div className="flex items-center gap-10">
                   <div className="p-6 bg-primary/10 rounded-[2rem] group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-700 animate-float shadow-inner">

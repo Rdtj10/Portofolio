@@ -96,7 +96,7 @@ const VisitorDisplay = () => {
 
           <div className="flex flex-col gap-1 items-start">
             <div className="flex items-center gap-3">
-              <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_15px_oklch(var(--primary))]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_15px_oklch(var(--primary-params))]" />
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 font-serif">
                 Identity
               </span>

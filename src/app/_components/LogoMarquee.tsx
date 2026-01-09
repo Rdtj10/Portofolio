@@ -53,7 +53,7 @@ export default function LogoMarquee() {
                     alt={logo.split(".")[0]}
                     width={80}
                     height={80}
-                    className="object-contain opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000"
+                    className="object-contain opacity-60 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000"
                   />
                   {/* Whimsical Glow */}
                   <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] scale-150 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

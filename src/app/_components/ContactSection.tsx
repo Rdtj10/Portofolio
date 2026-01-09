@@ -57,9 +57,14 @@ const BackgroundAtmosphere = () => (
 );
 
 export default function ContactSection() {
+  const [mounted, setMounted] = useState(false);
   const form = useRef<HTMLFormElement | null>(null);
   const [loading, setLoading] = useState(false);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,7 +108,7 @@ export default function ContactSection() {
       className="relative w-full py-40 px-6 lg:px-24 flex flex-col items-center overflow-hidden bg-background"
       id="contact"
     >
-      <BackgroundAtmosphere />
+      {mounted && <BackgroundAtmosphere />}
 
       <div className="contact-reveal flex flex-col items-center text-center gap-6 max-w-4xl mb-24">
         <div className="flex items-center gap-3">

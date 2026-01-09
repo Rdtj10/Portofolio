@@ -1,6 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -60,6 +61,12 @@ const FloatingParticles = () => (
 );
 
 export default function HeroSection() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleScroll = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -92,8 +99,12 @@ export default function HeroSection() {
       className="relative flex flex-col items-center justify-center w-full min-h-screen pt-40 pb-32 px-6 lg:px-24 overflow-hidden bg-background"
       id="hero"
     >
-      <FallingLeaves />
-      <FloatingParticles />
+      {mounted && (
+        <>
+          <FallingLeaves />
+          <FloatingParticles />
+        </>
+      )}
 
       {/* Atmospheric Background Decor */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
@@ -174,7 +185,7 @@ export default function HeroSection() {
           >
             <button
               onClick={() => handleScroll("index")}
-              className="px-14 py-8 bg-primary text-primary-foreground rounded-[2rem] font-black text-2xl hover:scale-105 active:scale-95 transition-all shadow-[12px_12px_0px_0px_oklch(var(--ghibli-oak)/0.15)] hover:shadow-none group flex items-center gap-6 border-b-8 border-black/10 relative overflow-hidden"
+              className="px-14 py-8 bg-primary text-primary-foreground rounded-[2rem] font-black text-2xl hover:scale-105 active:scale-95 transition-all shadow-[12px_12px_0px_0px_oklch(var(--ghibli-oak-params)/0.15)] hover:shadow-none group flex items-center gap-6 border-b-8 border-black/10 relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform" />
               <span className="relative z-10">Step into the Workshop</span>

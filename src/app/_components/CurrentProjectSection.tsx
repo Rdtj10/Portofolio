@@ -79,8 +79,13 @@ const BackgroundAtmosphere = () => (
 );
 
 export default function CurrentProjectSection() {
+  const [mounted, setMounted] = useState(false);
   const [[current, direction], setCurrentState] = useState([0, 0]);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const paginate = (newDirection: number) => {
     setCurrentState([
@@ -115,7 +120,7 @@ export default function CurrentProjectSection() {
       className="relative w-full py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
       id="current-projects"
     >
-      <BackgroundAtmosphere />
+      {mounted && <BackgroundAtmosphere />}
 
       <div className="current-reveal flex flex-col items-center text-center gap-6 max-w-4xl mx-auto">
         <div className="flex items-center gap-3">
@@ -139,7 +144,7 @@ export default function CurrentProjectSection() {
         <div className="xl:w-2/5 w-full flex flex-col justify-between p-12 md:p-20 border-b xl:border-b-0 xl:border-r border-border/50 bg-white/40">
           <div className="flex flex-col gap-10">
             <div className="flex items-center gap-4">
-              <div className="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_20px_oklch(var(--primary))]" />
+              <div className="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_20px_oklch(var(--primary-params))]" />
               <span className="text-xs font-black uppercase tracking-[0.4em] text-primary">
                 In Bloom
               </span>

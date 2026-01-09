@@ -30,10 +30,15 @@
   --color-ring: var(--ring);
 
   /* Ghibli Themed Accents */
-  --color-ghibli-sky: oklch(0.75 0.12 215);
-  --color-ghibli-meadow: oklch(0.65 0.15 145);
-  --color-ghibli-oak: oklch(0.45 0.08 60);
-  --color-ghibli-paper: oklch(0.98 0.01 70);
+  --ghibli-sky-params: 0.75 0.12 215;
+  --ghibli-meadow-params: 0.65 0.15 145;
+  --ghibli-oak-params: 0.45 0.08 60;
+  --ghibli-paper-params: 0.98 0.01 70;
+
+  --color-ghibli-sky: oklch(var(--ghibli-sky-params));
+  --color-ghibli-meadow: oklch(var(--ghibli-meadow-params));
+  --color-ghibli-oak: oklch(var(--ghibli-oak-params));
+  --color-ghibli-paper: oklch(var(--ghibli-paper-params));
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -70,41 +75,48 @@
 }
 
 :root {
-  --background: oklch(0.98 0.01 80); /* Brighter Warm Paper */
-  --foreground: oklch(0.25 0.05 45); /* Dark Sepia/Ink */
-  --card: oklch(1 0 0 / 0.8);
-  --card-foreground: oklch(0.25 0.05 45);
-  --primary: oklch(0.6 0.15 145); /* Richer Meadow Green */
+  --background-params: 0.98 0.01 80; /* Brighter Warm Paper */
+  --foreground-params: 0.25 0.05 45; /* Dark Sepia/Ink */
+  --card-params: 1 0 0;
+  --primary-params: 0.6 0.15 145; /* Richer Meadow Green */
+  --secondary-params: 0.7 0.1 210; /* Deeper Sky Blue */
+  --muted-params: 0.94 0.01 70;
+  --accent-params: 0.82 0.12 45; /* Sunset Terra Cotta */
+  --destructive-params: 0.6 0.2 25;
+  --border-params: 0.85 0.08 70;
+  --input-params: 0.9 0.05 70;
+  --ring-params: 0.6 0.15 145;
+
+  --background: oklch(var(--background-params));
+  --foreground: oklch(var(--foreground-params));
+  --card: oklch(var(--card-params) / 0.8);
+  --card-foreground: oklch(var(--foreground-params));
+  --primary: oklch(var(--primary-params));
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.7 0.1 210); /* Deeper Sky Blue */
-  --secondary-foreground: oklch(0.25 0.05 45);
-  --muted: oklch(0.94 0.01 70);
+  --secondary: oklch(var(--secondary-params));
+  --secondary-foreground: oklch(var(--foreground-params));
+  --muted: oklch(var(--muted-params));
   --muted-foreground: oklch(0.45 0.05 45);
-  --accent: oklch(0.82 0.12 45); /* Sunset Terra Cotta */
+  --accent: oklch(var(--accent-params));
   --accent-foreground: oklch(0.3 0.1 45);
-  --destructive: oklch(0.6 0.2 25);
-  --border: oklch(0.85 0.08 70);
-  --input: oklch(0.9 0.05 70);
-  --ring: oklch(0.6 0.15 145);
+  --destructive: oklch(var(--destructive-params));
+  --border: oklch(var(--border-params));
+  --input: oklch(var(--input-params));
+  --ring: oklch(var(--ring-params));
   --radius: 1.5rem;
 }
 
 .dark {
-  --background: oklch(0.12 0.04 240); /* Deep Twilight Navy */
-  --foreground: oklch(0.95 0.02 80); /* Soft Starlight */
-  --card: oklch(0.18 0.04 240 / 0.8);
-  --card-foreground: oklch(0.95 0.02 80);
-  --primary: oklch(0.45 0.12 165); /* Ancient Forest Green */
-  --primary-foreground: oklch(0.98 0.01 70);
-  --secondary: oklch(0.25 0.08 240); /* Midnight Blue Deep */
-  --secondary-foreground: oklch(0.95 0.02 80);
-  --muted: oklch(0.2 0.04 240);
-  --muted-foreground: oklch(0.6 0.04 240);
-  --accent: oklch(0.75 0.15 65); /* Warm Candlefire Orange */
-  --accent-foreground: oklch(0.1 0.05 240);
-  --border: oklch(0.25 0.05 240);
-  --input: oklch(0.25 0.05 240);
-  --ring: oklch(0.45 0.12 165);
+  --background-params: 0.12 0.04 240; /* Deep Twilight Navy */
+  --foreground-params: 0.95 0.02 80; /* Soft Starlight */
+  --card-params: 0.18 0.04 240;
+  --primary-params: 0.45 0.12 165; /* Ancient Forest Green */
+  --secondary-params: 0.25 0.08 240; /* Midnight Blue Deep */
+  --muted-params: 0.2 0.04 240;
+  --accent-params: 0.75 0.15 65; /* Warm Candlefire Orange */
+  --border-params: 0.25 0.05 240;
+  --input-params: 0.25 0.05 240;
+  --ring-params: 0.45 0.12 165;
 }
 
 @layer base {
@@ -115,8 +127,8 @@
   body {
     @apply bg-background text-foreground antialiased transition-colors duration-700 font-sans relative;
     background-image: 
-      radial-gradient(at 0% 0%, oklch(var(--secondary) / 0.1) 0px, transparent 60%),
-      radial-gradient(at 100% 100%, oklch(var(--primary) / 0.1) 0px, transparent 60%);
+      radial-gradient(at 0% 0%, oklch(var(--secondary-params) / 0.1) 0px, transparent 60%),
+      radial-gradient(at 100% 100%, oklch(var(--primary-params) / 0.1) 0px, transparent 60%);
   }
 
   body::before {
@@ -151,7 +163,7 @@
   }
 
   .paper-card {
-    @apply bg-card border-2 border-border/40 rounded-[2rem] shadow-[20px_20px_0px_0px_oklch(var(--ghibli-oak)/0.08)] hover:shadow-none transition-all duration-700;
+    @apply bg-card border-2 border-border/40 rounded-[2rem] shadow-[20px_20px_0px_0px_oklch(var(--ghibli-oak-params)/0.08)] hover:shadow-none transition-all duration-700;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3e%3cfilter id='paper'%3e%3cfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3e%3c/filter%3e%3crect width='100' height='100' filter='url(%23paper)' opacity='0.05'/%3e%3c/svg%3e");
   }
 
@@ -161,7 +173,7 @@
   
   .sketch-border {
     border-radius: 2% 98% 3% 97%/95% 4% 96% 5%;
-    border: 2px solid oklch(var(--ghibli-oak)/0.3);
+    border: 2px solid oklch(var(--ghibli-oak-params, 0.45 0.08 60) / 0.3);
   }
 
   .watercolor-mask {

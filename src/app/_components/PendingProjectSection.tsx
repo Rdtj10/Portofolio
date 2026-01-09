@@ -38,8 +38,13 @@ const BackgroundAtmosphere = () => (
 );
 
 export default function PendingProjectSection() {
+  const [mounted, setMounted] = useState(false);
   const { data: projects } = trpc.project.getAll.useQuery();
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [isDialogAbsenOpen, setIsDialogAbsenOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,7 +82,7 @@ export default function PendingProjectSection() {
       className="relative w-full py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
       id="other-projects"
     >
-      <BackgroundAtmosphere />
+      {mounted && <BackgroundAtmosphere />}
 
       <div className="pending-reveal flex flex-col items-center text-center gap-6 max-w-4xl mx-auto">
         <div className="flex items-center gap-3">
@@ -100,70 +105,71 @@ export default function PendingProjectSection() {
         {projects
           ?.filter((project) => project.status !== "COMPLETED")
           .map((project, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ y: -15, rotate: index % 2 === 0 ? 1 : -1 }}
-              onClick={() => handleOpenDialogAbsen(project)}
-              className="pending-reveal paper-card p-10 flex flex-col gap-10 cursor-pointer group transition-all duration-700 bg-white/40 backdrop-blur-md shadow-xl border-accent/10 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Icon icon="lucide:test-tube-2" className="text-5xl" />
-              </div>
-
-              <div className="relative aspect-square sketch-border overflow-hidden bg-white/60 p-8 flex items-center justify-center shadow-inner">
-                <Image
-                  alt={project.title}
-                  src={project.imageUrl || "/logo/rdtj.png"}
-                  width={200}
-                  height={200}
-                  className="object-contain transition-transform duration-[2s] group-hover:scale-125 opacity-70 group-hover:opacity-100 filter grayscale group-hover:grayscale-0"
-                />
-                <div className="absolute top-4 left-4 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/20 italic font-serif">
-                  Exp. #{index + 1 < 10 ? `0${index + 1}` : index + 1}
+            <div key={index} className="pending-reveal">
+              <motion.div
+                whileHover={{ y: -15, rotate: index % 2 === 0 ? 1 : -1 }}
+                onClick={() => handleOpenDialogAbsen(project)}
+                className="paper-card p-10 flex flex-col gap-10 cursor-pointer group transition-all duration-700 bg-white/40 backdrop-blur-md shadow-xl border-accent/10 relative overflow-hidden h-full"
+              >
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <Icon icon="lucide:test-tube-2" className="text-5xl" />
                 </div>
-              </div>
 
-              <div className="flex flex-col gap-6">
-                <div className="flex justify-between items-center">
-                  <span
-                    className={cn(
-                      "text-[9px] font-black uppercase tracking-[0.3em] px-4 py-1.5 rounded-full border border-dashed",
-                      project.ownStatus === "Company"
-                        ? "border-accent/40 text-accent bg-accent/5"
-                        : "border-primary/40 text-primary bg-primary/5"
-                    )}
-                  >
-                    {project.ownStatus}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_10px_oklch(var(--accent))]" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-accent">
-                      Incubating
-                    </span>
+                <div className="relative aspect-square sketch-border overflow-hidden bg-white/60 p-8 flex items-center justify-center shadow-inner">
+                  <Image
+                    alt={project.title}
+                    src={project.imageUrl || "/logo/rdtj.png"}
+                    width={200}
+                    height={200}
+                    className="object-contain transition-transform duration-[2s] group-hover:scale-125 opacity-70 group-hover:opacity-100 filter grayscale group-hover:grayscale-0"
+                  />
+                  <div className="absolute top-4 left-4 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/20 italic font-serif">
+                    Exp. #{index + 1 < 10 ? `0${index + 1}` : index + 1}
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-3xl font-black tracking-tight group-hover:text-accent transition-colors font-serif leading-tight">
-                    {project.title}
-                  </h3>
-                  <div className="h-[1px] w-12 bg-accent/20 group-hover:w-full transition-all duration-700" />
+                <div className="flex flex-col gap-6">
+                  <div className="flex justify-between items-center">
+                    <span
+                      className={cn(
+                        "text-[9px] font-black uppercase tracking-[0.3em] px-4 py-1.5 rounded-full border border-dashed",
+                        project.ownStatus === "Company"
+                          ? "border-accent/40 text-accent bg-accent/5"
+                          : "border-primary/40 text-primary bg-primary/5"
+                      )}
+                    >
+                      {project.ownStatus}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_10px_oklch(var(--accent-params))]" />
+                      <span className="text-[10px] font-black uppercase tracking-widest text-accent">
+                        Incubating
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-3xl font-black tracking-tight group-hover:text-accent transition-colors font-serif leading-tight">
+                      {project.title}
+                    </h3>
+                    <div className="h-[1px] w-12 bg-accent/20 group-hover:w-full transition-all duration-700" />
+                  </div>
+
+                  <p className="text-base text-foreground/50 font-medium font-serif line-clamp-2 italic leading-relaxed">
+                    &quot;{project.short_description}&quot;
+                  </p>
                 </div>
 
-                <p className="text-base text-foreground/50 font-medium font-serif line-clamp-2 italic leading-relaxed">
-                  &quot;{project.short_description}&quot;
-                </p>
-              </div>
-
-              <div className="mt-auto pt-8 flex items-center justify-between border-t border-dashed border-border/30">
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/10 italic">
-                  Awaiting Bloom
-                </span>
-                <div className="w-10 h-10 flex items-center justify-center bg-accent/5 rounded-full group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500">
-                  <Icon icon="lucide:sparkles" className="text-xl" />
+                <div className="mt-auto pt-8 flex items-center justify-between border-t border-dashed border-border/30">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/10 italic">
+                    Awaiting Bloom
+                  </span>
+                  <div className="w-10 h-10 flex items-center justify-center bg-accent/5 rounded-full group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500">
+                    <Icon icon="lucide:sparkles" className="text-xl" />
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           ))}
       </div>
 
