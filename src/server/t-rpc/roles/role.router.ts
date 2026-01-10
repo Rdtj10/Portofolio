@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { publicProcedure, router } from '../context';
 import { db } from '../db';
 
-export const taskRouter = router({
+export const roleRouter = router({
   getAll: publicProcedure.query(() => db.projectRole.findMany({ include: { project: true } })),
 
   getById: publicProcedure.input(z.string()).query(({ input }) =>
