@@ -1,14 +1,12 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/context/themeContext";
 import { Icon } from "@iconify/react";
 
 type ExoticLoadingProps = {
   loading: boolean;
 };
-
+s
 const ExoticLoading = ({ loading }: ExoticLoadingProps) => {
-  const { theme } = useTheme();
 
   return (
     <AnimatePresence>
