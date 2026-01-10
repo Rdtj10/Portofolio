@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { trpc } from "@/utils/trpc";
 import {
@@ -10,17 +9,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-// import { Card } from "@/components/ui/card";
+import StatCard from "./_components/StatCard";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function Page() {
-  const { data } = trpc.visit.getAll.useQuery();
-  // const { data: visit } = trpc.visit.getWeeklyStats.useQuery();
+  const { data: visits, isLoading: loadVisits } = trpc.visit.getAll.useQuery();
+  const { data: weekStats, isLoading: loadStats } = trpc.visit.getWeeklyStats.useQuery();
+  
   const [page, setPage] = useState<number>(1);
-  const pageSize = 10;
+  const pageSize = 8;
 
-  const paginatedData =
-    data?.slice((page - 1) * pageSize, page * pageSize) || [];
-  const totalPages = data ? Math.ceil(data.length / pageSize) : 1;
+  const sortedVisits = visits ? [...visits].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) : [];
+  const paginatedData = sortedVisits.slice((page - 1) * pageSize, page * pageSize) || [];
+  const totalPages = sortedVisits ? Math.ceil(sortedVisits.length / pageSize) : 1;
+
+  const totalVisitors = visits?.length || 0;
+  const thisWeek = weekStats?.[weekStats.length - 1];
+  const weeklyCount = thisWeek?.count || 0;
+  const dailyAvg = thisWeek?.avgPerDay.toFixed(1) || 0;
 
   function handlePrev() {
     setPage((prev: number) => Math.max(prev - 1, 1));
@@ -29,96 +36,132 @@ export default function Page() {
   function handleNext() {
     setPage((prev: number) => Math.min(prev + 1, totalPages));
   }
+
   return (
-    <section className="w-full h-full">
-      <div className="flex flex-row gap-4 p-10">
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-row justify-between items-center">
-            <h2 className="text-2xl font-bold">Visitor</h2>
-            <div className="flex items-center gap-4 mt-4">
-              <button
-                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                onClick={handlePrev}
-                disabled={page === 1}
-              >
-                Previous
-              </button>
-              <span className="text-sm">
-                Page {page} of {totalPages}
-              </span>
-              <button
-                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                onClick={handleNext}
-                disabled={page === totalPages}
-              >
-                Next
-              </button>
-            </div>
+    <section className="w-full h-full p-8 md:p-12 overflow-y-auto bg-gray-50/50">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8">
+        
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-500">Welcome back! Here&apos;s your site overview.</p>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {loadStats || loadVisits ? (
+             Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="h-32 rounded-xl bg-white" />
+             ))
+          ) : (
+            <>
+              <StatCard 
+                title="Total Visitors" 
+                value={totalVisitors} 
+                icon="solar:users-group-rounded-bold-duotone" 
+                trend="+12% from last month"
+                trendUp={true}
+              />
+              <StatCard 
+                title="Weekly Hits" 
+                value={weeklyCount} 
+                icon="solar:chart-2-bold-duotone" 
+                trend={`${dailyAvg} avg / day`}
+                trendUp={weeklyCount > 0}
+              />
+               <StatCard 
+                title="System Status" 
+                value="Active" 
+                icon="solar:server-square-bold-duotone" 
+                trend="All systems operational"
+                trendUp={true}
+              />
+            </>
+          )}
+        </div>
+
+        {/* Recent Visitors Table */}
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+          <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+             <h2 className="text-lg font-bold flex items-center gap-2">
+                <Icon icon="solar:history-bold-duotone" className="text-blue-500" />
+                Recent Visitors
+             </h2>
           </div>
-          <div className="rounded-lg border shadow-sm overflow-auto">
+          
+          <div className="overflow-x-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-gray-50/50">
                 <TableRow>
-                  <TableHead className="min-w-[140px]">IP</TableHead>
-                  <TableHead className="min-w-[220px]">User Agent</TableHead>
-                  <TableHead className="min-w-[220px]">URL</TableHead>
-                  <TableHead className="min-w-[160px]">Created At</TableHead>
+                  <TableHead className="w-[180px]">IP Address</TableHead>
+                  <TableHead className="min-w-[200px]">User Agent</TableHead>
+                  <TableHead>Page</TableHead>
+                  <TableHead className="w-[180px]">Time</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {paginatedData.map((row: any) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.ip}</TableCell>
-                    <TableCell
-                      className="truncate max-w-[220px]"
-                      title={row.userAgent}
-                    >
-                      {row.userAgent}
-                    </TableCell>
-                    <TableCell
-                      className="truncate max-w-[220px]"
-                      title={row.url}
-                    >
-                      <a
-                        href={row.url}
-                        className="text-blue-600 underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {row.url}
-                      </a>
-                    </TableCell>
-                    <TableCell>
-                      {row.createdAt
-                        ? new Date(row.createdAt).toLocaleString()
-                        : ""}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {loadVisits ? (
+                  Array.from({ length: 5 }).map((_, i) => (
+                    <TableRow key={i}>
+                       <TableCell><Skeleton className="h-4 w-24" /></TableCell>
+                       <TableCell><Skeleton className="h-4 w-40" /></TableCell>
+                       <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                       <TableCell><Skeleton className="h-4 w-20" /></TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  paginatedData.map((row: any) => (
+                    <TableRow key={row.id} className="hover:bg-gray-50/50">
+                      <TableCell className="font-mono text-xs">{row.ip}</TableCell>
+                      <TableCell className="max-w-[300px]">
+                        <div className="truncate text-xs text-gray-500" title={row.userAgent}>
+                          {row.userAgent}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                         <a 
+                            href={row.url} 
+                            target="_blank" 
+                            className="text-xs text-blue-600 hover:underline bg-blue-50 px-2 py-1 rounded-md"
+                          >
+                           {new URL(row.url).pathname}
+                         </a>
+                      </TableCell>
+                      <TableCell className="text-xs text-gray-500">
+                        {new Date(row.createdAt).toLocaleString()}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
-            {!paginatedData.length && (
-              <div className="p-6 text-center text-muted-foreground">
-                No visitors found.
-              </div>
-            )}
+          </div>
+
+          {/* Pagination */}
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-xs text-gray-500">
+               Page {page} of {totalPages}
+            </span>
+            <div className="flex gap-2">
+               <button
+                  onClick={handlePrev}
+                  disabled={page === 1}
+                  className="p-2 hover:bg-gray-100 rounded-md disabled:opacity-30 transition-colors"
+               >
+                 <Icon icon="solar:alt-arrow-left-linear" />
+               </button>
+                <button
+                  onClick={handleNext}
+                  disabled={page === totalPages}
+                  className="p-2 hover:bg-gray-100 rounded-md disabled:opacity-30 transition-colors"
+               >
+                 <Icon icon="solar:alt-arrow-right-linear" />
+               </button>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col">
-          {/* <Card>
-            <div>
-              <h2>Weekly Visit Stats</h2>
-              <ul>
-                {visit?.map((item) => (
-                  <li key={item.week}>
-                    {item.week}: {item.count} visits (avg/day:{" "}
-                    {item.avgPerDay.toFixed(2)})
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Card> */}
-        </div>
+
       </div>
     </section>
   );

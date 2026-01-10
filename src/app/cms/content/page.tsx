@@ -3,9 +3,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { trpc } from "@/utils/trpc";
 import ProjectTable from "./_components/ProjectTable";
 import ProjectDialog from "./_components/ProjectDialog";
+import TableSkeleton from "../_components/TableSkeleton";
 
 export default function Page() {
-  const { data: projects} = trpc.project.getAll.useQuery();
+  const { data: projects, isLoading } = trpc.project.getAll.useQuery();
 
   const completedProjects = projects?.filter((p) => p.status === "COMPLETED") || [];
   const inProgressProjects = projects?.filter((p) => p.status === "IN_PROGRESS") || [];
@@ -32,13 +33,13 @@ export default function Page() {
         
         <div className="flex-1 overflow-auto pb-20">
           <TabsContent value="completed" className="mt-0 h-full">
-             <ProjectTable projects={completedProjects} />
+             {isLoading ? <TableSkeleton /> : <ProjectTable projects={completedProjects} />}
           </TabsContent>
           <TabsContent value="onprogress" className="mt-0 h-full">
-             <ProjectTable projects={inProgressProjects} />
+             {isLoading ? <TableSkeleton /> : <ProjectTable projects={inProgressProjects} />}
           </TabsContent>
           <TabsContent value="pending" className="mt-0 h-full">
-             <ProjectTable projects={plannedProjects} />
+             {isLoading ? <TableSkeleton /> : <ProjectTable projects={plannedProjects} />}
           </TabsContent>
         </div>
       </Tabs>
