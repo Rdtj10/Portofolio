@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { trpc } from "@/utils/trpc";
 import { Button } from "../../components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import useMobile from "@/hooks/useMobile";
 import {
   Tooltip,
   TooltipContent,
@@ -19,7 +18,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const DetailProjectSection = () => {
   const [minLoading, setMinLoading] = useState(true);
-  const mobile = useMobile();
   const { id } = useParams();
   const { data: project, isLoading: loadProject } =
     trpc.project.getById.useQuery(id as string);
@@ -241,7 +239,7 @@ const DetailProjectSection = () => {
                         <p className="font-bold text-lg text-foreground">{project.role.name}</p>
                       </div>
                       <p className="text-muted-foreground leading-relaxed italic border-l-4 border-ghibli-sky/30 pl-4 py-1">
-                        "{project.task}"
+                        &quot;{project.task}&quot;
                       </p>
                       
                        <div className="mt-6 relative h-32 w-full rounded-xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 sketch-border border-2 border-white/50">
