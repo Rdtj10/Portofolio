@@ -16,14 +16,14 @@ import Image from "next/image";
 export default function AboutDialog({ open, onClose }: TDialogProps) {
   return (
     <Dialog onOpenChange={onClose} open={open}>
-      <DialogContent className="max-w-4xl p-0 overflow-hidden border-none bg-transparent shadow-none">
-        <div className="paper-card flex flex-col md:flex-row relative bg-white/95 backdrop-blur-xl border-primary/20 overflow-hidden">
+      <DialogContent className="max-w-[95vw] md:max-w-4xl w-full p-0 border-none bg-transparent shadow-none max-h-[90vh] overflow-y-auto overflow-x-hidden">
+        <div className="paper-card flex flex-col md:flex-row relative bg-white/95 backdrop-blur-xl border-primary/20">
           {/* Whimsical Background Decor */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl rounded-full -z-10" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/5 blur-3xl rounded-full -z-10" />
 
           {/* Left Side: The Storyteller */}
-          <div className="flex-1 p-10 md:p-14 flex flex-col gap-8">
+          <div className="flex-1 p-6 md:p-14 flex flex-col gap-6 md:gap-8 order-2 md:order-1">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8 bg-primary/30" />
@@ -32,7 +32,7 @@ export default function AboutDialog({ open, onClose }: TDialogProps) {
                 </span>
               </div>
               <DialogHeader>
-                <DialogTitle className="text-4xl md:text-5xl font-black font-serif tracking-tight">
+                <DialogTitle className="text-3xl md:text-5xl font-black font-serif tracking-tight text-left">
                   About the <span className="text-primary">Craftsman</span>
                 </DialogTitle>
               </DialogHeader>
@@ -41,7 +41,7 @@ export default function AboutDialog({ open, onClose }: TDialogProps) {
             <Separator className="bg-primary/10" />
 
             <div className="flex flex-col gap-6">
-              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed font-serif text-justify italic border-l-4 border-secondary/20 pl-6">
+              <p className="text-base md:text-xl text-foreground/70 leading-relaxed font-serif text-justify italic border-l-4 border-secondary/20 pl-4 md:pl-6">
                 I am{" "}
                 <span className="font-bold text-foreground">Ridho Dimas</span>,
                 a digital gardener who harvests clean code and sows seeds of
@@ -49,7 +49,7 @@ export default function AboutDialog({ open, onClose }: TDialogProps) {
                 invisible gears of the web turn, and evolved into a calling to
                 build habitats where humans and technology thrive in harmony.
               </p>
-              <p className="text-base text-foreground/50 leading-relaxed font-serif text-justify">
+              <p className="text-sm md:text-base text-foreground/50 leading-relaxed font-serif text-justify">
                 Currently, I am exploring the deep forests of React, TypeScript,
                 and Cloud Infrastructure, treating every line of code as a petal
                 in a larger ecosystem. My workshop is always open to
@@ -60,11 +60,11 @@ export default function AboutDialog({ open, onClose }: TDialogProps) {
 
             <div className="mt-auto pt-8 flex items-center gap-6">
               <DialogClose asChild>
-                <Button className="px-10 py-6 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-lg">
+                <Button className="w-full md:w-auto px-10 py-6 rounded-2xl bg-primary text-primary-foreground font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-lg">
                   Return to Meadow
                 </Button>
               </DialogClose>
-              <div className="flex items-center gap-2 opacity-30">
+              <div className="hidden md:flex items-center gap-2 opacity-30">
                 <Icon icon="lucide:feather" className="text-xl animate-float" />
                 <span className="text-[9px] font-black uppercase tracking-widest">
                   Ink & Paper
@@ -74,8 +74,8 @@ export default function AboutDialog({ open, onClose }: TDialogProps) {
           </div>
 
           {/* Right Side: The Portrait */}
-          <div className="md:w-2/5 bg-primary/5 p-10 flex flex-col items-center justify-center gap-8 border-l border-primary/10 relative">
-            <div className="relative w-48 h-48 md:w-56 md:h-56">
+          <div className="w-full md:w-2/5 bg-primary/5 p-10 flex flex-col items-center justify-center gap-8 border-b md:border-b-0 md:border-l border-primary/10 relative order-1 md:order-2">
+            <div className="relative w-40 h-40 md:w-56 md:h-56">
               <div className="absolute inset-[-15px] border-4 border-dashed border-primary/20 rounded-full animate-spin-slow" />
               <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-4 border-white sketch-border">
                 <Image
