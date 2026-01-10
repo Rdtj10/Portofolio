@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 type ExoticLoadingProps = {
   loading: boolean;
 };
-s
+
 const ExoticLoading = ({ loading }: ExoticLoadingProps) => {
 
   return (
