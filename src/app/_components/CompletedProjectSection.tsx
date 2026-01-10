@@ -174,7 +174,7 @@ export default function CompletedProjectsSection() {
                       </Link>
                     )}
                     <Link
-                      href={`/projects/${project.id}`}
+                      href={`/${project.id}`}
                       className="flex items-center gap-3 px-10 py-4 rounded-2xl border-2 border-primary/20 text-primary font-black uppercase tracking-[0.3em] hover:bg-primary/5 text-xs transition-all hover:border-primary/40"
                     >
                       Read Journal
