@@ -45,214 +45,288 @@ const DetailProjectSection = () => {
   const actuallyLoading = loadProject || loadAll || !project || !allProjects;
   const isTransitioning = actuallyLoading || minLoading;
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        duration: 0.8,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
     <>
       <ExoticLoading loading={isTransitioning} />
       <AnimatePresence>
-        {!isTransitioning && (
+        {!isTransitioning && project && (
           <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="flex flex-col min-h-screen h-fit w-full bg-background relative"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="flex flex-col min-h-screen w-full relative overflow-hidden"
           >
-            <div
-              className="relative z-10 flex flex-col bg-black bg-cover bg-center bg-no-repeat w-full h-screen lg:h-[85vh] items-center justify-center"
-              style={{
-                backgroundImage: `url('${
-                  project?.imageUrl || "/images/hero-bg.png"
-                }')`,
-              }}
-            >
-              <div className="absolute inset-0 bg-black/70 group-hover:bg-black/80 transition-colors duration-300"></div>
-              <h1 className="text-5xl lg:text-8xl text-white font-bold z-10 text-center">
-                {project?.title}
-              </h1>
-              <p className="px-10 text-center z-10 text-white tex-base md:text-xl">
-                {project?.short_description}
-              </p>
-              <div className="absolute flex flex-col md:flex-row bottom-12 justify-center md:justify-between items-cente w-full px-4 text-center lg:px-24 font-bold text-base md:text-xl">
-                <p className="text-yellow-300 uppercase">
-                  {" "}
-                  <span className="text-white">Role </span>
-                  {project?.role.name}
-                </p>
-                <p className="text-yellow-300 uppercase">
-                  {" "}
-                  <span className="text-white">Period </span>
-                  {project?.period}
-                </p>
-                <p className="text-yellow-300 uppercase">
-                  {" "}
-                  <span className="text-white">Status </span>
-                  {project?.status}
-                </p>
-              </div>
+            {/* Background Atmosphere */}
+            <div className="fixed inset-0 pointer-events-none z-[-1]">
+              <div className="absolute inset-0 bg-background mix-blend-multiply opacity-50" />
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ghibli-sky/20 blur-[100px] rounded-full mix-blend-screen animate-float" />
+              <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-ghibli-meadow/20 blur-[120px] rounded-full mix-blend-screen animate-float" style={{ animationDelay: "-3s" }} />
+              {/* Floating Particles */}
+              {Array.from({ length: 15 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute bg-current opacity-30 rounded-full animate-float"
+                  style={{
+                    width: Math.random() * 10 + 5 + "px",
+                    height: Math.random() * 10 + 5 + "px",
+                    left: Math.random() * 100 + "%",
+                    top: Math.random() * 100 + "%",
+                    color: i % 2 === 0 ? "var(--color-ghibli-sky)" : "var(--color-ghibli-meadow)",
+                    animationDuration: Math.random() * 5 + 5 + "s",
+                    animationDelay: Math.random() * 5 + "s",
+                  }}
+                />
+              ))}
             </div>
 
-            <div className="flex flex-col md:flex-row w-full bg-secondary/10 backdrop-blur-md md:py-16 border-y border-primary/5">
-              <h1 className="flex items-center justify-center text-4xl md:text-7xl py-4 font-bold md:p-10 w-full md:w-1/2">
-                Project Desc.
-              </h1>
-              <div className="w-full md:w-1/2 flex flex-col gap-6 md:gap-10 px-10 md:pr-24">
-                <p className="text-justify leading-tight dark:text-gray-300 text-gray-600 text-base md:text-2xl">
-                  {project?.description}
-                </p>
+            {/* Back Button */}
+            <motion.div 
+              variants={itemVariants}
+              className="absolute top-6 left-6 z-50"
+            >
+              <Link href="/">
+                <Button variant="ghost" className="soft-glass rounded-full hover:bg-white/50 text-foreground group">
+                  <Icon icon="solar:arrow-left-linear" className="mr-2 h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+                  Back to World
+                </Button>
+              </Link>
+            </motion.div>
 
-                <div className="flex flex-col md:flex-row md:justify-between gap-2 w-full">
-                  <Button
-                    asChild
-                    disabled={project?.site === "restricted"}
-                    size={mobile ? "sm" : "lg"}
-                    className={`w-fit group uppercase text-sm md:text-xl border-4 border-black dark:border-white rounded-none bg-transparent dark:text-white text-black dark:hover:bg-white hover:bg-black dark:hover:text-black hover:text-white transition-all duration-300 cursor-pointer ${
-                      project?.site === "restricted"
-                        ? "pointer-events-none opacity-50"
-                        : ""
-                    }`}
-                  >
-                    <a
-                      href={
-                        project?.site === "restricted"
-                          ? undefined
-                          : project?.site ?? "/"
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      tabIndex={project?.site === "restricted" ? -1 : 0}
-                      aria-disabled={project?.site === "restricted"}
-                    >
-                      {project?.site === "restricted"
-                        ? project.restricted_reason
-                        : "View Website"}
-                      <Icon
-                        icon="solar:map-arrow-right-bold"
-                        width="50"
-                        height="50"
-                        className="absolute opacity-0 pointer-events-none group-hover:translate-x-28 group-hover:opacity-100 dark:text-white text-black transition-all duration-500"
-                      />
-                    </a>
-                  </Button>
-                  <div className="flex flex-row gap-4 items-center">
-                    <h1 className="text-base md:text-xl font-bold">
-                      Build with{" "}
-                    </h1>
-                    {project?.languages.map(
-                      (tech: { name: string; icon: string }, index: number) => (
-                        <TooltipProvider key={index}>
+            {/* Hero Section */}
+            <div className="w-full min-h-[40vh] lg:min-h-[50vh] relative flex items-center justify-center p-8 pt-24">
+              <div className="absolute inset-0 z-0">
+                 {/* Sketchy Image Border container */}
+                <div className="w-full h-full relative overflow-hidden watercolor-mask opacity-60">
+                   <Image
+                    src={project.imageUrl || "/images/hero-bg.png"}
+                    alt={project.title}
+                    fill
+                    className="object-cover object-center"
+                    priority
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
+              </div>
+
+              <motion.div 
+                variants={itemVariants} 
+                className="relative z-10 flex flex-col items-center text-center space-y-6 max-w-4xl"
+              >
+                 <div className="px-6 py-2 rounded-full border border-ghibli-oak/20 bg-white/40 backdrop-blur-sm text-sm font-serif italic text-ghibli-oak">
+                    {project.status}
+                 </div>
+                <h1 className="text-6xl md:text-8xl font-serif font-bold text-foreground drop-shadow-sm ghibli-text-gradient">
+                  {project.title}
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground font-sans max-w-2xl leading-relaxed">
+                  {project.short_description}
+                </p>
+                
+                <div className="flex flex-wrap justify-center gap-4 mt-8">
+                  <div className="paper-card px-6 py-3 flex items-center gap-2">
+                    <Icon icon="solar:user-id-bold" className="text-ghibli-oak" />
+                    <span className="font-bold text-ghibli-oak">{project.role.name}</span>
+                  </div>
+                   <div className="paper-card px-6 py-3 flex items-center gap-2">
+                    <Icon icon="solar:calendar-bold" className="text-ghibli-oak" />
+                    <span className="font-bold text-ghibli-oak">{project.period}</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Content Container */}
+            <div className="container mx-auto px-4 pb-20 max-w-6xl relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                {/* Main Content - Left Column */}
+                <motion.div variants={itemVariants} className="md:col-span-8 flex flex-col gap-8">
+                  {/* Description Card */}
+                  <div className="paper-card p-8 md:p-12 relative overflow-hidden group">
+                     <div className="absolute -right-10 -top-10 w-40 h-40 bg-ghibli-meadow/10 rounded-full blur-3xl group-hover:bg-ghibli-meadow/20 transition-colors" />
+                    <h2 className="text-3xl font-serif font-bold mb-6 flex items-center gap-3 text-ghibli-oak">
+                      <Icon icon="solar:notebook-bookmark-bold-duotone" />
+                      The Story
+                    </h2>
+                    <p className="text-lg leading-loose text-justify text-muted-foreground whitespace-pre-wrap font-sans">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-8 flex flex-wrap gap-4">
+                       <Button
+                        asChild
+                        disabled={project.site === "restricted"}
+                        size="lg"
+                        className={`rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 ${
+                          project.site === "restricted"
+                            ? "bg-muted text-muted-foreground"
+                            : "bg-gradient-to-r from-ghibli-sky to-ghibli-meadow text-white hover:scale-105"
+                        }`}
+                      >
+                        <a
+                          href={project?.site === "restricted" ? undefined : project?.site ?? "/"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2"
+                        >
+                           {project.site === "restricted" ? (
+                             <>
+                               <Icon icon="solar:lock-keyhole-bold" />
+                               {project.restricted_reason || "Access Restricted"}
+                             </>
+                           ) : (
+                             <>
+                              <Icon icon="solar:globus-bold" />
+                              View Live Site
+                             </>
+                           )}
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Tech Stack */}
+                  <div className="soft-glass rounded-3xl p-8 border-ghibli-oak/10">
+                    <h3 className="text-2xl font-serif font-bold mb-6 text-ghibli-oak">Crafted With</h3>
+                    <div className="flex flex-wrap gap-4">
+                      {project.languages.map((tech, i) => (
+                        <TooltipProvider key={i}>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Icon
-                                icon={tech.icon}
-                                height={mobile ? 20 : 30}
-                                width={mobile ? 20 : 30}
-                                className="cursor-pointer"
-                              />
+                              <div className="bg-white/50 hover:bg-white p-4 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-crosshair border border-ghibli-oak/5 flex items-center justify-center group">
+                                <Icon icon={tech.icon} width="32" height="32" className="text-muted-foreground group-hover:text-ghibli-oak transition-colors" />
+                              </div>
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>{tech.name}</p>
+                              <p className="font-bold">{tech.name}</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
-                      )
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col w-full bg-secondary/5 backdrop-blur-sm md:py-16 gap-6 md:gap-10 pt-10 md:pt-0">
-              <h1 className="hidden md:flex items-center justify-center text-3xl py-4 font-bold w-full">
-                As a&nbsp;
-                <span className="dark:text-yellow-300 text-yellow-600 underline">
-                  {project?.role.name}
-                </span>
-              </h1>
-              <div className="relative w-full flex flex-col-reverse gap-6 md:gap-10 px-10">
-                <p className="text-justify dark:text-gray-300 text-gray-600 leading-tight text-base md:text-2xl md:px-24 w-full">
-                  <a className="text-lg md:hidden block">
-                    As a&nbsp;
-                    <span className=" text-yellow-600 dark:text-yellow-300">
-                      {project?.role.name}
-                    </span>
-                  </a>
-                  {project?.task}
-                </p>
-                <Image
-                  src={project?.company_logo || "/logo/rdtj.png"}
-                  alt={project?.company_name || "Project Image"}
-                  width={1000}
-                  height={1000}
-                  className="w-1/3 my-4 absolute inset-x-0 bottom-0 -translate-y-1/2 pointer-events-none opacity-10"
-                />
-              </div>
-            </div>
-
-            <div className="bg-muted/30 backdrop-blur-md flex flex-col items-center py-16">
-              <h1 className="hidden md:flex items-center justify-center text-3xl py-4 font-bold w-full">
-                Meet the colors
-              </h1>
-              <div className="flex flex-col md:flex-row justify-center md:justify-between items-center w-full">
-                {project?.colors?.map((color, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col gap-2 items-center justify-center w-full md:w-1/3 p-10"
-                  >
-                    <h1 className="text-xl font-bold">{color.name}</h1>
-                    <div
-                      className="flex items-center group justify-center w-full h-20 rounded-lg hover:shadow-2xl shadow-xl transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
-                      style={{ backgroundColor: color.hex }}
-                    >
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm pointer-events-none" />
-                      <p className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 z-10 text-white">
-                        {color.hex}
-                      </p>
+                      ))}
                     </div>
                   </div>
-                ))}
+                </motion.div>
+
+                {/* Sidebar - Right Column */}
+                <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col gap-6">
+                   {/* Role Summary */}
+                   <div className="paper-card p-6 bg-secondary/5 border-secondary/20">
+                      <h3 className="text-xl font-serif font-bold mb-4 text-ghibli-oak flex items-center gap-2">
+                        <Icon icon="solar:user-hand-up-bold" />
+                        Role & Contributions
+                      </h3>
+                      <div className="bg-white/40 rounded-xl p-4 mb-4">
+                        <span className="text-sm uppercase tracking-wider text-muted-foreground">Title</span>
+                        <p className="font-bold text-lg text-foreground">{project.role.name}</p>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed italic border-l-4 border-ghibli-sky/30 pl-4 py-1">
+                        "{project.task}"
+                      </p>
+                      
+                       <div className="mt-6 relative h-32 w-full rounded-xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 sketch-border border-2 border-white/50">
+                        <Image
+                          src={project.company_logo || "/logo/rdtj.png"}
+                          alt={project.company_name || ""}
+                          fill
+                          className="object-cover opacity-80"
+                        />
+                      </div>
+                   </div>
+
+                   {/* Color Palette */}
+                   <div className="soft-glass rounded-[2rem] p-6">
+                      <h3 className="text-xl font-serif font-bold mb-4 ml-2 text-ghibli-oak">Palette</h3>
+                      <div className="space-y-3">
+                         {project.colors.map((color, idx) => (
+                           <div key={idx} className="flex items-center gap-4 group cursor-pointer">
+                              <div 
+                                className="w-12 h-12 rounded-full shadow-md group-hover:scale-110 transition-transform duration-300 border-2 border-white/50" 
+                                style={{ backgroundColor: color.hex }}
+                              />
+                              <div>
+                                <p className="font-bold text-sm text-foreground">{color.name}</p>
+                                <p className="text-xs text-muted-foreground font-mono">{color.hex}</p>
+                              </div>
+                           </div>
+                         ))}
+                      </div>
+                   </div>
+                </motion.div>
+
               </div>
             </div>
 
-            <div
-              className={`bg-background/80 backdrop-blur-xl relative flex flex-row w-full h-fit items-center py-12 md:px-24 border-t border-primary/10 ${
-                !prevId ? "justify-end" : "justify-between"
-              }`}
+            {/* Navigation Footer */}
+            <motion.div 
+              variants={itemVariants}
+              className="sticky bottom-0 w-full bg-white/80 dark:bg-black/80 backdrop-blur-xl border-t border-ghibli-oak/10 py-4 px-6 md:px-24 flex justify-between items-center z-40 lg:relative lg:bg-transparent lg:border-none lg:backdrop-filter-none"
             >
-              <Link
-                href={`/${prevId}`}
-                className={!prevId ? "hidden" : "block"}
+               <Link
+                href={prevId ? `/${prevId}` : "#"}
+                className={`flex items-center gap-3 transition-all ${
+                  prevId
+                    ? "opacity-100 hover:-translate-x-2 text-foreground"
+                    : "opacity-30 pointer-events-none"
+                }`}
               >
-                <div className="flex flex-row gap-2 items-center cursor-pointer">
-                  <Icon icon="quill:chevron-left" width="50" height="50" />
-                  <div>
-                    <span className="text-sm">Previous Project</span>
-                    <p className="font-bold text-lg">
-                      {prevId
-                        ? allProjects?.find(
-                            (p: { id: string }) => p.id === prevId
-                          )?.title
-                        : ""}
-                    </p>
-                  </div>
+                <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-ghibli-oak">
+                  <Icon icon="solar:arrow-left-linear" width="24" />
+                </div>
+                <div className="hidden md:block text-left">
+                  <span className="text-xs text-muted-foreground uppercase tracking-wide">Previous</span>
+                  <p className="font-bold font-serif truncate max-w-[150px]">
+                    {prevId ? allProjects?.find(p => p.id === prevId)?.title : ""}
+                  </p>
                 </div>
               </Link>
+              
+              <Link href="/" className="md:hidden">
+                 <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/30">
+                    <Icon icon="solar:home-bold" width="24" />
+                 </div>
+              </Link>
+
               <Link
-                href={`/${nextId}`}
-                className={!nextId ? "hidden" : "block"}
+                href={nextId ? `/${nextId}` : "#"}
+                className={`flex items-center gap-3 transition-all ${
+                  nextId
+                    ? "opacity-100 hover:translate-x-2 text-foreground"
+                    : "opacity-30 pointer-events-none"
+                }`}
               >
-                <div className="flex flex-row gap-2 items-center cursor-pointer">
-                  <div>
-                    <span className="text-sm">Next Project</span>
-                    <p className="font-bold text-lg">
-                      {nextId
-                        ? allProjects?.find(
-                            (p: { id: string }) => p.id === nextId
-                          )?.title
-                        : ""}
-                    </p>
-                  </div>
-                  <Icon icon="quill:chevron-right" width="50" height="50" />
+                <div className="hidden md:block text-right">
+                  <span className="text-xs text-muted-foreground uppercase tracking-wide">Next</span>
+                   <p className="font-bold font-serif truncate max-w-[150px]">
+                    {nextId ? allProjects?.find(p => p.id === nextId)?.title : ""}
+                  </p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-ghibli-oak">
+                  <Icon icon="solar:arrow-right-linear" width="24" />
                 </div>
               </Link>
-            </div>
+            </motion.div>
+
           </motion.section>
         )}
       </AnimatePresence>
