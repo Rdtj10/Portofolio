@@ -8,7 +8,7 @@ export default function CmsLayout({
   return (
       <div className="flex flex-row">
         <SideBar />
-        <div className="cms-layout">{children}</div>
+        <div className="flex-1 w-full h-screen overflow-hidden bg-gray-50/50">{children}</div>
       </div>
   )
 }

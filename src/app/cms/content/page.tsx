@@ -13,7 +13,7 @@ export default function Page() {
   const plannedProjects = projects?.filter((p) => p.status === "PLANNED") || [];
 
   return (
-    <section className="w-full px-12 py-8 flex flex-col gap-6 h-screen overflow-hidden">
+    <section className="w-full px-6 py-8 flex flex-col gap-6 h-screen overflow-hidden">
       <div className="flex flex-row justify-between items-end">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">Content Management</h1>

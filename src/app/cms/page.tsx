@@ -38,8 +38,8 @@ export default function Page() {
   }
 
   return (
-    <section className="w-full h-full p-8 md:p-12 overflow-y-auto bg-gray-50/50">
-      <div className="max-w-7xl mx-auto flex flex-col gap-8">
+    <section className="w-full h-full p-8 md:p-12 overflow-y-auto">
+      <div className="w-full flex flex-col gap-8">
         
         {/* Header */}
         <div>
