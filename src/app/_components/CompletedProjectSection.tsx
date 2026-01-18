@@ -76,6 +76,7 @@ export default function CompletedProjectsSection() {
 
       // Organic continuous floating for cards
       const cards = gsap.utils.toArray(".completed-reveal");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       cards.forEach((card: any, i: number) => {
         gsap.to(card, {
           y: "random(-10, 10)",

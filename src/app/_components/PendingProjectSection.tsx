@@ -75,6 +75,7 @@ export default function PendingProjectSection() {
 
       // Whimsical floating for upcoming seeds
       const seeds = gsap.utils.toArray(".pending-reveal");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       seeds.forEach((seed: any, i: number) => {
         gsap.to(seed, {
           y: "random(-15, 15)",

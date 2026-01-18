@@ -1,0 +1,1009 @@
+<svg width="1024" height="768" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(64, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(0)">
+        <ellipse cx="0" cy="0" rx="20" ry="26" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(192, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.586780454497614)">
+        <ellipse cx="0" cy="0" rx="20.479425538604204" ry="25.955336489125607" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(320, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(4.997868015207525)">
+        <ellipse cx="0" cy="0" rx="20.841470984807895" ry="25.82533561490968" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(448, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.377315902755753)">
+        <ellipse cx="0" cy="0" rx="20.997494986604053" ry="25.621609968270665" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(576, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-0.2918707171379004)">
+        <ellipse cx="0" cy="0" rx="20.90929742682568" ry="25.362357754476673" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(704, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.7840124765396412)">
+        <ellipse cx="0" cy="0" rx="20.598472144103958" ry="25.070737201667704" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(832, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-4.9808230441792025)">
+        <ellipse cx="0" cy="0" rx="20.14112000805987" ry="24.772797905306913" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(960, 64)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.1563331893616042)">
+        <ellipse cx="0" cy="0" rx="19.649216772310382" ry="24.495153895400144" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(64, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(0)">
+        <ellipse cx="0" cy="0" rx="20" ry="26" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(192, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="3.9805862895083948" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="-3.9805862895083948" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-34.32039085967226" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="34.32039085967226" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -7.20388274209833) rotate(3.586780454497614)">
+        <ellipse cx="0" cy="0" rx="20.479425538604204" ry="25.955336489125607" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(320, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="0.13194770826726376" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="-0.13194770826726376" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-31.754631805511508" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="31.754631805511508" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -7.973610458346542) rotate(4.997868015207525)">
+        <ellipse cx="0" cy="0" rx="20.841470984807895" ry="25.82533561490968" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(448, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-16.63780664942278" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="16.63780664942278" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-20.57479556705148" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="20.57479556705148" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -8.67243867011544) rotate(3.377315902755753)">
+        <ellipse cx="0" cy="0" rx="20.997494986604053" ry="25.621609968270665" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(576, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-24.94246913253761" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="24.94246913253761" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-15.038353911641593" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="15.038353911641593" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -7.011506173492478) rotate(-0.2918707171379004)">
+        <ellipse cx="0" cy="0" rx="20.90929742682568" ry="25.362357754476673" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(704, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-14.191232472983888" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="14.191232472983888" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-22.20584501801074" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="22.20584501801074" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -9.161753505403226) rotate(-3.7840124765396412)">
+        <ellipse cx="0" cy="0" rx="20.598472144103958" ry="25.070737201667704" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(832, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="1.9050179577372894" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="-1.9050179577372894" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-32.93667863849153" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="32.93667863849153" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -7.618996408452546) rotate(-4.9808230441792025)">
+        <ellipse cx="0" cy="0" rx="20.14112000805987" ry="24.772797905306913" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(960, 192)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="2.8189836213242074" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="-2.8189836213242074" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-33.545989080882805" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="33.545989080882805" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -7.436203275735153) rotate(-3.1563331893616042)">
+        <ellipse cx="0" cy="0" rx="19.649216772310382" ry="24.495153895400144" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(64, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(0)">
+        <ellipse cx="0" cy="0" rx="20" ry="26" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(192, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(3.586780454497614)">
+        <ellipse cx="0" cy="0" rx="20.479425538604204" ry="25.955336489125607" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(320, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(4.997868015207525)">
+        <ellipse cx="0" cy="0" rx="20.841470984807895" ry="25.82533561490968" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(448, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(3.377315902755753)">
+        <ellipse cx="0" cy="0" rx="20.997494986604053" ry="25.621609968270665" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(576, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(-0.2918707171379004)">
+        <ellipse cx="0" cy="0" rx="20.90929742682568" ry="25.362357754476673" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(704, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(-3.7840124765396412)">
+        <ellipse cx="0" cy="0" rx="20.598472144103958" ry="25.070737201667704" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(832, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(-4.9808230441792025)">
+        <ellipse cx="0" cy="0" rx="20.14112000805987" ry="24.772797905306913" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(960, 320)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 35)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 35)" />
+
+      <!-- Head -->
+      <g transform="translate(0, 5) rotate(-3.1563331893616042)">
+        <ellipse cx="0" cy="0" rx="19.649216772310382" ry="24.495153895400144" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(64, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(0)">
+        <ellipse cx="0" cy="0" rx="20" ry="26" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(192, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.586780454497614)">
+        <ellipse cx="0" cy="0" rx="20.479425538604204" ry="25.955336489125607" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(320, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(4.997868015207525)">
+        <ellipse cx="0" cy="0" rx="20.841470984807895" ry="25.82533561490968" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(448, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.377315902755753)">
+        <ellipse cx="0" cy="0" rx="20.997494986604053" ry="25.621609968270665" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(576, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-0.2918707171379004)">
+        <ellipse cx="0" cy="0" rx="20.90929742682568" ry="25.362357754476673" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(704, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.7840124765396412)">
+        <ellipse cx="0" cy="0" rx="20.598472144103958" ry="25.070737201667704" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(832, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-4.9808230441792025)">
+        <ellipse cx="0" cy="0" rx="20.14112000805987" ry="24.772797905306913" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(960, 448)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.1563331893616042)">
+        <ellipse cx="0" cy="0" rx="19.649216772310382" ry="24.495153895400144" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(64, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(0)">
+        <ellipse cx="0" cy="0" rx="20" ry="26" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(192, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.586780454497614)">
+        <ellipse cx="0" cy="0" rx="20.479425538604204" ry="25.955336489125607" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(320, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(4.997868015207525)">
+        <ellipse cx="0" cy="0" rx="20.841470984807895" ry="25.82533561490968" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(448, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.377315902755753)">
+        <ellipse cx="0" cy="0" rx="20.997494986604053" ry="25.621609968270665" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(576, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-0.2918707171379004)">
+        <ellipse cx="0" cy="0" rx="20.90929742682568" ry="25.362357754476673" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(704, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.7840124765396412)">
+        <ellipse cx="0" cy="0" rx="20.598472144103958" ry="25.070737201667704" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(832, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-4.9808230441792025)">
+        <ellipse cx="0" cy="0" rx="20.14112000805987" ry="24.772797905306913" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(960, 576)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.1563331893616042)">
+        <ellipse cx="0" cy="0" rx="19.649216772310382" ry="24.495153895400144" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(64, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(0)">
+        <ellipse cx="0" cy="0" rx="20" ry="26" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(192, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.586780454497614)">
+        <ellipse cx="0" cy="0" rx="20.479425538604204" ry="25.955336489125607" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(320, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(4.997868015207525)">
+        <ellipse cx="0" cy="0" rx="20.841470984807895" ry="25.82533561490968" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(448, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(3.377315902755753)">
+        <ellipse cx="0" cy="0" rx="20.997494986604053" ry="25.621609968270665" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(576, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-0.2918707171379004)">
+        <ellipse cx="0" cy="0" rx="20.90929742682568" ry="25.362357754476673" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(704, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.7840124765396412)">
+        <ellipse cx="0" cy="0" rx="20.598472144103958" ry="25.070737201667704" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(832, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-4.9808230441792025)">
+        <ellipse cx="0" cy="0" rx="20.14112000805987" ry="24.772797905306913" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  
+    <g transform="translate(960, 704)">
+      <!-- Body -->
+      <path d="M-15,10 Q0,5 15,10 L18,40 Q0,45 -18,40 Z" fill="#ffffff" transform="translate(0, 30)" />
+      
+      <!-- Legs -->
+      <line x1="-10" y1="40" x2="-10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x2="10" y1="40" x2="10" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Arms -->
+      <line x1="-18" y1="20" x2="-25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+      <line x1="18" y1="20" x2="25" y2="35" stroke="#ffffff" stroke-width="6" stroke-linecap="round" transform="translate(0, 30)" />
+
+      <!-- Head -->
+      <g transform="translate(0, -10) rotate(-3.1563331893616042)">
+        <ellipse cx="0" cy="0" rx="19.649216772310382" ry="24.495153895400144" fill="#ffffff" />
+        <circle cx="-8" cy="-5" r="3" fill="#222222" />
+        <circle cx="8" cy="-5" r="3" fill="#222222" />
+        <circle cx="0" cy="8" r="2" fill="#222222" opacity="0.6" />
+      </g>
+    </g>
+  </svg>

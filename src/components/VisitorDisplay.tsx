@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { trpc } from "@/utils/trpc";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 
@@ -75,9 +76,22 @@ const VisitorDisplay = () => {
         <div className="absolute -top-6 -left-6 w-12 h-12 bg-primary/10 rounded-full blur-xl animate-pulse" />
         <div className="absolute -bottom-4 -right-4 w-8 h-8 bg-secondary/10 rounded-full blur-lg animate-float" />
 
-        <div className="paper-card px-6 md:px-10 py-4 md:py-5 flex items-center justify-center md:items-center gap-4 md:gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-primary/10 bg-white/60 backdrop-blur-xl relative overflow-hidden group-hover:bg-white/80 transition-all duration-700 mx-auto">
+        <div className="paper-card pointer-events-auto px-6 md:px-10 py-4 md:py-5 flex items-center justify-center md:items-center gap-4 md:gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-primary/10 bg-white/60 backdrop-blur-xl relative overflow-hidden group-hover:bg-white/80 transition-all duration-700 mx-auto">
           {/* Subtle Texture Overlay */}
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20 pointer-events-none" />
+
+          {/* New: Link to Spirit Park */}
+          <Link
+            href="/spirit-park"
+            className="absolute inset-0 z-30 opacity-0 group-hover:opacity-100 transition-opacity bg-primary/5 flex items-center justify-center backdrop-blur-sm cursor-pointer"
+          >
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
+              <Icon icon="lucide:sparkles" className="text-primary animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-primary">
+                Enter Spirit Park
+              </span>
+            </div>
+          </Link>
 
           <div className="flex flex-col gap-1 items-start border-r border-border/30 pr-4 md:pr-8">
             <div className="flex items-center gap-3">
