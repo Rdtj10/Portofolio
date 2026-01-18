@@ -72,6 +72,20 @@ export default function PendingProjectSection() {
         ease: "power3.out",
         clearProps: "opacity,transform",
       });
+
+      // Whimsical floating for upcoming seeds
+      const seeds = gsap.utils.toArray(".pending-reveal");
+      seeds.forEach((seed: any, i: number) => {
+        gsap.to(seed, {
+          y: "random(-15, 15)",
+          x: "random(-5, 5)",
+          duration: "random(5, 8)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 0.3,
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -80,7 +94,7 @@ export default function PendingProjectSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
+      className="relative w-full py-20 md:py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
       id="other-projects"
     >
       {mounted && <BackgroundAtmosphere />}
@@ -93,7 +107,7 @@ export default function PendingProjectSection() {
           </h2>
           <div className="h-[2px] w-12 bg-accent/30" />
         </div>
-        <h1 className="text-6xl md:text-9xl font-black tracking-tighter font-serif leading-none">
+        <h1 className="text-5xl md:text-9xl font-black tracking-tighter font-serif leading-none">
           The <span className="ghibli-text-gradient">Daydreams</span>
         </h1>
         <p className="text-xl md:text-2xl text-foreground/60 font-medium italic max-w-2xl">
@@ -110,13 +124,13 @@ export default function PendingProjectSection() {
               <motion.div
                 whileHover={{ y: -15, rotate: index % 2 === 0 ? 1 : -1 }}
                 onClick={() => handleOpenDialogAbsen(project)}
-                className="paper-card p-10 flex flex-col gap-10 cursor-pointer group transition-all duration-700 bg-white/40 backdrop-blur-md shadow-xl border-accent/10 relative overflow-hidden h-full"
+                className="paper-card p-6 md:p-10 flex flex-col gap-10 cursor-pointer group transition-all duration-700 bg-white/40 backdrop-blur-md shadow-xl border-accent/10 relative overflow-hidden h-full"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                   <Icon icon="lucide:test-tube-2" className="text-5xl" />
                 </div>
 
-                <div className="relative aspect-square sketch-border overflow-hidden bg-white/60 p-8 flex items-center justify-center shadow-inner">
+                <div className="relative aspect-square sketch-border overflow-hidden bg-white/60 p-4 md:p-8 flex items-center justify-center shadow-inner">
                   <Image
                     alt={project.title}
                     src={project.imageUrl || "/logo/rdtj.png"}
@@ -150,7 +164,7 @@ export default function PendingProjectSection() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-3xl font-black tracking-tight group-hover:text-accent transition-colors font-serif leading-tight">
+                    <h3 className="text-2xl md:text-3xl font-black tracking-tight group-hover:text-accent transition-colors font-serif leading-tight">
                       {project.title}
                     </h3>
                     <div className="h-[1px] w-12 bg-accent/20 group-hover:w-full transition-all duration-700" />

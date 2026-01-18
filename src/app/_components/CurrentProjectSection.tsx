@@ -110,6 +110,17 @@ export default function CurrentProjectSection() {
         ease: "power3.out",
         clearProps: "opacity,transform",
       });
+
+      // Parallax for the Slider image
+      gsap.to(".slider-parallax", {
+        y: -40,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -118,7 +129,7 @@ export default function CurrentProjectSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
+      className="relative w-full py-20 md:py-40 px-6 lg:px-24 flex flex-col gap-24 overflow-hidden bg-background"
       id="current-projects"
     >
       {mounted && (
@@ -133,7 +144,7 @@ export default function CurrentProjectSection() {
               </h2>
               <div className="h-[2px] w-12 bg-primary/30" />
             </div>
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter font-serif leading-none">
+            <h1 className="text-5xl md:text-9xl font-black tracking-tighter font-serif leading-none">
               Active <span className="ghibli-text-gradient">Enchantments</span>
             </h1>
             <p className="text-xl md:text-2xl text-foreground/60 font-medium italic max-w-2xl px-4">
@@ -145,7 +156,7 @@ export default function CurrentProjectSection() {
           <div className="current-reveal p-1">
             <div className="paper-card flex flex-col xl:flex-row w-full max-w-7xl mx-auto overflow-hidden bg-card/60 backdrop-blur-md shadow-2xl skew-x-[-1deg]">
               {/* Left Side: Info */}
-              <div className="xl:w-2/5 w-full flex flex-col justify-between p-12 md:p-20 border-b xl:border-b-0 xl:border-r border-border/50 bg-white/40">
+              <div className="xl:w-2/5 w-full flex flex-col justify-between p-8 md:p-20 border-b xl:border-b-0 xl:border-r border-border/50 bg-white/40">
                 <div className="flex flex-col gap-10">
                   <div className="flex items-center gap-4">
                     <div className="w-4 h-4 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_20px_oklch(var(--primary-params))]" />
@@ -155,7 +166,7 @@ export default function CurrentProjectSection() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h2 className="text-6xl md:text-8xl font-black tracking-tighter font-serif leading-none">
+                    <h2 className="text-4xl md:text-8xl font-black tracking-tighter font-serif leading-none">
                       Labskill <span className="text-primary italic">V2</span>
                     </h2>
                     <p className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/30 ml-1">
@@ -205,7 +216,7 @@ export default function CurrentProjectSection() {
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center gap-6 p-6 bg-white/60 rounded-3xl border border-border/30 group hover:border-primary/40 transition-all shadow-inner"
+                          className="flex items-center gap-6 p-4 md:p-6 bg-white/60 rounded-3xl border border-border/30 group hover:border-primary/40 transition-all shadow-inner"
                         >
                           <div
                             className={cn(
@@ -251,7 +262,7 @@ export default function CurrentProjectSection() {
               </div>
 
               {/* Right Side: Slider */}
-              <div className="xl:w-3/5 w-full relative min-h-[600px] md:min-h-[900px] bg-ghibli-oak/20 overflow-hidden">
+              <div className="xl:w-3/5 w-full relative min-h-[400px] md:min-h-[900px] bg-ghibli-oak/20 overflow-hidden slider-parallax">
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                   <motion.div
                     key={current}
@@ -278,9 +289,9 @@ export default function CurrentProjectSection() {
                         transition={{ delay: 0.4 }}
                         className="flex flex-col gap-6"
                       >
-                        <div className="paper-card p-10 md:p-14 bg-white/40 backdrop-blur-xl border-white/40 shadow-2xl relative overflow-hidden">
+                        <div className="paper-card p-6 md:p-14 bg-white/40 backdrop-blur-xl border-white/40 shadow-2xl relative overflow-hidden">
                           <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl" />
-                          <p className="text-3xl md:text-5xl font-black tracking-tight text-foreground font-serif leading-tight">
+                          <p className="text-xl md:text-5xl font-black tracking-tight text-foreground font-serif leading-tight">
                             &quot;{images[current].desc}&quot;
                           </p>
                         </div>
@@ -303,7 +314,7 @@ export default function CurrentProjectSection() {
                 </AnimatePresence>
 
                 {/* Navigation */}
-                <div className="absolute top-16 right-16 flex gap-6 z-10">
+                <div className="absolute top-8 md:top-16 right-8 md:right-16 flex gap-4 md:gap-6 z-10">
                   <button
                     onClick={() => paginate(-1)}
                     className="w-16 h-16 flex items-center justify-center bg-white/80 backdrop-blur-md rounded-[1.5rem] border border-white/50 hover:bg-white transition-all active:scale-90 shadow-xl group"

@@ -98,6 +98,42 @@ export default function ContactSection() {
         ease: "power3.out",
         clearProps: "opacity,transform",
       });
+
+      // Parallax for Contact Form
+      gsap.to(".contact-form-parallax", {
+        y: -30,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // Rotating Stamp Parallax
+      gsap.to(".contact-stamp-parallax", {
+        rotate: 360,
+        y: -50,
+        scrollTrigger: {
+          trigger: ".contact-stamp-parallax",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+
+      // Flying Messenger Bird (whimsical)
+      gsap.to(".messenger-bird", {
+        x: "100vw",
+        y: -100,
+        rotate: 15,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 2,
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -106,12 +142,17 @@ export default function ContactSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-40 px-6 lg:px-24 flex flex-col items-center overflow-hidden bg-background"
+      className="relative w-full py-20 md:py-40 px-6 lg:px-24 flex flex-col items-center overflow-hidden bg-background"
       id="contact"
     >
       {mounted && (
         <>
           <BackgroundAtmosphere />
+
+          {/* Whimsical Flying Messenger Bird */}
+          <div className="messenger-bird absolute top-1/4 -left-20 z-20 pointer-events-none opacity-20">
+            <Icon icon="lucide:bird" className="text-6xl md:text-8xl text-primary" />
+          </div>
 
           <div className="contact-reveal flex flex-col items-center text-center gap-6 max-w-4xl mb-24">
             <div className="flex items-center gap-3">
@@ -121,7 +162,7 @@ export default function ContactSection() {
               </h2>
               <div className="h-[2px] w-16 bg-primary/30" />
             </div>
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter font-serif leading-none">
+            <h1 className="text-5xl md:text-9xl font-black tracking-tighter font-serif leading-none">
               Planting <span className="ghibli-text-gradient">Seeds</span>
             </h1>
             <p className="text-xl md:text-2xl text-foreground/60 font-medium italic max-w-2xl">
@@ -147,16 +188,16 @@ export default function ContactSection() {
                       key={idx}
                       href={link.href}
                       target="_blank"
-                      className="flex items-center gap-10 p-10 paper-card group hover:bg-white transition-all bg-white/60 backdrop-blur-md shadow-xl border-white/20"
+                      className="flex items-center gap-6 md:gap-10 p-6 md:p-10 paper-card group hover:bg-white transition-all bg-white/60 backdrop-blur-md shadow-xl border-white/20"
                     >
-                      <div className="p-6 bg-white rounded-[1.5rem] group-hover:scale-110 transition-transform shadow-inner text-primary">
-                        <Icon icon={link.icon} className="text-5xl" />
+                      <div className="p-4 md:p-6 bg-white rounded-[1.2rem] md:rounded-[1.5rem] group-hover:scale-110 transition-transform shadow-inner text-primary">
+                        <Icon icon={link.icon} className="text-3xl md:text-5xl" />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <h4 className="text-2xl font-black text-foreground/80 group-hover:text-primary transition-colors font-serif">
+                        <h4 className="text-xl md:text-2xl font-black text-foreground/80 group-hover:text-primary transition-colors font-serif">
                           {link.label}
                         </h4>
-                        <p className="text-base text-foreground/40 font-medium italic">
+                        <p className="text-sm md:text-base text-foreground/40 font-medium italic">
                           {link.desc}
                         </p>
                       </div>
@@ -183,8 +224,8 @@ export default function ContactSection() {
             </div>
 
             {/* Right: Form */}
-            <div className="contact-reveal p-1">
-              <div className="paper-card p-10 md:p-20 bg-white/60 backdrop-blur-xl relative overflow-hidden shadow-2xl skew-y-1">
+            <div className="contact-reveal p-1 contact-form-parallax">
+              <div className="paper-card p-8 md:p-20 bg-white/60 backdrop-blur-xl relative overflow-hidden shadow-2xl skew-y-1">
                 <div className="absolute top-10 right-10 opacity-5 pointer-events-none">
                   <Icon
                     icon="lucide:scroll"
@@ -207,7 +248,7 @@ export default function ContactSection() {
                         type="text"
                         name="name"
                         placeholder="A curious traveler"
-                        className="px-10 py-6 bg-white/40 rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
+                        className="px-6 py-4 md:px-10 md:py-6 bg-white/40 rounded-[1.5rem] md:rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-[10px] md:text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
                       />
                     </div>
                     <div className="flex flex-col gap-4">
@@ -219,7 +260,7 @@ export default function ContactSection() {
                         type="email"
                         name="email"
                         placeholder="messenger@wild.com"
-                        className="px-10 py-6 bg-white/40 rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
+                        className="px-6 py-4 md:px-10 md:py-6 bg-white/40 rounded-[1.5rem] md:rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-[10px] md:text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
                       />
                     </div>
                   </div>
@@ -233,7 +274,7 @@ export default function ContactSection() {
                       type="text"
                       name="title"
                       placeholder="A new adventure begins..."
-                      className="px-10 py-6 bg-white/40 rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
+                      className="px-6 py-4 md:px-10 md:py-6 bg-white/40 rounded-[1.5rem] md:rounded-[2rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-[10px] md:text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner"
                     />
                   </div>
 
@@ -246,14 +287,14 @@ export default function ContactSection() {
                       name="message"
                       placeholder="Write your heart out here. Every word counts..."
                       rows={6}
-                      className="px-10 py-8 bg-white/40 rounded-[2.5rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner resize-none"
+                      className="px-6 py-6 md:px-10 md:py-8 bg-white/40 rounded-[2rem] md:rounded-[2.5rem] border-2 border-border/20 focus:border-primary/40 outline-none transition-all text-[10px] md:text-sm font-black uppercase tracking-[0.3em] placeholder:text-foreground/20 shadow-inner resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="mt-6 px-12 py-8 bg-primary text-primary-foreground rounded-[2.5rem] font-black text-xs uppercase tracking-[0.5em] hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-6 group relative overflow-hidden"
+                    className="mt-6 px-8 py-6 md:px-12 md:py-8 bg-primary text-primary-foreground rounded-[2rem] md:rounded-[2.5rem] font-black text-[10px] md:text-xs uppercase tracking-[0.5em] hover:scale-[1.02] active:scale-95 transition-all shadow-xl flex items-center justify-center gap-4 md:gap-6 group relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
                     {loading ? (
@@ -282,7 +323,7 @@ export default function ContactSection() {
           <div className="contact-reveal mt-32 flex flex-col items-center gap-6 opacity-30">
             <Icon
               icon="lucide:stamp"
-              className="text-6xl text-primary animate-float"
+              className="contact-stamp-parallax text-6xl text-primary animate-float"
             />
             <span className="text-[10px] font-black uppercase tracking-[0.8em] text-primary">
               Certified Sincere

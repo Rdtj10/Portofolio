@@ -65,7 +65,7 @@ const VisitorDisplay = () => {
       : null;
 
   return (
-    <div className="fixed bottom-10 right-10 z-50 pointer-events-none select-none">
+    <div className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 z-50 pointer-events-none select-none w-full max-w-[90vw] md:w-auto px-4 md:px-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -75,11 +75,11 @@ const VisitorDisplay = () => {
         <div className="absolute -top-6 -left-6 w-12 h-12 bg-primary/10 rounded-full blur-xl animate-pulse" />
         <div className="absolute -bottom-4 -right-4 w-8 h-8 bg-secondary/10 rounded-full blur-lg animate-float" />
 
-        <div className="paper-card px-10 py-5 flex items-center gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-primary/10 bg-white/60 backdrop-blur-xl relative overflow-hidden group-hover:bg-white/80 transition-all duration-700">
+        <div className="paper-card px-6 md:px-10 py-4 md:py-5 flex items-center justify-center md:items-center gap-4 md:gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-primary/10 bg-white/60 backdrop-blur-xl relative overflow-hidden group-hover:bg-white/80 transition-all duration-700 mx-auto">
           {/* Subtle Texture Overlay */}
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20 pointer-events-none" />
 
-          <div className="flex flex-col gap-1 items-start border-r border-border/30 pr-8">
+          <div className="flex flex-col gap-1 items-start border-r border-border/30 pr-4 md:pr-8">
             <div className="flex items-center gap-3">
               <Icon
                 icon="lucide:ghost"

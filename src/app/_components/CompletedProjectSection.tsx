@@ -73,6 +73,20 @@ export default function CompletedProjectsSection() {
         ease: "power3.out",
         clearProps: "opacity,transform",
       });
+
+      // Organic continuous floating for cards
+      const cards = gsap.utils.toArray(".completed-reveal");
+      cards.forEach((card: any, i: number) => {
+        gsap.to(card, {
+          y: "random(-10, 10)",
+          rotate: "random(-1, 1)",
+          duration: "random(4, 6)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 0.5,
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -98,7 +112,7 @@ export default function CompletedProjectsSection() {
           </h2>
           <div className="h-[2px] w-12 bg-secondary/30" />
         </div>
-        <h1 className="text-6xl md:text-9xl font-black tracking-tighter font-serif leading-none">
+        <h1 className="text-5xl md:text-9xl font-black tracking-tighter font-serif leading-none">
           The <span className="ghibli-text-gradient">Archives</span>
         </h1>
         <p className="text-xl md:text-2xl text-foreground/60 font-medium italic max-w-2xl">
@@ -138,28 +152,28 @@ export default function CompletedProjectsSection() {
                 </div>
 
                 {/* Content Section */}
-                <div className="p-12 md:p-14 flex flex-col gap-8 flex-grow">
+                <div className="p-8 md:p-14 flex flex-col gap-6 md:gap-8 flex-grow">
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex flex-col gap-2">
                       <p className="text-[10px] text-primary font-black uppercase tracking-[0.4em] italic">
                         Volume {index + 1 < 10 ? `0${index + 1}` : index + 1}
                       </p>
-                      <h3 className="text-4xl md:text-5xl font-black tracking-tight font-serif group-hover:text-primary transition-colors leading-tight">
+                      <h3 className="text-2xl md:text-5xl font-black tracking-tight font-serif group-hover:text-primary transition-colors leading-tight">
                         {project.title}
                       </h3>
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <p className="text-foreground/70 leading-relaxed font-serif text-xl line-clamp-3 italic">
+                    <p className="text-foreground/70 leading-relaxed font-serif text-lg md:text-xl line-clamp-3 italic">
                       &quot;{project.short_description}&quot;
                     </p>
                     <div className="h-[2px] w-20 bg-secondary/20 group-hover:w-full transition-all duration-700" />
                   </div>
 
-                  <div className="flex gap-6 mt-auto pt-8">
+                  <div className="flex flex-col sm:flex-row gap-4 md:gap-6 mt-auto pt-8">
                     {project.site === "restricted" ? (
-                      <div className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-muted/50 text-muted-foreground text-xs font-black uppercase tracking-[0.3em] cursor-not-allowed border border-border/50">
+                      <div className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-muted/50 text-muted-foreground text-[10px] md:text-xs font-black uppercase tracking-[0.3em] cursor-not-allowed border border-border/50 w-full sm:w-auto">
                         <Icon icon="lucide:lock" className="text-xl" />
                         Sanctuary
                       </div>
@@ -167,15 +181,15 @@ export default function CompletedProjectsSection() {
                       <Link
                         href={project.site ?? "#"}
                         target="_blank"
-                        className="flex items-center gap-3 px-10 py-4 rounded-2xl bg-primary text-primary-foreground text-xs font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-[8px_8px_0px_0px_oklch(var(--ghibli-oak-params)/0.1)] hover:shadow-none"
+                        className="flex items-center justify-center gap-2 md:gap-3 px-6 py-4 md:px-10 md:py-4 rounded-2xl bg-primary text-primary-foreground text-[10px] md:text-xs font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-[8px_8px_0px_0px_oklch(var(--ghibli-oak-params)/0.15)] hover:shadow-none w-full sm:w-auto"
                       >
-                        <Icon icon="lucide:map-pin" className="text-xl" />
+                        <Icon icon="lucide:map-pin" className="text-lg md:text-xl" />
                         Visit Site
                       </Link>
                     )}
                     <Link
                       href={`/${project.id}`}
-                      className="flex items-center gap-3 px-10 py-4 rounded-2xl border-2 border-primary/20 text-primary font-black uppercase tracking-[0.3em] hover:bg-primary/5 text-xs transition-all hover:border-primary/40"
+                      className="flex items-center justify-center gap-2 md:gap-3 px-6 py-4 md:px-10 md:py-4 rounded-2xl border-2 border-primary/20 text-primary font-black uppercase tracking-[0.3em] hover:bg-primary/5 text-[10px] md:text-xs transition-all hover:border-primary/40 text-center w-full sm:w-auto"
                     >
                       Read Journal
                     </Link>

@@ -1,8 +1,11 @@
 "use client";
 
+import React, { useEffect, useRef } from "react";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const logos = [
   "html.png",
@@ -22,6 +25,24 @@ const logos = [
 ];
 
 export default function LogoMarquee() {
+  const titleRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    if (titleRef.current) {
+      gsap.to(titleRef.current, {
+        x: 40,
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5,
+        }
+      });
+    }
+  }, []);
+
   return (
     <div className="relative w-full py-16 md:py-24 overflow-hidden border-t border-b border-primary/10 bg-white/30 backdrop-blur-sm">
       {/* Decorative Atmosphere */}
@@ -29,7 +50,7 @@ export default function LogoMarquee() {
       <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-secondary/5 blur-3xl rounded-full" />
 
       <div className="flex flex-col items-center gap-12">
-        <div className="flex items-center gap-4">
+        <div ref={titleRef} className="flex items-center gap-4">
           <div className="h-[1px] w-12 bg-primary/20" />
           <span className="text-[10px] font-black uppercase tracking-[0.6em] text-foreground/30 italic font-serif">
             Technical Artifacts
@@ -45,7 +66,7 @@ export default function LogoMarquee() {
             {logos.map((logo, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center mx-12 md:mx-20 group cursor-pointer"
+                className="flex flex-col items-center justify-center mx-4 md:mx-20 group cursor-pointer"
               >
                 <div className="relative w-16 h-16 md:w-24 md:h-24 flex items-center justify-center p-4 bg-white/40 rounded-[2rem] border border-white/60 shadow-sm group-hover:shadow-xl group-hover:scale-110 group-hover:bg-white transition-all duration-700">
                   <Image

@@ -1,10 +1,12 @@
 "use client";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const FallingLeaves = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -60,11 +62,129 @@ const FloatingParticles = () => (
   </div>
 );
 
+const SootSprites = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const sprites = containerRef.current.querySelectorAll(".soot-sprite");
+
+    sprites.forEach((sprite) => {
+      // Random organic floating movement
+      gsap.to(sprite, {
+        x: "random(-100, 100)",
+        y: "random(-100, 100)",
+        duration: "random(10, 20)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: "random(0, 5)",
+      });
+
+      // Subtle rotation
+      gsap.to(sprite, {
+        rotate: "random(-45, 45)",
+        duration: "random(5, 10)",
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+      });
+    });
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="absolute inset-0 pointer-events-none overflow-hidden z-[1]"
+    >
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={i}
+          className="soot-sprite absolute flex items-center justify-center pointer-events-auto cursor-help opacity-40 hover:opacity-100 transition-opacity duration-300"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+          }}
+        >
+          {/* Soot Body */}
+          <div className="w-6 h-6 bg-[#1a1a1a] rounded-full relative shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+            {/* Spiky Fur (simplified) */}
+            <div className="absolute inset-[-2px] border-4 border-dashed border-[#1a1a1a] rounded-full animate-spin-slow" />
+            {/* Eyes */}
+            <div className="absolute top-1.5 left-1 w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
+              <div className="w-1 h-1 bg-black rounded-full" />
+            </div>
+            <div className="absolute top-1.5 right-1 w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
+              <div className="w-1 h-1 bg-black rounded-full" />
+            </div>
+            {/* Blinking Animation Effect via tailwind */}
+            <div className="absolute top-1.5 left-1 w-2.5 h-0 bg-[#1a1a1a] rounded-full animate-blink z-10" />
+            <div className="absolute top-1.5 right-1 w-2.5 h-0 bg-[#1a1a1a] rounded-full animate-blink z-10" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Parallax for Background Glows
+      gsap.to(".hero-glow-1", {
+        y: -100,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+
+      gsap.to(".hero-glow-2", {
+        y: 150,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 2,
+        },
+      });
+
+      // Parallax for the Framed Image
+      gsap.to(".hero-frame-parallax", {
+        y: -50,
+        rotate: 2,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // Subtle float for the talisman on scroll
+      gsap.to(".hero-talisman", {
+        y: -30,
+        x: 10,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.5,
+        },
+      });
+    });
+
+    return () => ctx.revert();
   }, []);
 
   const handleScroll = (id: string) => {
@@ -103,14 +223,15 @@ export default function HeroSection() {
         <>
           <FallingLeaves />
           <FloatingParticles />
+          <SootSprites />
         </>
       )}
 
       {/* Atmospheric Background Decor */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
-        <div className="absolute top-[5%] left-[10%] w-[60rem] h-[60rem] bg-secondary/10 blur-[150px] rounded-full animate-float opacity-60" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[50rem] h-[50rem] bg-primary/10 blur-[120px] rounded-full animate-float [animation-delay:4s] opacity-60" />
-        <div className="absolute top-[20%] right-[10%] w-[15rem] h-[15rem] bg-accent/5 blur-[80px] rounded-full animate-pulse" />
+        <div className="hero-glow-1 absolute top-[5%] left-[10%] w-[60rem] h-[60rem] bg-secondary/10 blur-[150px] rounded-full animate-float opacity-60" />
+        <div className="hero-glow-2 absolute bottom-[-10%] right-[-5%] w-[50rem] h-[50rem] bg-primary/10 blur-[120px] rounded-full animate-float [animation-delay:4s] opacity-60" />
+        <div className="hero-glow-3 absolute top-[20%] right-[10%] w-[15rem] h-[15rem] bg-accent/5 blur-[80px] rounded-full animate-pulse" />
       </div>
 
       <motion.div
@@ -128,8 +249,8 @@ export default function HeroSection() {
                 A Digital Craftsman
               </span>
             </div>
-            <h1 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.85]">
-              <span className="block italic text-foreground/20 font-serif text-3xl md:text-5xl mb-4">
+            <h1 className="text-5xl md:text-9xl font-black tracking-tighter leading-[0.85]">
+              <span className="block italic text-foreground/20 font-serif text-2xl md:text-5xl mb-4">
                 In the quiet meadow of code,
               </span>
               <span className="ghibli-text-gradient inline-block pb-4">
@@ -144,7 +265,7 @@ export default function HeroSection() {
           >
             <div className="absolute -left-10 top-0 bottom-0 w-2 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent hidden lg:block" />
             <div className="flex flex-col gap-4 pl-0 lg:pl-12">
-              <p className="text-2xl md:text-4xl text-foreground/70 font-medium leading-tight font-serif italic text-justify">
+              <p className="text-xl md:text-4xl text-foreground/70 font-medium leading-tight font-serif italic text-justify">
                 &quot;Weaving digital tapestry with the{" "}
                 <span className="text-primary font-bold">
                   patience of a gardener
@@ -159,7 +280,7 @@ export default function HeroSection() {
                 </p>
 
                 {/* Current Log / Focus */}
-                <div className="paper-card p-8 bg-white/40 backdrop-blur-md border border-primary/10 flex flex-col gap-4 shadow-sm group">
+                <div className="paper-card p-6 md:p-8 bg-white/40 backdrop-blur-md border border-primary/10 flex flex-col gap-4 shadow-sm group">
                   <div className="flex items-center gap-3">
                     <Icon
                       icon="lucide:pencil-line"
@@ -169,7 +290,7 @@ export default function HeroSection() {
                       Current Expedition Log
                     </span>
                   </div>
-                  <p className="text-base text-foreground/70 font-serif italic leading-relaxed">
+                  <p className="text-sm md:text-base text-foreground/70 font-serif italic leading-relaxed">
                     &quot;Currently refining a pedagogical habitat for digital
                     alchemy (Labskill V2). Aiming for 100% architectural harmony
                     by the next solstice.&quot;
@@ -185,13 +306,13 @@ export default function HeroSection() {
           >
             <button
               onClick={() => handleScroll("index")}
-              className="px-14 py-8 bg-primary text-primary-foreground rounded-[2rem] font-black text-2xl hover:scale-105 active:scale-95 transition-all shadow-[12px_12px_0px_0px_oklch(var(--ghibli-oak-params)/0.15)] hover:shadow-none group flex items-center gap-6 border-b-8 border-black/10 relative overflow-hidden"
+              className="px-8 py-6 md:px-14 md:py-8 bg-primary text-primary-foreground rounded-[2rem] font-black text-xl md:text-2xl hover:scale-105 active:scale-95 transition-all shadow-[12px_12px_0px_0px_oklch(var(--ghibli-oak-params)/0.15)] hover:shadow-none group flex items-center gap-6 border-b-8 border-black/10 relative overflow-hidden w-full sm:w-auto justify-center"
             >
               <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform" />
               <span className="relative z-10">Step into the Workshop</span>
               <Icon
                 icon="lucide:chevrons-right"
-                className="group-hover:translate-x-2 transition-transform text-3xl relative z-10"
+                className="group-hover:translate-x-2 transition-transform text-2xl md:text-3xl relative z-10"
               />
             </button>
 
@@ -232,7 +353,7 @@ export default function HeroSection() {
         {/* Right Side: Framed Image */}
         <motion.div
           variants={itemVariants}
-          className="relative w-full lg:w-2/5 aspect-[3/4] max-w-[500px]"
+          className="hero-frame-parallax relative w-full lg:w-2/5 aspect-[3/4] max-w-[500px]"
         >
           {/* Decorative Layers / Window Look */}
           <div className="absolute inset-[-40px] bg-primary/5 blur-3xl animate-float -z-10" />
@@ -267,23 +388,23 @@ export default function HeroSection() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute -bottom-16 -left-12 paper-card p-10 flex flex-col items-center justify-center gap-2 bg-white/80 backdrop-blur-xl border-primary/20 shadow-2xl z-20"
+            className="hero-talisman absolute -bottom-8 md:-bottom-16 -left-4 md:-left-12 paper-card p-6 md:p-10 flex flex-col items-center justify-center gap-2 bg-white/80 backdrop-blur-xl border-primary/20 shadow-2xl z-20"
           >
-            <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-2 animate-pulse">
-              <Icon icon="lucide:flame" className="text-accent text-5xl" />
+            <div className="w-10 h-10 md:w-16 md:h-16 bg-accent/10 rounded-full flex items-center justify-center mb-2 animate-pulse">
+              <Icon icon="lucide:flame" className="text-accent text-3xl md:text-5xl" />
             </div>
             <div className="flex flex-col items-center leading-none">
-              <span className="text-5xl font-black text-secondary tracking-tighter">
+              <span className="text-3xl md:text-5xl font-black text-secondary tracking-tighter">
                 03+
               </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/30 text-center mt-2">
+              <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-foreground/30 text-center mt-2">
                 Great
                 <br />
                 Voyages
               </span>
             </div>
             {/* Hanging String Decor */}
-            <div className="absolute top-[-40px] left-1/2 -translate-x-1/2 w-[2px] h-10 bg-gradient-to-t from-primary/30 to-transparent" />
+            <div className="absolute top-[-40px] left-1/2 -translate-x-1/2 w-[2px] h-10 bg-gradient-to-t from-primary/30 to-transparent hidden md:block" />
           </motion.div>
 
           {/* Floating Leaves Decor around frame */}
