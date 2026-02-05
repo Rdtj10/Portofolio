@@ -4,8 +4,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@/context/themeContext";
+import { ChatProvider } from "@/context/ChatContext";
 import { TrpcProvider } from "./api/provider";
 import { Suspense } from "react";
+import ChatBot from "./_components/ChatBot";
 
 import { Inter, Playfair_Display } from "next/font/google";
 
@@ -95,11 +97,16 @@ export default function RootLayout({
 
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <ThemeProvider>
-          <Suspense>
-            <Navbar />
-          </Suspense>
-          <ToastContainer />
-          <TrpcProvider>{children}</TrpcProvider>
+          <ChatProvider>
+            <Suspense>
+              <Navbar />
+            </Suspense>
+            <ToastContainer />
+            <TrpcProvider>
+              {children}
+              <ChatBot />
+            </TrpcProvider>
+          </ChatProvider>
         </ThemeProvider>
       </body>
     </html>

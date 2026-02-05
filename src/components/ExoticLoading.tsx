@@ -2,11 +2,32 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 
+import { useState, useEffect } from "react";
+
 type ExoticLoadingProps = {
   loading: boolean;
 };
 
+type Particle = {
+  height: number;
+  left: string;
+  duration: number;
+  delay: number;
+};
+
 const ExoticLoading = ({ loading }: ExoticLoadingProps) => {
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  useEffect(() => {
+    setParticles(
+      [...Array(12)].map(() => ({
+        height: Math.random() * 4 + 4,
+        left: `${Math.random() * 100}%`,
+        duration: 6 + Math.random() * 6,
+        delay: Math.random() * 5,
+      }))
+    );
+  }, []);
 
   return (
     <AnimatePresence>
@@ -26,13 +47,13 @@ const ExoticLoading = ({ loading }: ExoticLoadingProps) => {
 
           {/* Atmospheric Elements: Rising Spirits */}
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(12)].map((_, i) => (
+            {particles.map((p, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 rounded-full bg-primary/20"
                 style={{
-                  height: Math.random() * 4 + 4,
-                  left: `${Math.random() * 100}%`,
+                  height: p.height,
+                  left: p.left,
                   bottom: "-10%",
                 }}
                 animate={{
@@ -41,9 +62,9 @@ const ExoticLoading = ({ loading }: ExoticLoadingProps) => {
                   scale: [1, 1.5, 1],
                 }}
                 transition={{
-                  duration: 6 + Math.random() * 6,
+                  duration: p.duration,
                   repeat: Infinity,
-                  delay: Math.random() * 5,
+                  delay: p.delay,
                   ease: "linear",
                 }}
               />

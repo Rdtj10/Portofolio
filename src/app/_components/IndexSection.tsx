@@ -100,14 +100,14 @@ export default function IndexSection() {
       gsap.from(".index-reveal", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 75%",
+          start: "top 85%",
         },
         y: 60,
-        opacity: 0,
+        autoAlpha: 0,
         stagger: 0.2,
         duration: 1.5,
         ease: "power3.out",
-        clearProps: "opacity,transform",
+        clearProps: "all",
       });
 
       // Parallax for Background Clouds

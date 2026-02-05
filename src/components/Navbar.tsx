@@ -21,6 +21,7 @@ import { Menu } from "lucide-react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Switch } from "./ui/switch";
 import { useTheme } from "@/context/themeContext";
+import { useChatContext } from "@/context/ChatContext";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import AboutDialog from "./AboutDialog";
@@ -40,6 +41,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const { theme, toggleTheme } = useTheme();
+  const { toggleChat } = useChatContext();
 
   const handleClick = (id: string) => {
     const el = document.getElementById(id);
@@ -257,6 +259,33 @@ export default function Navbar() {
                     </p>
                     <p className="text-xs">
                       Unlock the workshop&apos;s hidden chambers.
+                    </p>
+                  </div>
+                </TooltipContent>
+
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <div
+                    className="relative group cursor-pointer p-4 paper-card bg-primary/10 hover:bg-primary transition-all duration-500 hover:text-primary-foreground border-primary/20"
+                    onClick={toggleChat}
+                  >
+                    <Icon
+                      icon="lucide:message-circle"
+                      width="24"
+                      height="24"
+                      className="group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent className="bg-white text-primary border-primary/20 font-serif italic p-4 shadow-xl">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-black uppercase tracking-widest text-[10px]">
+                      Ask the Assistant
+                    </p>
+                    <p className="text-xs">
+                      Consult with Rob&apos;s digital echo.
                     </p>
                   </div>
                 </TooltipContent>
