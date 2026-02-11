@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import sendEmail from "@/server/email-js/sendEmail";
+// import sendEmail from "@/server/email-js/sendEmail"; // Removed server import
+import emailjs from '@emailjs/browser';
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -71,11 +72,13 @@ export default function ContactSection() {
     if (form.current) {
       setLoading(true);
       try {
-        await sendEmail(form.current);
+        // await sendEmail(form.current);
+        await emailjs.sendForm('service_id', 'template_id', form.current, 'public_key');
         toast.success("Your message is taking flight!");
         form.current.reset();
-      } catch (error) {
-        toast.error("Oh no, something went wrong: " + error);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        toast.error("Oh no, something went wrong: " + (error?.text || error));
       } finally {
         setLoading(false);
       }

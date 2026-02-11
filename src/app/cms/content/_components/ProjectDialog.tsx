@@ -19,9 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { trpc } from "@/utils/trpc";
+import { useCreateProject, useUpdateProject, useRoles, useLanguages } from "@/hooks/useProjectMutations";
 import { toast } from "react-toastify";
 import { Icon } from "@iconify/react/dist/iconify.js";
+
+// ... (lines 26-30)
 
 interface ProjectDialogProps {
   mode?: "create" | "edit";
@@ -53,29 +55,11 @@ export default function ProjectDialog({
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
   // Queries
-  const { data: roles } = trpc.role.getAll.useQuery();
-  const { data: languages } = trpc.language.getAll.useQuery();
-  const utils = trpc.useUtils();
+  const { data: roles } = useRoles();
+  const { data: languages } = useLanguages();
 
-  const createMutation = trpc.project.create.useMutation({
-    onSuccess: () => {
-      toast.success("Project created successfully");
-      utils.project.getAll.invalidate();
-      setOpen(false);
-      onSuccess?.();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
-  const updateMutation = trpc.project.update.useMutation({
-    onSuccess: () => {
-      toast.success("Project updated successfully");
-      utils.project.getAll.invalidate();
-      setOpen(false);
-      onSuccess?.();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const createMutation = useCreateProject();
+  const updateMutation = useUpdateProject();
 
   useEffect(() => {
     if (project && mode === "edit") {
@@ -113,9 +97,23 @@ export default function ProjectDialog({
       };
 
       if (mode === "create") {
-        await createMutation.mutateAsync(data);
+        createMutation.mutate(data, {
+          onSuccess: () => {
+             toast.success("Project created successfully");
+             setOpen(false);
+             onSuccess?.();
+          },
+          onError: (err) => toast.error(err.message),
+        });
       } else {
-        await updateMutation.mutateAsync({ id: project.id, ...data });
+        updateMutation.mutate({ id: project.id, ...data }, {
+          onSuccess: () => {
+             toast.success("Project updated successfully");
+             setOpen(false);
+             onSuccess?.();
+          },
+          onError: (err) => toast.error(err.message),
+        });
       }
     } catch (error) {
       console.error(error);

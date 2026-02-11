@@ -1,12 +1,12 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { trpc } from "@/utils/trpc";
+import { useProjects } from "@/hooks/useProjects";
 import ProjectTable from "./_components/ProjectTable";
 import ProjectDialog from "./_components/ProjectDialog";
 import TableSkeleton from "../_components/TableSkeleton";
 
 export default function Page() {
-  const { data: projects, isLoading } = trpc.project.getAll.useQuery();
+  const { data: projects, isLoading } = useProjects();
 
   const completedProjects = projects?.filter((p) => p.status === "COMPLETED") || [];
   const inProgressProjects = projects?.filter((p) => p.status === "IN_PROGRESS") || [];

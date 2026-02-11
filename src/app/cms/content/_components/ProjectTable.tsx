@@ -10,10 +10,11 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { trpc } from "@/utils/trpc";
 import { toast } from "react-toastify";
 import ProjectDialog from "./ProjectDialog";
 import Image from "next/image";
+import { useDeleteProject } from "@/hooks/useProjectMutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProjectTableProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,19 +22,19 @@ interface ProjectTableProps {
 }
 
 export default function ProjectTable({ projects }: ProjectTableProps) {
-  const utils = trpc.useUtils();
+  const queryClient = useQueryClient();
   
-  const deleteMutation = trpc.project.delete.useMutation({
-    onSuccess: () => {
-      toast.success("Project deleted");
-      utils.project.getAll.invalidate();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const deleteMutation = useDeleteProject();
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this project?")) {
-      await deleteMutation.mutateAsync(id);
+      deleteMutation.mutate(id, {
+        onSuccess: () => {
+          toast.success("Project deleted");
+          queryClient.invalidateQueries({ queryKey: ["projects"] });
+        },
+        onError: (err) => toast.error(err.message),
+      });
     }
   };
 

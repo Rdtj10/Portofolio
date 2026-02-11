@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { trpc } from "@/utils/trpc";
+import { useVisits } from "@/hooks/useVisits";
 import { KodamaSprite } from "./_components/KodamaSprite";
 import { UniverseSwitcher } from "./_components/UniverseSwitcher";
 import { Icon } from "@iconify/react";
@@ -12,7 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function SpiritParkPage() {
   const [mounted, setMounted] = useState(false);
   const [currentUniverse, setCurrentUniverse] = useState(0);
-  const { data: allVisits, isLoading } = trpc.visit.getAll.useQuery();
+  const { data: allVisits, isLoading } = useVisits();
   const parkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
