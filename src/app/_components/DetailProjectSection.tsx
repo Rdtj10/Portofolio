@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { trpc } from "@/utils/trpc";
+import { useProject, useProjects } from "@/hooks/useProjects";
 import { Button } from "../../components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {
@@ -20,9 +20,9 @@ const DetailProjectSection = () => {
   const [minLoading, setMinLoading] = useState(true);
   const { id } = useParams();
   const { data: project, isLoading: loadProject } =
-    trpc.project.getById.useQuery(id as string);
+    useProject(id as string);
   const { data: allProjects, isLoading: loadAll } =
-    trpc.project.getAll.useQuery();
+    useProjects();
   const projectIds =
     allProjects
       ?.filter((p) => p.status === "COMPLETED")

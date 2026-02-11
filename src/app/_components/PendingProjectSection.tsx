@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
 import ProjectsDialog from "../../components/ProjectsDialog";
-import { trpc } from "@/utils/trpc";
+import { useProjects } from "@/hooks/useProjects";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icon } from "@iconify/react";
@@ -39,7 +39,7 @@ const BackgroundAtmosphere = () => (
 
 export default function PendingProjectSection() {
   const [mounted, setMounted] = useState(false);
-  const { data: projects } = trpc.project.getAll.useQuery();
+  const { data: projects } = useProjects();
   const sectionRef = useRef(null);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { trpc } from "@/utils/trpc";
+import { useVisits, useVisitorIndex, useCreateVisit } from "@/hooks/useVisits";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
@@ -10,41 +10,20 @@ import { motion } from "framer-motion";
 const VisitorDisplay = () => {
   const pathname = usePathname();
   const hasTriggeredInitialAction = useRef(false);
-  const utils = trpc.useUtils();
 
   const {
     data: indexData,
     isPending: isIndexPending,
     refetch: refetchIndex,
-  } = trpc.visit.getIndexByIp.useQuery(undefined, {
-    enabled: pathname === "/",
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-  });
+  } = useVisitorIndex({ enabled: pathname === "/" });
 
   const {
     data: allVisitors,
     isLoading,
     refetch,
-  } = trpc.visit.getAll.useQuery(undefined, {
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-  });
+  } = useVisits();
 
-  const createVisitorMutation = trpc.visit.create.useMutation({
-    onSuccess: async (data) => {
-      if (data.success) {
-        await utils.visit.getAll.invalidate();
-        await refetch();
-        await refetchIndex();
-      }
-    },
-    onError: (error) => {
-      console.warn("Failed to create visitor entry:", error.message);
-      refetch();
-      refetchIndex();
-    },
-  });
+  const createVisitorMutation = useCreateVisit();
 
   useEffect(() => {
     if (pathname === "/" && !hasTriggeredInitialAction.current) {

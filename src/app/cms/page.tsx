@@ -1,5 +1,5 @@
 "use client";
-import { trpc } from "@/utils/trpc";
+import { useVisits, useVisitStats } from "@/hooks/useVisits";
 import {
   Table,
   TableBody,
@@ -14,8 +14,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function Page() {
-  const { data: visits, isLoading: loadVisits } = trpc.visit.getAll.useQuery();
-  const { data: weekStats, isLoading: loadStats } = trpc.visit.getWeeklyStats.useQuery();
+  const { data: visits, isLoading: loadVisits } = useVisits();
+  const { data: weekStats, isLoading: loadStats } = useVisitStats();
   
   const [page, setPage] = useState<number>(1);
   const pageSize = 8;

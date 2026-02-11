@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useChatContext } from "@/context/ChatContext";
+import { API_BASE_URL } from "@/utils/api";
 
 
 interface Message {
@@ -36,7 +37,7 @@ export default function ChatBot() {
     setLocalInput("");
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: newMessages }),

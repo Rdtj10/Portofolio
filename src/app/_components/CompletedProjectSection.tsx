@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { trpc } from "@/utils/trpc";
+import { useProjects } from "@/hooks/useProjects";
 import { motion } from "framer-motion";
 
 interface Project {
@@ -25,21 +25,17 @@ const BackgroundAtmosphere = () => (
     <div className="absolute top-[30%] left-[-5%] w-[40rem] h-[40rem] bg-secondary/5 blur-[120px] rounded-full animate-pulse" />
     <div className="absolute bottom-[10%] right-[-5%] w-[35rem] h-[35rem] bg-primary/5 blur-[100px] rounded-full animate-float" />
 
-    {/* Decorative Dust/Spirits */}
-    {[...Array(10)].map((_, i) => (
-      <motion.div
+    {/* Decorative Dust/Spirits - Optimized with CSS */}
+    {/* Reduced count from 10 to 6 */}
+    {[...Array(6)].map((_, i) => (
+      <div
         key={i}
-        className="absolute w-1 h-1 bg-secondary/30 rounded-full"
-        initial={{ y: "110%", x: `${Math.random() * 100}%` }}
-        animate={{
-          y: "-10%",
-          x: `${Math.random() * 100 + (i % 2 === 0 ? 20 : -20)}%`,
-        }}
-        transition={{
-          duration: 20 + Math.random() * 20,
-          repeat: Infinity,
-          ease: "linear",
-          delay: Math.random() * 10,
+        className="absolute w-1 h-1 bg-secondary/30 rounded-full animate-float"
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          animationDuration: `${20 + Math.random() * 10}s`,
+          animationDelay: `${Math.random() * 5}s`,
         }}
       />
     ))}
@@ -48,7 +44,7 @@ const BackgroundAtmosphere = () => (
 
 export default function CompletedProjectsSection() {
   const [mounted, setMounted] = useState(false);
-  const { data: projects } = trpc.project.getAll.useQuery();
+  const { data: projects } = useProjects();
   const sectionRef = useRef(null);
 
   useEffect(() => {

@@ -10,52 +10,34 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const FallingLeaves = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-    {[...Array(15)].map((_, i) => (
-      <motion.div
+    {/* Reduced count from 15 to 6 for performance */}
+    {[...Array(6)].map((_, i) => (
+      <div
         key={i}
-        className="absolute w-5 h-7 opacity-20"
-        initial={{ y: -50, x: `${Math.random() * 100}%`, rotate: 0 }}
-        animate={{
-          y: "110vh",
-          x: `${Math.random() * 100 + (i % 2 === 0 ? 60 : -60)}%`,
-          rotate: 720,
+        className="absolute w-5 h-7 opacity-20 bg-primary/30 rounded-full animate-leaf-fall"
+        style={{
+          borderRadius: "60% 40% 70% 30% / 50% 50% 50% 50%",
+          left: `${Math.random() * 100}%`,
+          animationDuration: `${15 + Math.random() * 10}s`,
+          animationDelay: `${Math.random() * 10}s`,
         }}
-        transition={{
-          duration: 12 + Math.random() * 18,
-          repeat: Infinity,
-          ease: "linear",
-          delay: Math.random() * 15,
-        }}
-      >
-        <div
-          className="w-full h-full bg-primary/30 rounded-full"
-          style={{ borderRadius: "60% 40% 70% 30% / 50% 50% 50% 50%" }}
-        />
-      </motion.div>
+      />
     ))}
   </div>
 );
 
 const FloatingParticles = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-    {[...Array(20)].map((_, i) => (
-      <motion.div
+    {/* Reduced count from 20 to 8 */}
+    {[...Array(8)].map((_, i) => (
+      <div
         key={i}
-        className="absolute w-1 h-1 bg-white rounded-full opacity-40 blur-[1px]"
-        initial={{
-          y: `${Math.random() * 100}%`,
-          x: `${Math.random() * 100}%`,
-          opacity: 0,
-        }}
-        animate={{
-          y: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
-          x: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
-          opacity: [0, 0.4, 0],
-        }}
-        transition={{
-          duration: 10 + Math.random() * 10,
-          repeat: Infinity,
-          ease: "linear",
+        className="absolute w-1 h-1 bg-white rounded-full opacity-40 blur-[1px] animate-float"
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          animationDuration: `${8 + Math.random() * 10}s`,
+          animationDelay: `${Math.random() * 5}s`,
         }}
       />
     ))}
@@ -63,63 +45,31 @@ const FloatingParticles = () => (
 );
 
 const SootSprites = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const sprites = containerRef.current.querySelectorAll(".soot-sprite");
-
-    sprites.forEach((sprite) => {
-      // Random organic floating movement
-      gsap.to(sprite, {
-        x: "random(-100, 100)",
-        y: "random(-100, 100)",
-        duration: "random(10, 20)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: "random(0, 5)",
-      });
-
-      // Subtle rotation
-      gsap.to(sprite, {
-        rotate: "random(-45, 45)",
-        duration: "random(5, 10)",
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-      });
-    });
-  }, []);
-
+  // SootSprites are computationally heavy (GSAP + multiple DOM elements)
+  // Disable them on mobile or reduce count drastically
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 pointer-events-none overflow-hidden z-[1]"
-    >
-      {[...Array(12)].map((_, i) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1] hidden md:block">
+      {/* Reduced count from 12 to 5 */}
+      {[...Array(5)].map((_, i) => (
         <div
           key={i}
-          className="soot-sprite absolute flex items-center justify-center pointer-events-auto cursor-help opacity-40 hover:opacity-100 transition-opacity duration-300"
+          className="soot-sprite absolute flex items-center justify-center pointer-events-auto cursor-help opacity-40 hover:opacity-100 transition-opacity duration-300 animate-float"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 80 + 10}%`,
+            left: `${Math.random() * 80 + 10}%`,
+            animationDuration: `${10 + Math.random() * 10}s`,
+            animationDelay: `${Math.random() * 5}s`,
           }}
         >
           {/* Soot Body */}
           <div className="w-6 h-6 bg-[#1a1a1a] rounded-full relative shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-            {/* Spiky Fur (simplified) */}
             <div className="absolute inset-[-2px] border-4 border-dashed border-[#1a1a1a] rounded-full animate-spin-slow" />
-            {/* Eyes */}
             <div className="absolute top-1.5 left-1 w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
               <div className="w-1 h-1 bg-black rounded-full" />
             </div>
             <div className="absolute top-1.5 right-1 w-2.5 h-2.5 bg-white rounded-full flex items-center justify-center">
               <div className="w-1 h-1 bg-black rounded-full" />
             </div>
-            {/* Blinking Animation Effect via tailwind */}
-            <div className="absolute top-1.5 left-1 w-2.5 h-0 bg-[#1a1a1a] rounded-full animate-blink z-10" />
-            <div className="absolute top-1.5 right-1 w-2.5 h-0 bg-[#1a1a1a] rounded-full animate-blink z-10" />
           </div>
         </div>
       ))}

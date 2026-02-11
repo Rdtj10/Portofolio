@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@/context/themeContext";
 import { ChatProvider } from "@/context/ChatContext";
-import { TrpcProvider } from "./api/provider";
+import { QueryProvider } from "./api/query-provider";
 import { Suspense } from "react";
 import ChatBot from "./_components/ChatBot";
 
@@ -102,10 +102,10 @@ export default function RootLayout({
               <Navbar />
             </Suspense>
             <ToastContainer />
-            <TrpcProvider>
+            <QueryProvider>
               {children}
               <ChatBot />
-            </TrpcProvider>
+            </QueryProvider>
           </ChatProvider>
         </ThemeProvider>
       </body>
