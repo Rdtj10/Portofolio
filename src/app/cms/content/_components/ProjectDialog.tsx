@@ -19,14 +19,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCreateProject, useUpdateProject, useRoles, useLanguages } from "@/hooks/useProjectMutations";
+import { useCreateProject, useUpdateProject, useRoles, useLanguages, type Project, type Language } from "@/hooks/useProjectMutations";
 import { toast } from "react-toastify";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Image from "next/image";
 
 interface ProjectDialogProps {
   mode?: "create" | "edit";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  project?: any;
+  project?: Project;
   trigger?: React.ReactNode;
   onSuccess?: () => void;
 }
@@ -73,8 +73,7 @@ export default function ProjectDialog({
       setSite(project.site || "");
       setImageUrl(project.imageUrl || "");
       setImagePreview(project.imageUrl || null);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setSelectedLanguages(project.languages?.map((l: any) => l.id) || []);
+      setSelectedLanguages(project.languages?.map((l: Language) => l.id) || []);
     }
   }, [project, mode, open]);
 
@@ -119,16 +118,16 @@ export default function ProjectDialog({
             setOpen(false);
             onSuccess?.();
           },
-          onError: (err: any) => toast.error(err.message),
+          onError: (err) => toast.error(err instanceof Error ? err.message : "An error occurred"),
         });
-      } else {
+      } else if (project?.id) {
         updateMutation.mutate({ id: project.id, formData }, {
           onSuccess: () => {
             toast.success("Project updated successfully");
             setOpen(false);
             onSuccess?.();
           },
-          onError: (err: any) => toast.error(err.message),
+          onError: (err) => toast.error(err instanceof Error ? err.message : "An error occurred"),
         });
       }
     } catch (error) {
@@ -253,10 +252,13 @@ export default function ProjectDialog({
               <div className="flex items-center gap-4">
                 {imagePreview && (
                   <div className="relative w-24 h-24 rounded-lg overflow-hidden border">
-                    <img
+                    <Image
                       src={imagePreview.startsWith('data:') ? imagePreview : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${imagePreview}`}
                       alt="Preview"
+                      width={96}
+                      height={96}
                       className="w-full h-full object-cover"
+                      unoptimized
                     />
                   </div>
                 )}

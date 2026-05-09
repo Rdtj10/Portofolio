@@ -1,10 +1,35 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { fetcher, API_BASE_URL } from "@/utils/api";
 
+export interface Role {
+  id: string;
+  name: string;
+}
+
+export interface Language {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  description?: string;
+  short_description?: string;
+  status: string;
+  roleId: string;
+  role: Role;
+  period?: string;
+  task?: string;
+  site?: string;
+  imageUrl?: string;
+  languages: Language[];
+}
+
 export const useCreateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mutationFn: async (data: FormData) => {
       const res = await fetch(`${API_BASE_URL}/projects`, {
         method: "POST",
@@ -22,7 +47,6 @@ export const useCreateProject = () => {
 export const useUpdateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mutationFn: async ({ id, formData }: { id: string; formData: FormData }) => {
       const res = await fetch(`${API_BASE_URL}/projects/${id}`, {
         method: "PUT",
@@ -54,16 +78,14 @@ export const useDeleteProject = () => {
 };
 
 export const useRoles = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return useQuery<any[]>({
+  return useQuery<Role[]>({
     queryKey: ['roles'],
     queryFn: () => fetcher('/roles')
   });
 };
 
 export const useLanguages = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return useQuery<any[]>({
+  return useQuery<Language[]>({
     queryKey: ['languages'],
     queryFn: () => fetcher('/languages')
   });

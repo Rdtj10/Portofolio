@@ -13,12 +13,11 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { toast } from "react-toastify";
 import ProjectDialog from "./ProjectDialog";
 import Image from "next/image";
-import { useDeleteProject } from "@/hooks/useProjectMutations";
+import { useDeleteProject, type Project, type Language } from "@/hooks/useProjectMutations";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface ProjectTableProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  projects: any[];
+  projects: Project[];
 }
 
 export default function ProjectTable({ projects }: ProjectTableProps) {
@@ -81,11 +80,10 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
                   </span>
                 </div>
               </TableCell>
-              <TableCell>{project.role.name}</TableCell>
+              <TableCell>{project.role?.name}</TableCell>
               <TableCell>
                 <div className="flex -space-x-2">
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  {project.languages.slice(0, 3).map((lang: any) => (
+                  {project.languages?.slice(0, 3).map((lang: Language) => (
                     <div
                       key={lang.id}
                       className="w-6 h-6 rounded-full bg-white border flex items-center justify-center p-1"
@@ -94,9 +92,9 @@ export default function ProjectTable({ projects }: ProjectTableProps) {
                       <Icon icon={lang.icon} />
                     </div>
                   ))}
-                  {project.languages.length > 3 && (
+                  {(project.languages?.length || 0) > 3 && (
                     <div className="w-6 h-6 rounded-full bg-secondary text-[10px] text-white flex items-center justify-center border-white border">
-                      +{project.languages.length - 3}
+                      +{(project.languages?.length || 0) - 3}
                     </div>
                   )}
                 </div>
