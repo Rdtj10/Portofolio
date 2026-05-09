@@ -98,7 +98,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <ThemeProvider>
           <ChatProvider>
-            <Suspense>
+            <Suspense fallback={<div className="h-20" />}>
               <Navbar />
             </Suspense>
             <ToastContainer />

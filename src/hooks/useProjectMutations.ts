@@ -5,11 +5,10 @@ export const useCreateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: FormData) => {
       const res = await fetch(`${API_BASE_URL}/projects`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: data,
       });
       if (!res.ok) throw new Error(res.statusText);
       return res.json();
@@ -24,11 +23,10 @@ export const useUpdateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mutationFn: async ({ id, ...data }: { id: string; [key: string]: any }) => {
+    mutationFn: async ({ id, formData }: { id: string; formData: FormData }) => {
       const res = await fetch(`${API_BASE_URL}/projects/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: formData,
       });
       if (!res.ok) throw new Error(res.statusText);
       return res.json();
@@ -56,17 +54,17 @@ export const useDeleteProject = () => {
 };
 
 export const useRoles = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return useQuery<any[]>({
-        queryKey: ['roles'],
-        queryFn: () => fetcher('/roles')
-    });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useQuery<any[]>({
+    queryKey: ['roles'],
+    queryFn: () => fetcher('/roles')
+  });
 };
 
 export const useLanguages = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return useQuery<any[]>({
-        queryKey: ['languages'],
-        queryFn: () => fetcher('/languages')
-    });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useQuery<any[]>({
+    queryKey: ['languages'],
+    queryFn: () => fetcher('/languages')
+  });
 };

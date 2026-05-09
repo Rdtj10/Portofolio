@@ -1,3 +1,4 @@
+"use client";
 import Transition from "@/components/Transition";
 import HeroSection from "./HeroSection";
 import LogoMarquee from "./LogoMarquee";

@@ -8,57 +8,88 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const FallingLeaves = () => (
-  <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-    {/* Reduced count from 15 to 6 for performance */}
-    {[...Array(6)].map((_, i) => (
-      <div
-        key={i}
-        className="absolute w-5 h-7 opacity-20 bg-primary/30 rounded-full animate-leaf-fall"
-        style={{
-          borderRadius: "60% 40% 70% 30% / 50% 50% 50% 50%",
-          left: `${Math.random() * 100}%`,
-          animationDuration: `${15 + Math.random() * 10}s`,
-          animationDelay: `${Math.random() * 10}s`,
-        }}
-      />
-    ))}
-  </div>
-);
+const FallingLeaves = () => {
+  const [leaves, setLeaves] = useState<{ left: string; duration: string; delay: string }[]>([]);
 
-const FloatingParticles = () => (
-  <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-    {/* Reduced count from 20 to 8 */}
-    {[...Array(8)].map((_, i) => (
-      <div
-        key={i}
-        className="absolute w-1 h-1 bg-white rounded-full opacity-40 blur-[1px] animate-float"
-        style={{
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-          animationDuration: `${8 + Math.random() * 10}s`,
-          animationDelay: `${Math.random() * 5}s`,
-        }}
-      />
-    ))}
-  </div>
-);
+  useEffect(() => {
+    setLeaves([...Array(6)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      duration: `${15 + Math.random() * 10}s`,
+      delay: `${Math.random() * 10}s`,
+    })));
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      {leaves.map((leaf, i) => (
+        <div
+          key={i}
+          className="absolute w-5 h-7 opacity-20 bg-primary/30 rounded-full animate-leaf-fall"
+          style={{
+            borderRadius: "60% 40% 70% 30% / 50% 50% 50% 50%",
+            left: leaf.left,
+            animationDuration: leaf.duration,
+            animationDelay: leaf.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const FloatingParticles = () => {
+  const [particles, setParticles] = useState<{ top: string; left: string; duration: string; delay: string }[]>([]);
+
+  useEffect(() => {
+    setParticles([...Array(8)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      duration: `${8 + Math.random() * 10}s`,
+      delay: `${Math.random() * 5}s`,
+    })));
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 bg-white rounded-full opacity-40 blur-[1px] animate-float"
+          style={{
+            top: p.top,
+            left: p.left,
+            animationDuration: p.duration,
+            animationDelay: p.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 const SootSprites = () => {
-  // SootSprites are computationally heavy (GSAP + multiple DOM elements)
-  // Disable them on mobile or reduce count drastically
+  const [sprites, setSprites] = useState<{ top: string; left: string; duration: string; delay: string }[]>([]);
+
+  useEffect(() => {
+    setSprites([...Array(5)].map(() => ({
+      top: `${Math.random() * 80 + 10}%`,
+      left: `${Math.random() * 80 + 10}%`,
+      duration: `${10 + Math.random() * 10}s`,
+      delay: `${Math.random() * 5}s`,
+    })));
+  }, []);
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1] hidden md:block">
-      {/* Reduced count from 12 to 5 */}
-      {[...Array(5)].map((_, i) => (
+      {sprites.map((s, i) => (
         <div
           key={i}
           className="soot-sprite absolute flex items-center justify-center pointer-events-auto cursor-help opacity-40 hover:opacity-100 transition-opacity duration-300 animate-float"
           style={{
-            top: `${Math.random() * 80 + 10}%`,
-            left: `${Math.random() * 80 + 10}%`,
-            animationDuration: `${10 + Math.random() * 10}s`,
-            animationDelay: `${Math.random() * 5}s`,
+            top: s.top,
+            left: s.left,
+            animationDuration: s.duration,
+            animationDelay: s.delay,
           }}
         >
           {/* Soot Body */}

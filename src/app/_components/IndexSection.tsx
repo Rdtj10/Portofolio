@@ -39,23 +39,15 @@ const projectStats = [
 
 const IndexClouds = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [cloudPositions, setCloudPositions] = useState<{ top: string; left: string }[]>([]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-    const clouds = containerRef.current.querySelectorAll(".drifting-cloud");
-
-    clouds.forEach((cloud) => {
-      gsap.to(cloud, {
-        x: "110vw",
-        duration: "random(40, 80)",
-        repeat: -1,
-        ease: "none",
-        delay: "random(0, 40)",
-        onRepeat: () => {
-          gsap.set(cloud, { x: "-20vw", y: `random(0, 100)%` });
-        },
-      });
-    });
+    // Generate random positions only after mount to avoid hydration mismatch
+    const positions = [...Array(5)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: "-20vw",
+    }));
+    setCloudPositions(positions);
   }, []);
 
   return (
@@ -63,13 +55,13 @@ const IndexClouds = () => {
       ref={containerRef}
       className="absolute inset-0 pointer-events-none overflow-hidden z-0 opacity-50"
     >
-      {[...Array(5)].map((_, i) => (
+      {cloudPositions.map((pos, i) => (
         <div
           key={i}
           className="drifting-cloud index-cloud-parallax absolute w-[40rem] h-[20rem] bg-gradient-to-r from-primary/10 via-primary/20 to-transparent blur-[100px] rounded-full"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: "-20vw",
+            top: pos.top,
+            left: pos.left,
           }}
         />
       ))}
@@ -97,18 +89,39 @@ export default function IndexSection() {
     if (!mounted || !sectionRef.current || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
+      // Main reveal sequence
       gsap.from(".index-reveal", {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
         },
-        y: 60,
+        y: 40,
         autoAlpha: 0,
         stagger: 0.2,
-        duration: 1.5,
+        duration: 1,
         ease: "power3.out",
         clearProps: "all",
       });
+
+      // Stats card reveal with fromTo to ensure visibility
+      gsap.fromTo(".stat-card-growth", 
+        { 
+          scale: 0.9, 
+          autoAlpha: 0 
+        },
+        {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 1,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: ".stat-card-growth",
+            start: "top 90%",
+          },
+          clearProps: "all",
+        }
+      );
 
       // Parallax for Background Clouds
       gsap.to(".index-cloud-parallax", {
@@ -121,18 +134,22 @@ export default function IndexSection() {
         },
       });
 
-      // Stats card "growth" reveal
-      gsap.from(".stat-card-growth", {
-        scale: 0.8,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: ".stat-card-growth",
-          start: "top 85%",
-        },
-      });
+      // Drifting clouds animation moved here for better management
+      const clouds = containerRef.current?.querySelectorAll(".drifting-cloud");
+      if (clouds) {
+        clouds.forEach((cloud) => {
+          gsap.to(cloud, {
+            x: "110vw",
+            duration: gsap.utils.random(40, 80),
+            repeat: -1,
+            ease: "none",
+            delay: gsap.utils.random(0, 40),
+            onRepeat: () => {
+              gsap.set(cloud, { x: "-20vw", y: `${gsap.utils.random(0, 100)}%` });
+            },
+          });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

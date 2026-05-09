@@ -23,8 +23,6 @@ import { useCreateProject, useUpdateProject, useRoles, useLanguages } from "@/ho
 import { toast } from "react-toastify";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-// ... (lines 26-30)
-
 interface ProjectDialogProps {
   mode?: "create" | "edit";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -52,6 +50,8 @@ export default function ProjectDialog({
   const [task, setTask] = useState("");
   const [site, setSite] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
 
   // Queries
@@ -72,47 +72,63 @@ export default function ProjectDialog({
       setTask(project.task || "");
       setSite(project.site || "");
       setImageUrl(project.imageUrl || "");
+      setImagePreview(project.imageUrl || null);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setSelectedLanguages(project.languages?.map((l: any) => l.id) || []);
     }
   }, [project, mode, open]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const data = {
-        title,
-        description,
-        short_description: shortDescription,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        status: status as any,
-        roleId,
-        period,
-        task,
-        site,
-        imageUrl,
-        languageIds: selectedLanguages,
-      };
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("short_description", shortDescription);
+      formData.append("status", status);
+      formData.append("roleId", roleId);
+      formData.append("period", period);
+      formData.append("task", task);
+      formData.append("site", site);
+      formData.append("languageIds", JSON.stringify(selectedLanguages));
+
+      if (imageFile) {
+        formData.append("image", imageFile);
+      } else if (imageUrl) {
+        formData.append("imageUrl", imageUrl);
+      }
 
       if (mode === "create") {
-        createMutation.mutate(data, {
+        createMutation.mutate(formData, {
           onSuccess: () => {
-             toast.success("Project created successfully");
-             setOpen(false);
-             onSuccess?.();
+            toast.success("Project created successfully");
+            setOpen(false);
+            onSuccess?.();
           },
-          onError: (err) => toast.error(err.message),
+          onError: (err: any) => toast.error(err.message),
         });
       } else {
-        updateMutation.mutate({ id: project.id, ...data }, {
+        updateMutation.mutate({ id: project.id, formData }, {
           onSuccess: () => {
-             toast.success("Project updated successfully");
-             setOpen(false);
-             onSuccess?.();
+            toast.success("Project updated successfully");
+            setOpen(false);
+            onSuccess?.();
           },
-          onError: (err) => toast.error(err.message),
+          onError: (err: any) => toast.error(err.message),
         });
       }
     } catch (error) {
@@ -224,7 +240,7 @@ export default function ProjectDialog({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-             <div className="space-y-2">
+            <div className="space-y-2 col-span-2">
               <Label>Website URL</Label>
               <Input
                 value={site}
@@ -232,13 +248,25 @@ export default function ProjectDialog({
                 placeholder="https://..."
               />
             </div>
-            <div className="space-y-2">
-              <Label>Image URL</Label>
-              <Input
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="/images/..."
-              />
+            <div className="space-y-2 col-span-2">
+              <Label>Project Image</Label>
+              <div className="flex items-center gap-4">
+                {imagePreview && (
+                  <div className="relative w-24 h-24 rounded-lg overflow-hidden border">
+                    <img
+                      src={imagePreview.startsWith('data:') ? imagePreview : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}${imagePreview}`}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="flex-1"
+                />
+              </div>
             </div>
           </div>
 
@@ -249,11 +277,10 @@ export default function ProjectDialog({
                 <div
                   key={lang.id}
                   onClick={() => toggleLanguage(lang.id)}
-                  className={`cursor-pointer px-3 py-1 rounded-full text-sm flex items-center gap-2 border transition-all ${
-                    selectedLanguages.includes(lang.id)
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-white border-border hover:bg-secondary/10"
-                  }`}
+                  className={`cursor-pointer px-3 py-1 rounded-full text-sm flex items-center gap-2 border transition-all ${selectedLanguages.includes(lang.id)
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-white border-border hover:bg-secondary/10"
+                    }`}
                 >
                   <Icon icon={lang.icon} />
                   {lang.name}
